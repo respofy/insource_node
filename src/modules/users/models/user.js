@@ -1,9 +1,27 @@
-'use strict'
-export default (sequelize, DataTypes) => {
+import bcrypt from 'bcrypt'
+
+let user = (sequelize, DataTypes) => {
 	const test = sequelize.define(
 		'user',
 		{
-			phone: { type: DataTypes.STRING, allowNull: false },
+			phone: {
+				type: DataTypes.STRING,
+				allowNull: false,
+				unique: {
+					args: true,
+					msg: 'go from here'
+				},
+				validate: {
+					// isEmail: {
+					// 	args: true,
+					// 	msg: 'not hte email!'
+					// },
+					// isUrl: {
+					// 	args: true,
+					// 	msg: 'not hte url!'
+					// }
+				}
+			},
 			name: { type: DataTypes.STRING, allowNull: false },
 			surname: { type: DataTypes.STRING, allowNull: false },
 			password: { type: DataTypes.STRING, allowNull: false }
@@ -15,7 +33,7 @@ export default (sequelize, DataTypes) => {
 			// email: { type: DataTypes.STRING, allowNull: false }
 		},
 		{
-			timestamps: true
+			timestamps: false
 		}
 	)
 	test.associate = function(models) {
@@ -23,3 +41,5 @@ export default (sequelize, DataTypes) => {
 	}
 	return test
 }
+
+export default user

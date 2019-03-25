@@ -3,7 +3,7 @@ import userController from '../controllers/userController'
 
 const routes = express.Router()
 
-routes.get('/authorization', userController.authorization)
-routes.get('/registration', userController.registration)
+routes.post('/authorization', userController.authorization)
+routes.post('/registration', userController.registration)
 
 export default routes
