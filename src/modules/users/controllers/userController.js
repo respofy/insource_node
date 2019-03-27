@@ -63,6 +63,29 @@ class userController {
 		// 	return res.json({ token })
 		// })
 	}
+
+	static async fillData(req, res) {
+		// ToDo validate sms code 
+		let status = true
+
+		if (status === false) {
+			return res.json(responseHelper.error(ka.invalidSmsCode))
+		}
+		// remove activation code
+		delete req.body.activationCode
+		// hash password
+		req.body.password = bcrypt.hashSync(req.body.password, 10)
+
+		console.log(req.body)
+		try {
+			const user = await models.user.create(req.body)
+			
+			return res.json(responseHelper.success("user has been created", user))
+		} catch (error) {
+			return res.json(responseHelper.error(error.errors[0].message))
+		}
+
+	}
 }
 
 export default userController

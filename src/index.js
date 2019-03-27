@@ -1,5 +1,6 @@
 import express from 'express'
 import bodyParser from 'body-parser'
+import responseHelper from './helper/responseHelper'
 
 const app = express()
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -10,6 +11,25 @@ const port = 3000
 // import users routes
 import users from './modules/users/routes/api'
 app.use('/users', users)
+
+/*
+* Error handler for Joi validations
+*/
+app.use(function (err, req, res, next) {
+  // Initialize error response array
+  let errorMessages = []
+
+  if (err.isBoom) {
+    // get data from Error object
+    let errors = err.data
+    // iterate over message objects and push into errorMessages array
+    errors.forEach(error => {
+      errorMessages.push(error.message)
+    });
+
+    return res.json(responseHelper.error(errorMessages))
+  }
+});
 
 /**
  * error handling

@@ -1,22 +1,22 @@
 {
   "development": {
     "username": "root",
-    "password": "anri1991",
-    "database": "insource_node",
+    "password": "",
+    "database": "insource_server",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
     "password": "anri1991",
-    "database": "insource_node",
+    "database": "insource_server",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
     "username": "root",
     "password": "anri1991",
-    "database": "insource_node",
+    "database": "insource_server",
     "host": "127.0.0.1",
     "dialect": "mysql"
   }
