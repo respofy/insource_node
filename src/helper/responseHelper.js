@@ -5,21 +5,21 @@ class responseHelper {
 	/**
 	 *
 	 */
-	static success(message = '', data = '') {
+	static success(message = '', responseData = {}) {
 		return {
 			status: true,
 			message,
-			data
+			responseData
 		}
 	}
 	/**
 	 *
 	 */
-	static error(message = '', data = '') {
+	static error(message = '', responseData = {}) {
 		return {
 			status: false,
 			message,
-			data
+			responseData
 		}
 	}
 }

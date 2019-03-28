@@ -6,6 +6,7 @@ import ka from 'lang/ka'
 import randomize from 'randomatic'
 import jwtConfig from 'config/jwt'
 import activationService from '../services/activationService'
+import passwordResetService from '../services/passwordResetService'
 import smsService from '../services/smsService';
 
 class userController {
@@ -47,11 +48,11 @@ class userController {
 
 		// Send sms to user
 		let activation = await activationService.requestCode(req.body.phone)
-		
+
 		if (activation === true) {
 			return res.json(responseHelper.success("Message sent"))
 		} else {
-			return res.json(responseHelper.success("Message was not sent"))
+			return res.json(responseHelper.success("Message was not sent, check phone and try again"))
 		}
 	}
 
@@ -66,17 +67,13 @@ class userController {
 		return res.json(responseHelper.success("SMS has been verified"))
 	}
 
-	static async resend(req, res) {
-		// generate code
-		let code = randomize('0000')
+	static async sendSms(req, res) {
 		// resend sms with activationService
 		let resentSmsStatus = await activationService.requestCode(req.body.phone)
 
-		if (resentSmsStatus == true) {
-			return res.json(responseHelper.success("SMS has been sent"))
-		} else {
-			return res.json(responseHelper.error("SMS has not been sent"))
-		}
+		return resentSmsStatus
+			? res.json(responseHelper.success("SMS has been sent"))
+			: res.json(responseHelper.error("SMS has not been sent"))
 	}
 
 	static async fillData(req, res) {
@@ -91,7 +88,6 @@ class userController {
 		// hash password
 		req.body.password = bcrypt.hashSync(req.body.password, 10)
 
-		console.log(req.body)
 		try {
 			const user = await models.user.create(req.body)
 
@@ -99,6 +95,14 @@ class userController {
 		} catch (error) {
 			return res.json(responseHelper.error(error.errors[0].message))
 		}
+	}
+
+	static async resetPassword(req, res) {
+		let resetStatus = await passwordResetService.reset(req.body.phone, req.body.password, req.body.activationCode)
+
+		return resetStatus
+			? res.json(responseHelper.success("Password has been reset"))
+			: res.json(responseHelper.error("Password has not been reset"))
 	}
 }
 

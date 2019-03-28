@@ -2,7 +2,7 @@ import axios from 'axios'
 import randomize from 'randomatic'
 
 class smsService {
-  static async send(phone, code) {
+  static async send(phone, code = '') {
 
     //send sms
     let smsSendRequest = await axios.get('http://smsoffice.ge/api/v2/send', {
@@ -13,7 +13,6 @@ class smsService {
         content: code
       }
     })
-    console.log("SMS STATUS", smsSendRequest.status)
 
     return smsSendRequest.status
   }

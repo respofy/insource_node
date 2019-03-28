@@ -10,9 +10,12 @@ class activationService {
   * Request code for authorization
   */
   static async requestCode(phone) {
+    // check if phone exists in users
+    let userRecord = await models.user.findOne({ where: { phone: phone } })
+    if (!userRecord) { return false }
+
     // Generate code
     let code = randomize('0000')
-    console.log(phone)
 
     //send sms
     let smsStatus = await smsService.send(phone, code)
@@ -26,7 +29,6 @@ class activationService {
           activated: 0
         }
       )
-      console.log(newActivation)
       return true
     } else {
       return false
@@ -42,17 +44,13 @@ class activationService {
         }
       }
     })
-    console.log(activationRecord)
 
     if (activationRecord !== null) {
-      console.log(activationRecord)
       let verifiedRecord = await activationRecord.update({ activated: 1 })
-      if (verifiedRecord) {
-        console.log("ACTIVATED")
-        return true
-      }
-    } else {
-      return false
+
+      return verifiedRecord
+        ? true
+        : false
     }
   }
 
@@ -65,7 +63,6 @@ class activationService {
         }
       }
     })
-    console.log(activatedRow)
     if (activatedRow !== null && activatedRow.activated == 1) {
       return true
     } else {

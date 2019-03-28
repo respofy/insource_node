@@ -8,11 +8,11 @@ import userFillDataSchema from '../validations/userFillDataScheme'
 const routes = express.Router()
 
 routes.post('/authorization', validator(userLoginSchema), userController.authorization)
-routes.post('/registration', validator(userRegistrationSchema), userController.registration)
 
 routes.post('/initialize', userController.initialize)
-routes.post('/resend', userController.resend)
+routes.post('/send/sms', userController.sendSms)
 routes.post('/verify', userController.verify)
 routes.post('/fill/data', validator(userFillDataSchema),  userController.fillData)
+routes.post('/reset/password', userController.resetPassword)
 
 export default routes
