@@ -1,17 +1,19 @@
-let activation =  (sequelize, DataTypes) => {
+let activation = (sequelize, DataTypes) => {
   const activationModel = sequelize.define(
-    'activation', 
+    'activation',
     {
-      phone: { type: DataTypes.STRING, allowNull: false },
+      phone: { type: DataTypes.STRING, allowNull: false, unique: true, primaryKey: true},
       code: { type: DataTypes.STRING, allowNull: false },
       activated: { type: DataTypes.INTEGER, allowNull: false }
     },
     {
-      timestamps: false
+      timestamps: true,
+      underscored: true,
+      tableName: 'activation'
     }
   )
 
-  return activation
+  return activationModel
 }
 
 export default activation

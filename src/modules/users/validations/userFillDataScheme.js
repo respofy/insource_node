@@ -12,7 +12,8 @@ const userFillDataSchema = {
     birthday: Joi.date(),
     about_me: Joi.string().max(150),
     active: Joi.number().integer(),
-    sleep: Joi.number().integer()
+    sleep: Joi.number().integer(),
+    activationCode: Joi.string(),
   }
 }
 

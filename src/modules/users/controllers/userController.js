@@ -4,6 +4,8 @@ import jwt from 'jsonwebtoken'
 import responseHelper from 'helper/responseHelper'
 import ka from 'lang/ka'
 import jwtConfig from 'config/jwt'
+import activationService from '../services/activationService'
+import smsService from '../services/smsService';
 
 class userController {
 	/**
@@ -64,9 +66,41 @@ class userController {
 		// })
 	}
 
+	static async initialize(req, res) {
+		// get data from database
+		let user = await models.user.findOne({
+			where: {
+				phone: req.body.phone
+			}
+		}).then(result => {
+			if(result !== null) {
+				return res.json(responseHelper.error('მსგავსი მეილით ანგარიში უკვე არსებობს'))
+			}
+		})
+
+		// Send sms to user
+		let activation =  await activationService.requestCode(req.body.phone)
+
+		if (activation === true) {
+			return res.json(responseHelper.success("Message sent"))
+		} else {
+			return res.json(responseHelper.success("Message was not sent"))
+		}
+	}
+
+	static async verify(req, res) {
+		let servicePromise = await activationService.verify(req.body.phone, req.body.activationCode)
+
+		if(servicePromise == false){
+			return res.json("SMS code is wrong or expired")
+		}
+
+		return res.json("sms has been verified")
+	}
+
 	static async fillData(req, res) {
 		// ToDo validate sms code 
-		let status = true
+		let status = await activationService.validate(req.body.phone, req.body.activationCode)
 
 		if (status === false) {
 			return res.json(responseHelper.error(ka.invalidSmsCode))
@@ -79,7 +113,7 @@ class userController {
 		console.log(req.body)
 		try {
 			const user = await models.user.create(req.body)
-			
+
 			return res.json(responseHelper.success("user has been created", user))
 		} catch (error) {
 			return res.json(responseHelper.error(error.errors[0].message))
