@@ -3,11 +3,9 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import responseHelper from 'helper/responseHelper'
 import ka from 'lang/ka'
-import randomize from 'randomatic'
 import jwtConfig from 'config/jwt'
 import activationService from '../services/activationService'
 import passwordResetService from '../services/passwordResetService'
-import smsService from '../services/smsService';
 
 class userController {
 	/**
@@ -41,6 +39,11 @@ class userController {
 				phone: req.body.phone
 			}
 		})
+
+		if (req.body.password !== req.body.c_password) {
+			return res.json(responseHelper.error('პაროლები უნდა ემთხვეოდეს ერთმანეთს'))
+		}
+
 		//if user exists return error message
 		if (user !== null) {
 			return res.json(responseHelper.error('მსგავსი მეილით ანგარიში უკვე არსებობს'))

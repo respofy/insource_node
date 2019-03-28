@@ -1,5 +1,5 @@
-import bcrypt from 'bcrypt'
 import ka from 'lang/ka'
+import companyModels from '../../company/models'
 
 let user = (sequelize, DataTypes) => {
 	const userModel = sequelize.define(
@@ -40,7 +40,15 @@ let user = (sequelize, DataTypes) => {
 		}
 	)
 	userModel.associate = function (models) {
-		// associations can be defined here
+		userModel.belongsToMany(models.industry, {
+      through: 'user_industries',
+      foreignKey: 'user_id'
+		});
+		
+		userModel.belongsToMany(companyModels.company, {
+			through: 'company_owners',
+      foreignKey: 'user_id'
+		})
 	}
 	return userModel
 }

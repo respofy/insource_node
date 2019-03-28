@@ -10,9 +10,11 @@ app.use(bodyParser.json())
 
 const port = 3000
 
-// import users routes
+// import module routes
 import users from './modules/users/routes/api'
+import company from './modules/company/routes/api'
 app.use('/users', users)
+app.use('/company', company)
 
 /*
 * Error handler for Joi validations
