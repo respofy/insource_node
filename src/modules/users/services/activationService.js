@@ -1,4 +1,3 @@
-import axios from 'axios'
 import randomize from 'randomatic'
 import models from '../models'
 import sequelize from 'sequelize'
@@ -35,8 +34,6 @@ class activationService {
   }
 
   static async verify(phone, code) {
-
-
     let activationRecord = await models.activation.findOne({
       where: {
         [operator.and]: {

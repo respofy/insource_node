@@ -3,7 +3,7 @@ import randomize from 'randomatic'
 
 class smsService {
   static async send(phone, code) {
-    
+
     //send sms
     let smsSendRequest = await axios.get('http://smsoffice.ge/api/v2/send', {
       params: {

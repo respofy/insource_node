@@ -11,6 +11,7 @@ routes.post('/authorization', validator(userLoginSchema), userController.authori
 routes.post('/registration', validator(userRegistrationSchema), userController.registration)
 
 routes.post('/initialize', userController.initialize)
+routes.post('/resend', userController.resend)
 routes.post('/verify', userController.verify)
 routes.post('/fill/data', validator(userFillDataSchema),  userController.fillData)
 
