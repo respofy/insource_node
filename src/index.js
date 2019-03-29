@@ -17,23 +17,23 @@ app.use('/users', users)
 app.use('/company', company)
 
 /*
-* Error handler for Joi validations
-*/
-app.use(function (err, req, res, next) {
-  // Initialize error response array
-  let errorMessages = []
+ * Error handler for Joi validations
+ */
+app.use(function(err, req, res, next) {
+	// Initialize error response array
+	let errorMessages = []
 
-  if (err.isBoom) {
-    // get data from Error object
-    let errors = err.data
-    // iterate over message objects and push into errorMessages array
-    errors.forEach(error => {
-      errorMessages.push(error.message)
-    });
+	if (err.isBoom) {
+		// get data from Error object
+		let errors = err.data
+		// iterate over message objects and push into errorMessages array
+		errors.forEach(error => {
+			errorMessages.push(error.message)
+		})
 
-    return res.json(responseHelper.error(errorMessages))
-  }
-});
+		return res.json(responseHelper.error(errorMessages))
+	}
+})
 
 /**
  * error handling

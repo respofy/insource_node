@@ -1,4 +1,4 @@
-let activation = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   const activationModel = sequelize.define(
     'activation',
     {
@@ -16,4 +16,3 @@ let activation = (sequelize, DataTypes) => {
   return activationModel
 }
 
-export default activation

@@ -1,7 +1,7 @@
 import ka from 'lang/ka'
 import companyModels from '../../company/models'
 
-let user = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
 	const userModel = sequelize.define(
 		'user',
 		{
@@ -11,17 +11,7 @@ let user = (sequelize, DataTypes) => {
 				unique: {
 					args: true,
 					msg: ka.uniquePhoneError
-				},
-				// validate: {
-				// 	isEmail: {
-				// 		args: true,
-				// 		msg: ka.validEmailError
-				// 	},
-				// isUrl: {
-				// 	args: true,
-				// 	msg: 'not hte url!'
-				// }
-				// }
+				}
 			},
 			name: { type: DataTypes.STRING, allowNull: false },
 			surname: { type: DataTypes.STRING, allowNull: false },
@@ -32,25 +22,25 @@ let user = (sequelize, DataTypes) => {
 			birthday: { type: DataTypes.DATE },
 			about_me: { type: DataTypes.TEXT },
 			active: { type: DataTypes.INTEGER, allowNull: false },
-			sleep: { type: DataTypes.INTEGER, allowNull: false },
+			sleep: { type: DataTypes.INTEGER, allowNull: false }
 		},
 		{
 			underscored: true,
 			timestamps: true
 		}
 	)
-	userModel.associate = function (models) {
+	userModel.associate = function(models) {
+		// console.log("USER MODELS", models)
+		// console.log("COMPANY MODELS IN USER", companyModels)
 		userModel.belongsToMany(models.industry, {
-      through: 'user_industries',
-      foreignKey: 'user_id'
-		});
-		
+			through: 'user_industries',
+			foreignKey: 'user_id'
+		})
+
 		userModel.belongsToMany(companyModels.company, {
 			through: 'company_owners',
-      foreignKey: 'user_id'
+			foreignKey: 'user_id'
 		})
 	}
 	return userModel
 }
-
-export default user
