@@ -11,9 +11,9 @@ const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USERNAME
 })
 
 // pass your sequelize config here
-import UserModel from '../modules/users/models/user'
+import UserModel from '../modules/users/models/User'
 import ActivationModel from '../modules/users/models/Activation'
-import CompanyModel from '../modules/company/models/company'
+import CompanyModel from '../modules/company/models/Company'
 
 const models = {
 	User: UserModel.init(sequelize, Sequelize),
