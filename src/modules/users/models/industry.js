@@ -1,36 +1,36 @@
-import companyModels from '../../company/models'
+import Sequelize from 'sequelize'
 
-export default (sequelize, DataTypes) => {
-  const Industry = sequelize.define(
-    'industry', {
-      title: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      publish: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false
-      }
-    }, {
-      underscored: true,
-      timestamps: true,
-      freezeTableName: true,
-      singular: 'industry',
-      plural: 'industries',
-      tableName: 'industries'
+export default
+  class Post extends Sequelize.Model {
+    static init(sequelize) {
+      return super.init({
+        title: {
+          type: DataTypes.STRING,
+          allowNull: false
+        },
+        publish: {
+          type: DataTypes.BOOLEAN,
+          allowNull: false
+        }
+      }, { 
+        sequelize, 
+        singular: 'industry',
+        plural: 'industries',
+        tableName: 'industries' 
+      })
+    };
+
+    static associate(models) {
+      // Using additional options like CASCADE etc for demonstration
+      // Can also simply do Task.belongsTo(models.Post);
+      this.belongsToMany(models.User, {
+        through: 'user_industries',
+        foreignKey: 'industry_id'
+      })
+
+      this.hasMany(models.Company, {
+        foreignKey: 'industry_id'
+      })
     }
-  );
-
-  Industry.associate = function (models) {
-    Industry.belongsToMany(models.user, {
-      through: 'user_industries',
-      foreignKey: 'industry_id'
-    });
-
-    Industry.hasMany(companyModels.company, {
-      foreignKey: 'industry_id'
-    });
   }
 
-  return Industry;
-};

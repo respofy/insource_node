@@ -18,6 +18,6 @@ routes.post('/fill/data', validator(userFillDataSchema),  userController.fillDat
 routes.post('/reset/init', validator(validPhoneSchema), userController.resetInit)
 routes.post('/reset/password', validator(resetPasswordSchema), userController.resetPassword)
 
-routes.post('/test', userController.test)
+routes.get('/test', userController.test)
 
 export default routes

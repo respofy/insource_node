@@ -1,5 +1,5 @@
 import responseHelper from 'helper/responseHelper'
-import models from '../models'
+import models from 'config/modelBoot'
 
 class companyController {
   static async fillData(req, res) {

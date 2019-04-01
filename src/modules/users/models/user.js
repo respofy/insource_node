@@ -1,46 +1,39 @@
 import ka from 'lang/ka'
-import companyModels from '../../company/models'
+import Sequelize from 'sequelize'
 
-export default (sequelize, DataTypes) => {
-	const userModel = sequelize.define(
-		'user',
-		{
-			phone: {
-				type: DataTypes.STRING,
-				allowNull: false,
-				unique: {
-					args: true,
-					msg: ka.uniquePhoneError
-				}
+export default class User extends Sequelize.Model {
+	static init(sequelize) {
+		return super.init(
+			{
+				phone: {
+					type: Sequelize.STRING,
+					allowNull: false,
+					unique: {
+						args: true,
+						msg: ka.uniquePhoneError
+					}
+				},
+				name: { type: Sequelize.STRING, allowNull: false },
+				surname: { type: Sequelize.STRING, allowNull: false },
+				password: { type: Sequelize.STRING, allowNull: false },
+				email: { type: Sequelize.STRING, allowNull: false },
+				gender: { type: Sequelize.STRING, allowNull: false },
+				avatar: { type: Sequelize.STRING, allowNull: false },
+				birthday: { type: Sequelize.DATE },
+				about_me: { type: Sequelize.TEXT },
+				active: { type: Sequelize.INTEGER, allowNull: false },
+				sleep: { type: Sequelize.INTEGER, allowNull: false }
 			},
-			name: { type: DataTypes.STRING, allowNull: false },
-			surname: { type: DataTypes.STRING, allowNull: false },
-			password: { type: DataTypes.STRING, allowNull: false },
-			email: { type: DataTypes.STRING, allowNull: false },
-			gender: { type: DataTypes.STRING, allowNull: false },
-			avatar: { type: DataTypes.STRING, allowNull: false },
-			birthday: { type: DataTypes.DATE },
-			about_me: { type: DataTypes.TEXT },
-			active: { type: DataTypes.INTEGER, allowNull: false },
-			sleep: { type: DataTypes.INTEGER, allowNull: false }
-		},
-		{
-			underscored: true,
-			timestamps: true
-		}
-	)
-	userModel.associate = function(models) {
-		// console.log("USER MODELS", models)
-		// console.log("COMPANY MODELS IN USER", companyModels)
-		userModel.belongsToMany(models.industry, {
-			through: 'user_industries',
-			foreignKey: 'user_id'
-		})
+			{ sequelize, tableName: 'users' }
+		)
+	}
 
-		userModel.belongsToMany(companyModels.company, {
+	static associate(models) {
+		// Using additional options like CASCADE etc for demonstration
+		// Can also simply do Task.belongsTo(models.User);
+		this.belongsToMany(models.Company, {
 			through: 'company_owners',
 			foreignKey: 'user_id'
 		})
 	}
-	return userModel
 }

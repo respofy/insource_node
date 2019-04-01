@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt'
-import models from '../models'
+import models from 'config/modelBoot'
 import sequelize from 'sequelize'
 
 const operator = sequelize.Op

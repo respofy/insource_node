@@ -1,5 +1,5 @@
 import randomize from 'randomatic'
-import models from '../models'
+import models from 'config/modelBoot'
 import sequelize from 'sequelize'
 import smsService from '../services/smsService'
 

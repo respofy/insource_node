@@ -2,11 +2,11 @@
   "name": "insource",
   "version": "1.0.0",
   "description": "The insource project",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "start": "nodemon dist/src/index.js",
     "build": "babel ./src/ -x '.js'  --retain-lines -d ./dist",
-    "dev": "cross-env NODE_PATH=./src/ nodemon --inspect src/index.js --exec babel-node --presets babel-preset-es2015"
+    "dev": "cross-env NODE_PATH=./src/ nodemon --inspect src/index.js --exec babel-node"
   },
   "author": "@anrito",
   "license": "ISC",
@@ -25,9 +25,11 @@
     "sequelize": "^5.2.4"
   },
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.4.0",
     "@babel/node": "^7.2.2",
-    "babel-cli": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
+    "@babel/preset-env": "^7.4.2",
+    "@babel/plugin-proposal-object-rest-spread": "^7.3.2",
     "cross-env": "^5.2.0",
     "module-alias": "^2.2.0",
     "nodemon": "^1.18.10",

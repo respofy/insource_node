@@ -1,4 +1,4 @@
-import models from 'modules/users/models'
+import models from '../../../config/modelBoot'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import responseHelper from 'helper/responseHelper'
@@ -145,10 +145,13 @@ class userController {
 	}
 
 	static async test(req, res) {
-		let userCompanies = await models.user.findByPk(1)
-		let companies = await userCompanies.getCompanies()
+		let user = await models.User.findByPk(1)
+		let userCompanies = await user.getCompanies()
+		console.log(user)
 		console.log(userCompanies)
-		return res.json(companies)
+		// let companies = await userCompanies.getCompanies()
+		// console.log(userCompanies)
+		return res.json(userCompanies)
 	}
 }
 
