@@ -1,26 +1,23 @@
 import Sequelize from 'sequelize'
 import {} from 'dotenv/config'
 
-const sequelize = new Sequelize(
-	process.env.DB_DATABASE,
-	process.env.DB_USERNAME,
-	process.env.DB_PASSWORD,
-	{
-		host: process.env.DB_HOST,
-		dialect: process.env.DB_CONNECTION,
-		define: {
-			underscored: true,
-			timestamps: true
-		}
+const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
+	host: process.env.DB_HOST,
+	dialect: process.env.DB_CONNECTION,
+	define: {
+		underscored: true,
+		timestamps: true
 	}
-)
+})
 
 // pass your sequelize config here
 import UserModel from '../modules/users/models/user'
+import ActivationModel from '../modules/users/models/Activation'
 import CompanyModel from '../modules/company/models/company'
 
 const models = {
 	User: UserModel.init(sequelize, Sequelize),
+	Activation: ActivationModel.init(sequelize, Sequelize),
 	Company: CompanyModel.init(sequelize, Sequelize)
 }
 

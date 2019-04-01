@@ -4,7 +4,7 @@ import sequelize from 'sequelize'
 
 const operator = sequelize.Op
 
-class passwordResetService {
+class PasswordResetService {
 	/*
 	 * Reset user password
 	 */
@@ -13,7 +13,7 @@ class passwordResetService {
 		let newHashedPassword = bcrypt.hashSync(newPassword, 10)
 
 		// query user with phone and code
-		let activatedUser = await models.activation.findOne({
+		let activatedUser = await models.Activation.findOne({
 			where: {
 				[operator.and]: { phone: phone, code: code, activated: 1 }
 			}
@@ -25,7 +25,7 @@ class passwordResetService {
 		}
 
 		// find user
-		let user = await models.user.findOne({ where: { phone: phone } })
+		let user = await models.User.findOne({ where: { phone: phone } })
 
 		// update user password
 		let updatedPassword = await user.update({ password: newHashedPassword })
@@ -34,4 +34,4 @@ class passwordResetService {
 	}
 }
 
-export default passwordResetService
+export default PasswordResetService

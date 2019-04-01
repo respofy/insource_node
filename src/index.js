@@ -1,5 +1,7 @@
+/* eslint-disable no-console */
 import express from 'express'
 import bodyParser from 'body-parser'
+import { } from 'dotenv/config'
 // import responseHelper from './helper/responseHelper'
 import cors from 'cors'
 
@@ -9,8 +11,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 // import module routes
-import users from './modules/users/routes/api'
-import company from './modules/company/routes/api'
+import users from './modules/users/routes/Api'
+import company from './modules/company/routes/Api'
 app.use('/users', users)
 app.use('/company', company)
 
@@ -33,5 +35,5 @@ app.use('/company', company)
 // 	}
 // })
 
-// eslint-disable-next-line
-app.listen(APP_PORT, () => console.log(`Example app listening on port ${port}!`))
+let port = process.env.APP_PORT
+app.listen(port, () => console.log(`Example app listening on port ${port}!`))

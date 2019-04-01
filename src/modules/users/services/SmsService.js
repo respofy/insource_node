@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-class smsService {
+class SmsService {
 	static async send(phone, code = '') {
 		//send sms
 		let smsSendRequest = await axios.get(
@@ -19,4 +19,4 @@ class smsService {
 	}
 }
 
-export default smsService
+export default SmsService

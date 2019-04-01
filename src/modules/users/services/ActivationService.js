@@ -1,11 +1,11 @@
 import randomize from 'randomatic'
 import models from 'database/modelBootstrap'
 import sequelize from 'sequelize'
-import smsService from '../services/smsService'
+import smsService from './SmsService'
 
 const operator = sequelize.Op
 
-class activationService {
+class ActivationService {
 	/*
 	 * Request code for authorization
 	 */
@@ -18,7 +18,7 @@ class activationService {
 
 		// insert activation record
 		if (smsStatus == 200) {
-			await models.activation.upsert({
+			await models.Activation.upsert({
 				phone: phone,
 				code: code,
 				activated: 0
@@ -30,7 +30,7 @@ class activationService {
 	}
 
 	static async verify(phone, code) {
-		let activationRecord = await models.activation.findOne({
+		let activationRecord = await models.Activation.findOne({
 			where: {
 				[operator.and]: {
 					phone: phone,
@@ -49,7 +49,7 @@ class activationService {
 	}
 
 	static async validate(phone, code) {
-		let activatedRow = await models.activation.findOne({
+		let activatedRow = await models.Activation.findOne({
 			where: {
 				[operator.and]: {
 					phone: phone,
@@ -65,4 +65,4 @@ class activationService {
 	}
 }
 
-export default activationService
+export default ActivationService

@@ -1,9 +1,9 @@
-import responseHelper from 'helper/responseHelper'
+import responseHelper from 'helper/ResponseHelper'
 import models from 'database/modelBootstrap'
 
-class companyController {
+class CompanyController {
 	static async fillData(req, res) {
-		let createdCompany = await models.company.create(req.body)
+		let createdCompany = await models.Company.create(req.body)
 
 		return createdCompany
 			? res.json(responseHelper.success('Company has been created', createdCompany))
@@ -15,4 +15,4 @@ class companyController {
 	}
 }
 
-export default companyController
+export default CompanyController

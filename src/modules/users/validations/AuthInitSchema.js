@@ -1,6 +1,6 @@
 import Joi from 'joi'
 
-const authInitSchema = {
+const AuthInitSchema = {
 	body: {
 		phone: Joi.string()
 			.length(9)
@@ -14,4 +14,4 @@ const authInitSchema = {
 	}
 }
 
-export default authInitSchema
+export default AuthInitSchema

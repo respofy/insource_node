@@ -1,11 +1,11 @@
 import express from 'express'
-import userController from '../controllers/userController'
-import validator from '../../../helper/validateHelper'
-import userLoginSchema from '../validations/userLoginSchema'
-import userFillDataSchema from '../validations/userFillDataScheme'
-import authInitSchema from '../validations/authInitSchema'
-import validPhoneSchema from '../validations/validPhoneSchema'
-import resetPasswordSchema from '../validations/resetPasswordSchema'
+import userController from '../controllers/UserController'
+import validator from '../../../helper/ValidateHelper'
+import userLoginSchema from '../validations/UserLoginSchema'
+import userFillDataSchema from '../validations/UserFillDataScheme'
+import authInitSchema from '../validations/AuthInitSchema'
+import validPhoneSchema from '../validations/ValidPhoneSchema'
+import resetPasswordSchema from '../validations/ResetPasswordSchema'
 
 const routes = express.Router()
 

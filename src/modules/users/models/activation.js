@@ -21,16 +21,4 @@ export default class Activation extends Sequelize.Model {
 			}
 		)
 	}
-
-	// eslint-disable-next-line
-	static associate(models) {
-		// Using additional options like CASCADE etc for demonstration
-		// Can also simply do Task.belongsTo(models.User);
-		// this.hasMany(models.Post, {
-		//   onDelete: "CASCADE",
-		//   foreignKey: {
-		//     allowNull: false
-		//   }
-		// });
-	}
 }

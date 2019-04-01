@@ -1,7 +1,7 @@
 /**
  *
  */
-class responseHelper {
+class ResponseHelper {
 	/**
 	 *
 	 */
@@ -24,4 +24,4 @@ class responseHelper {
 	}
 }
 
-export default responseHelper
+export default ResponseHelper

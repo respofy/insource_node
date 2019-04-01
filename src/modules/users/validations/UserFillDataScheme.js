@@ -1,6 +1,6 @@
 import Joi from 'joi'
 
-const userFillDataSchema = {
+const UserFillDataSchema = {
 	body: {
 		phone: Joi.string()
 			.error(() => 'ტელეფონი არ არის ვალიდური')
@@ -30,4 +30,4 @@ const userFillDataSchema = {
 	}
 }
 
-export default userFillDataSchema
+export default UserFillDataSchema

@@ -1,6 +1,6 @@
 import Joi from 'joi'
 
-const userLoginSchema = {
+const UserLoginSchema = {
 	body: {
 		phone: Joi.string()
 			.error(() => 'ტელეფონი არ არის სტრინგი')
@@ -13,4 +13,4 @@ const userLoginSchema = {
 	}
 }
 
-export default userLoginSchema
+export default UserLoginSchema

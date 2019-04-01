@@ -1,22 +1,22 @@
 import models from 'database/modelBootstrap'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import responseHelper from 'helper/responseHelper'
+import responseHelper from 'helper/ResponseHelper'
 import ka from 'lang/ka'
 import jwtConfig from 'config/jwt'
-import activationService from '../services/activationService'
-import passwordResetService from '../services/passwordResetService'
+import activationService from '../services/ActivationService'
+import passwordResetService from '../services/PasswordResetService'
 
 /**
  *
  */
-class userController {
+class UserController {
 	/**
 	 * user authorization request handler
 	 */
 	static async authorization(req, res) {
 		// get data from database
-		const user = await models.user.findOne({
+		const user = await models.User.findOne({
 			where: {
 				phone: req.body.phone
 			}
@@ -37,7 +37,7 @@ class userController {
 
 	static async initialize(req, res) {
 		// find user with phone
-		let user = await models.user.findOne({
+		let user = await models.User.findOne({
 			where: {
 				phone: req.body.phone
 			}
@@ -113,7 +113,7 @@ class userController {
 		req.body.password = bcrypt.hashSync(req.body.password, 10)
 
 		try {
-			const user = await models.user.create(req.body)
+			const user = await models.User.create(req.body)
 
 			return res.json(
 				responseHelper.success('user has been created', user)
@@ -124,7 +124,7 @@ class userController {
 	}
 
 	static async resetInit(req, res) {
-		let checkUser = await models.user.findOne({
+		let checkUser = await models.User.findOne({
 			where: { phone: req.body.phone }
 		})
 
@@ -166,4 +166,4 @@ class userController {
 	}
 }
 
-export default userController
+export default UserController

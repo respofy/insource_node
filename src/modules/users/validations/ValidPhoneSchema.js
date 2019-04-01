@@ -1,6 +1,6 @@
 import Joi from 'joi'
 
-const validPhoneSchema = {
+const ValidPhoneSchema = {
 	body: {
 		phone: Joi.string()
 			.length(9)
@@ -8,4 +8,4 @@ const validPhoneSchema = {
 	}
 }
 
-export default validPhoneSchema
+export default ValidPhoneSchema

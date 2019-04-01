@@ -1,6 +1,6 @@
 import Joi from 'joi'
 
-const userRegistrationSchema = {
+const UserRegistrationSchema = {
 	body: {
 		phone: Joi.string()
 			.length(9)
@@ -23,4 +23,4 @@ const userRegistrationSchema = {
 	}
 }
 
-export default userRegistrationSchema
+export default UserRegistrationSchema
