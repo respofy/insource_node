@@ -14,10 +14,8 @@ routes.post('/authorization', validator(userLoginSchema), userController.authori
 routes.post('/initialize', validator(authInitSchema), userController.initialize)
 routes.post('/send/sms', validator(validPhoneSchema), userController.sendSms)
 routes.post('/verify', userController.verify)
-routes.post('/fill/data', validator(userFillDataSchema),  userController.fillData)
+routes.post('/fill/data', validator(userFillDataSchema), userController.fillData)
 routes.post('/reset/init', validator(validPhoneSchema), userController.resetInit)
 routes.post('/reset/password', validator(resetPasswordSchema), userController.resetPassword)
-
-routes.get('/test', userController.test)
 
 export default routes

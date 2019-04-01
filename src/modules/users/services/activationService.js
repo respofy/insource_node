@@ -1,5 +1,5 @@
 import randomize from 'randomatic'
-import models from 'config/modelBoot'
+import models from 'database/modelBootstrap'
 import sequelize from 'sequelize'
 import smsService from '../services/smsService'
 
@@ -18,7 +18,7 @@ class activationService {
 
 		// insert activation record
 		if (smsStatus == 200) {
-			let newActivation = await models.activation.upsert({
+			await models.activation.upsert({
 				phone: phone,
 				code: code,
 				activated: 0

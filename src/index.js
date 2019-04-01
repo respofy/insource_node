@@ -1,14 +1,12 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import responseHelper from './helper/responseHelper'
+// import responseHelper from './helper/responseHelper'
 import cors from 'cors'
 
 const app = express()
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-
-const port = 3000
 
 // import module routes
 import users from './modules/users/routes/api'
@@ -19,31 +17,21 @@ app.use('/company', company)
 /*
  * Error handler for Joi validations
  */
-app.use(function(err, req, res, next) {
-	// Initialize error response array
-	let errorMessages = []
-
-	if (err.isBoom) {
-		// get data from Error object
-		let errors = err.data
-		// iterate over message objects and push into errorMessages array
-		errors.forEach(error => {
-			errorMessages.push(error.message)
-		})
-
-		return res.json(responseHelper.error(errorMessages))
-	}
-})
-
-/**
- * error handling
- *
- */
-
 // app.use(function(err, req, res, next) {
-// 	console.error(123)
-// 	res.status(500).send('Something broke!')
+// 	// Initialize error response array
+// 	let errorMessages = []
+
+// 	if (err.isBoom) {
+// 		// get data from Error object
+// 		let errors = err.data
+// 		// iterate over message objects and push into errorMessages array
+// 		errors.forEach(error => {
+// 			errorMessages.push(error.message)
+// 		})
+
+// 		return res.json(responseHelper.error(errorMessages))
+// 	}
 // })
 
-// run the application
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+// eslint-disable-next-line
+app.listen(APP_PORT, () => console.log(`Example app listening on port ${port}!`))

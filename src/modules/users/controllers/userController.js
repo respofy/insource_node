@@ -1,4 +1,4 @@
-import models from '../../../config/modelBoot'
+import models from 'database/modelBootstrap'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import responseHelper from 'helper/responseHelper'
@@ -7,6 +7,9 @@ import jwtConfig from 'config/jwt'
 import activationService from '../services/activationService'
 import passwordResetService from '../services/passwordResetService'
 
+/**
+ *
+ */
 class userController {
 	/**
 	 * user authorization request handler
@@ -121,15 +124,23 @@ class userController {
 	}
 
 	static async resetInit(req, res) {
-		let checkUser = await models.user.findOne({ where: { phone: req.body.phone } })
+		let checkUser = await models.user.findOne({
+			where: { phone: req.body.phone }
+		})
 
-		if (checkUser == null) { return res.json(responseHelper.error('ანგარიში მსგავსი ნომრით არ არსებობს')) }
+		if (checkUser == null) {
+			return res.json(
+				responseHelper.error('ანგარიში მსგავსი ნომრით არ არსებობს')
+			)
+		}
 
-		let activationStatus = await activationService.requestCode(req.body.phone)
+		let activationStatus = await activationService.requestCode(
+			req.body.phone
+		)
 
 		return activationStatus
-		? res.json(responseHelper.success('Message has been sent'))
-		: res.json(responseHelper.error('Message has not been sent'))
+			? res.json(responseHelper.success('Message has been sent'))
+			: res.json(responseHelper.error('Message has not been sent'))
 	}
 
 	static async resetPassword(req, res) {
@@ -147,11 +158,11 @@ class userController {
 	static async test(req, res) {
 		let user = await models.User.findByPk(1)
 		let userCompanies = await user.getCompanies()
-		console.log(user)
-		console.log(userCompanies)
+		// console.log(user)
+		// console.log(userCompanies)
 		// let companies = await userCompanies.getCompanies()
 		// console.log(userCompanies)
-		return res.json(userCompanies)
+		res.json(userCompanies)
 	}
 }
 
