@@ -1,6 +1,6 @@
-import Sequelize from 'sequelize'
+import { Sequelize, Model } from 'sequelize'
 
-export default class Activation extends Sequelize.Model {
+export default class Activation extends Model {
 	static init(sequelize) {
 		return super.init(
 			{
@@ -10,8 +10,14 @@ export default class Activation extends Sequelize.Model {
 					unique: true,
 					primaryKey: true
 				},
-				code: { type: Sequelize.STRING, allowNull: false },
-				activated: { type: Sequelize.INTEGER, allowNull: false }
+				code: {
+					type: Sequelize.STRING,
+					allowNull: false
+				},
+				activated: {
+					type: Sequelize.INTEGER,
+					allowNull: false
+				}
 			},
 			{
 				sequelize,

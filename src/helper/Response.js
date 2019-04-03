@@ -5,20 +5,20 @@ class ResponseHelper {
 	/**
 	 *
 	 */
-	static success(message = '', responseData = {}) {
+	static success(message = [], responseData = {}) {
 		return {
 			status: true,
-			message,
+			message: [message],
 			responseData
 		}
 	}
 	/**
 	 *
 	 */
-	static error(message = '', responseData = {}) {
+	static error(message = [], responseData = {}) {
 		return {
 			status: false,
-			message,
+			message: [message],
 			responseData
 		}
 	}

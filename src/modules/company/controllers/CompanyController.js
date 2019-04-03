@@ -1,4 +1,4 @@
-import responseHelper from 'helper/ResponseHelper'
+import responseHelper from 'helper/Response'
 import models from 'database/modelBootstrap'
 
 class CompanyController {
