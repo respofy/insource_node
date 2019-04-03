@@ -37,8 +37,7 @@ class User extends Sequelize.Model {
 	}
 
 	static associate(models) {
-		// Using additional options like CASCADE etc for demonstration
-		// Can also simply do Task.belongsTo(models.User);
+		// relationships
 		this.belongsToMany(models.Company, {
 			through: 'company_owners',
 			foreignKey: 'user_id'
