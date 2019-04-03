@@ -12,18 +12,7 @@ class UserService {
 	 * check the user by different criteria
 	 */
 	static async create(data) {
-		await models.User.create({
-			phone: data.phone,
-			name: data.name,
-			surname: data.surname,
-			password: data.password,
-			gender: data.gender,
-			avatar: data.avatar,
-			birthday: data.birthday,
-			active: data,
-			sleep: data,
-			email: data.email
-		})
+		return await models.User.create(data)
 	}
 }
 

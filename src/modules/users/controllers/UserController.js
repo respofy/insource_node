@@ -4,7 +4,6 @@ import jwt from 'jsonwebtoken'
 import responseHelper from 'helper/Response'
 import ka from 'lang/ka'
 import jwtConfig from 'config/jwt'
-import activationService from '../services/ActivationService'
 import passwordResetService from '../services/PasswordResetService'
 
 /**
@@ -44,11 +43,11 @@ class UserController {
 			return res.json(responseHelper.error('ანგარიში მსგავსი ნომრით არ არსებობს'))
 		}
 
-		let activationStatus = await activationService.requestCode(req.body.phone)
+		// let activationStatus = await activationService.requestCode(req.body.phone)
 
-		return activationStatus
-			? res.json(responseHelper.success('Message has been sent'))
-			: res.json(responseHelper.error('Message has not been sent'))
+		// return activationStatus
+		// 	? res.json(responseHelper.success('Message has been sent'))
+		// 	: res.json(responseHelper.error('Message has not been sent'))
 	}
 
 	static async resetPassword(req, res) {

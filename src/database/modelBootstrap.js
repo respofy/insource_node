@@ -27,7 +27,7 @@ Object.values(models)
 	.filter(model => typeof model.associate === 'function')
 	.forEach(model => model.associate(models))
 
-sequelize.sync()
+if (process.env.DB_MIGRAION == 'true') sequelize.sync()
 
 const db = {
 	...models,

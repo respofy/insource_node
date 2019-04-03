@@ -1,7 +1,7 @@
 import ka from 'lang/ka'
 import Sequelize from 'sequelize'
 
-export default class User extends Sequelize.Model {
+class User extends Sequelize.Model {
 	static init(sequelize) {
 		return super.init(
 			{
@@ -19,9 +19,15 @@ export default class User extends Sequelize.Model {
 				birthday: { type: Sequelize.DATE },
 				about_me: { type: Sequelize.TEXT },
 				// action attributes
-				incognito: { type: Sequelize.INTEGER, allowNull: false },
+				incognito: {
+					type: Sequelize.INTEGER,
+					defaultValue: 0
+				},
 				sleep: { type: Sequelize.INTEGER, allowNull: false },
-				last_login: { type: Sequelize.DATE, allowNull: false }
+				last_login: {
+					type: Sequelize.DATE,
+					defaultValue: 1
+				}
 			},
 			{
 				sequelize,
@@ -39,3 +45,5 @@ export default class User extends Sequelize.Model {
 		})
 	}
 }
+
+export default User
