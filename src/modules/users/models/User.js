@@ -1,6 +1,10 @@
 import ka from 'lang/ka'
 import Sequelize from 'sequelize'
+import bcrypt from 'bcrypt'
 
+/**
+ * User Model
+ */
 class User extends Sequelize.Model {
 	static init(sequelize) {
 		return super.init(
@@ -31,7 +35,12 @@ class User extends Sequelize.Model {
 			},
 			{
 				sequelize,
-				tableName: 'users'
+				tableName: 'users',
+				hooks: {
+					beforeValidate: User => {
+						User.password = bcrypt.hashSync(User.password, 10)
+					}
+				}
 			}
 		)
 	}
