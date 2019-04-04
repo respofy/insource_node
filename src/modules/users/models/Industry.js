@@ -1,17 +1,11 @@
-import Sequelize from 'sequelize'
+import { Sequelize, Model } from 'sequelize'
 
-export default class Post extends Sequelize.Model {
+export default class Industry extends Model {
 	static init(sequelize) {
 		return super.init(
 			{
-				title: {
-					type: Sequelize.STRING,
-					allowNull: false
-				},
-				publish: {
-					type: Sequelize.BOOLEAN,
-					allowNull: false
-				}
+				title: { type: Sequelize.STRING, allowNull: false },
+				publish: { type: Sequelize.BOOLEAN, allowNull: false }
 			},
 			{
 				sequelize,
@@ -23,8 +17,6 @@ export default class Post extends Sequelize.Model {
 	}
 
 	static associate(models) {
-		// Using additional options like CASCADE etc for demonstration
-		// Can also simply do Task.belongsTo(models.Post);
 		this.belongsToMany(models.User, {
 			through: 'user_industries',
 			foreignKey: 'industry_id'
