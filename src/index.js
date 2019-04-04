@@ -9,7 +9,9 @@ const app = express()
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-app.use('/company/', VerifyJwtHelper)
+
+// TODO filter /api
+app.use('/api/', VerifyJwtHelper)
 
 // import module routes
 import users from './modules/users/routes/Api'

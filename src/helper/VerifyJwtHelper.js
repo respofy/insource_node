@@ -1,15 +1,22 @@
 import Jwt from 'jsonwebtoken'
+import jwtConfig from 'config/jwt'
+import Extend from 'extend'
+import Response from 'helper/Response'
 
+/**
+ *  Middleware
+ *  Validate json token and extend with User data
+ */
 export default function verify(req, res, next) {
-    let token = req.get('Authorization')
-	Jwt.verify(token, '21j1231!@314', (error, authData) => {
-        console.log('enter in jwt verify func')
-        console.log(req.get('Authorization'))
+	// Get token from headers
+	let token = req.get('Authorization')
+	// Verify if token is valid
+	Jwt.verify(token, jwtConfig.secret, (error, authData) => {
 		if (error) {
-            console.log(error)
-			res.sendStatus(403)
+			res.json(Response.error('unauthorized'))
 		} else {
-			console.log(authData)
+			// If token is valid extend Req object with user data
+			Extend(req, { user: authData })
 			next()
 		}
 	})
