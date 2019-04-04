@@ -3,11 +3,13 @@ import bodyParser from 'body-parser'
 import {} from 'dotenv/config'
 import cors from 'cors'
 import response from 'helper/Response'
+import VerifyJwtHelper from 'helper/VerifyJwtHelper'
 
 const app = express()
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+app.use('/company/', VerifyJwtHelper)
 
 // import module routes
 import users from './modules/users/routes/Api'

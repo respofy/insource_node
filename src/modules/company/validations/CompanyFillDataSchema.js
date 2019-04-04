@@ -1,6 +1,6 @@
 import Joi from 'joi'
 
-const CompanyCreateSchema = {
+const CompanyFillDataSchema = {
 	body: {
 		name: Joi.string()
 			.min(2)
@@ -13,4 +13,4 @@ const CompanyCreateSchema = {
 	}
 }
 
-export default CompanyCreateSchema
+export default CompanyFillDataSchema
