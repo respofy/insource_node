@@ -1,6 +1,6 @@
 import Joi from 'joi'
 
-const ResetPasswordSchema = {
+const UserResetPasswordSchema = {
 	body: {
 		phone: Joi.string()
 			.length(9)
@@ -8,10 +8,7 @@ const ResetPasswordSchema = {
 		password: Joi.string()
 			.min(6)
 			.required(),
-		activationCode: Joi.string()
-			.length(4)
-			.required()
 	}
 }
 
-export default ResetPasswordSchema
+export default UserResetPasswordSchema

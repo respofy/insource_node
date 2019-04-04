@@ -16,15 +16,15 @@ class AuthController {
 	static async initialize(req, res) {
 		try {
 			// check if user exist
-			await AuthService.ifUserExist({ phone: req.body.phone })
+			await AuthService.ifUserNotExist({ phone: req.body.phone })
 			// create code into database
 			let code = await AuthService.generateUserActivationCode(req.body.phone)
 			// send code to user
 			await sms.send(req.body.phone, code)
-			// responce
+			// response
 			res.json(response.success(ka.auth.user_initialized_successfully))
 		} catch (err) {
-			// responce when error happens
+			// response when error happens
 			return res.json(response.error(err.message))
 		}
 	}
@@ -38,10 +38,10 @@ class AuthController {
 			let code = await AuthService.generateUserActivationCode(req.body.phone)
 			// send code to user
 			await sms.send(req.body.phone, code)
-			// responce
+			// response
 			res.json(response.success(ka.auth.user_resend_sms_successfully))
 		} catch (err) {
-			// responce when error happens
+			// response when error happens
 			return res.json(response.error(err.message))
 		}
 	}
@@ -53,10 +53,10 @@ class AuthController {
 		try {
 			// make code verify
 			await AuthService.verify(req.body.phone, req.body.code)
-			// responce
-			res.json(response.success(ka.auth.user_resend_sms_successfully))
+			// response
+			res.json(response.success(ka.auth.user_sms_verify_success))
 		} catch (err) {
-			// responce when error happens
+			// response when error happens
 			return res.json(response.error(err.message))
 		}
 	}
@@ -70,23 +70,12 @@ class AuthController {
 			await AuthService.isActivated(req.body.phone)
 			// create the user
 			await UserService.create(req.body)
-			// responce
+			// response
 			res.json(response.success(ka.auth.user_was_registered))
 		} catch (err) {
-			// responce when error happens
+			// response when error happens
 			return res.json(response.error(err.message))
 		}
-
-		// hash password
-		// req.body.password = bcrypt.hashSync(req.body.password, 10)
-
-		// try {
-		// 	const user = await models.User.create(req.body)
-
-		// 	return res.json(responseHelper.success('user has been created', user))
-		// } catch (error) {
-		// 	return res.json(responseHelper.error(error.errors[0].message))
-		// }
 	}
 }
 

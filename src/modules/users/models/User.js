@@ -37,7 +37,7 @@ class User extends Sequelize.Model {
 				sequelize,
 				tableName: 'users',
 				hooks: {
-					beforeValidate: User => {
+					beforeCreate: User => {
 						User.password = bcrypt.hashSync(User.password, 10)
 					}
 				}
