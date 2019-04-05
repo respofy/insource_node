@@ -11,7 +11,9 @@ const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USERNAME
 })
 
 // pass your sequelize config here
-import UserModel from '../modules/users/models/User'
+import UserModel from 'modules/users/models/User'
+import City from 'modules/users/models/City'
+
 import LanguageModel from '../modules/users/models/Language'
 import LanguageKnowledgeModel from '../modules/users/models/LanguageKnowledge'
 import UserLanguageModel from '../modules/users/models/UserLanguage'
@@ -21,6 +23,8 @@ import IndustryModel from '../modules/users/models/Industry'
 
 const models = {
 	User: UserModel.init(sequelize, Sequelize),
+	City: City.init(sequelize, Sequelize),
+
 	Language: LanguageModel.init(sequelize, Sequelize),
 	LanguageKnowledge: LanguageKnowledgeModel.init(sequelize, Sequelize),
 	UserLanguage: UserLanguageModel.init(sequelize, Sequelize),

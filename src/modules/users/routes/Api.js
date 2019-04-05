@@ -20,6 +20,6 @@ routes.post('/authorization', validator(UserLoginSchema), UserController.authori
 routes.post('/reset/init', validator(AuthResendSMSSchema), UserController.initializePasswordReset)
 routes.post('/reset/password', validator(UserResetPasswordSchema), UserController.resetPassword)
 
-routes.post('/cv/city', Auth, validator(UserCitySchema), UserController.city)
+routes.post('/cv/city', Auth, validator(UserCitySchema), UserController.addCity)
 
 export default routes
