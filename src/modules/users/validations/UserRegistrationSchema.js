@@ -14,12 +14,6 @@ const UserRegistrationSchema = {
 		password: Joi.string()
 			.min(6)
 			.required()
-		// avatar:  Joi.string().uri().min(6).required(),
-		// birthday: Joi.date(),
-		// about_me: Joi.string().max(150),
-		// active: Joi.number().integer(),
-		// sleep: Joi.number().integer(),
-		// email: Joi.string().email()
 	}
 }
 

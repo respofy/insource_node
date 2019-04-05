@@ -1,17 +1,13 @@
 import Joi from 'joi'
+// import ka from 'lang/ka'
 
 const AuthInitializeSchema = {
 	body: {
 		// phone
 		phone: Joi.string()
-			.length(9)
-			.required(),
-		// password
-		password: Joi.string()
-			.min(6)
-			.required(),
-		// confirm
-		password_confirm: Joi.valid(Joi.ref('password')).error(() => 'პაროლის დადასტურება სადასდ')
+			.regex(/^[0-9]+$/, 'phone') // make sure phone is number
+			.length(9) // phone number length
+			.required() // phone number is required
 	}
 }
 

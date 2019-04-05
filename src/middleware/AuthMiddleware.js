@@ -2,6 +2,7 @@ import Jwt from 'jsonwebtoken'
 import jwtConfig from 'config/jwt'
 import Extend from 'extend'
 import Response from 'helper/Response'
+import ka from 'lang/ka'
 
 /**
  *  Middleware
@@ -13,7 +14,7 @@ export default function verify(req, res, next) {
 	// Verify if token is valid
 	Jwt.verify(token, jwtConfig.secret, (error, authData) => {
 		if (error) {
-			res.json(Response.error('unauthorized'))
+			res.json(Response.error(ka.middleware.not_authorize))
 		} else {
 			// If token is valid extend Req object with user data
 			Extend(req, { user: authData })

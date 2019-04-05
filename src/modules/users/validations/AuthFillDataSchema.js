@@ -2,31 +2,30 @@ import Joi from 'joi'
 
 const UserFillDataSchema = {
 	body: {
+		// phone
 		phone: Joi.string()
-			.error(() => 'ტელეფონი არ არის ვალიდური')
 			.length(9)
 			.required(),
+		// password
 		password: Joi.string()
-			.error(() => 'პაროლი არ არის ვალიდური')
 			.min(6)
 			.required(),
+		// name
 		name: Joi.string()
-			.error(() => 'სახელი არ არის ვალიდური')
 			.min(2)
 			.required(),
+		// surname
 		surname: Joi.string()
 			.min(2)
 			.required(),
-		email: Joi.string()
-			.email()
-			.required(),
+		// gender
 		gender: Joi.string().required(),
+		// avatar
 		avatar: Joi.string().required(),
+		// birth day
 		birthday: Joi.date(),
-		about_me: Joi.string().max(150),
-		active: Joi.number().integer(),
-		sleep: Joi.number().integer(),
-		activationCode: Joi.string()
+		// about me
+		city: Joi.string()
 	}
 }
 

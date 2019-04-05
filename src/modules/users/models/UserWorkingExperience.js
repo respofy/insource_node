@@ -1,4 +1,4 @@
-import { Sequelize, Model } from "sequelize";
+import { Sequelize, Model } from 'sequelize'
 
 export default class UserWorkingExperience extends Model {
 	static init(sequelize) {
@@ -13,14 +13,14 @@ export default class UserWorkingExperience extends Model {
 			},
 			{
 				sequelize,
-				singular: "UserWorkingExperience",
-				plural: "UserWorkingExperiences",
-				tableName: "user_working_ex"
+				singular: 'UserWorkingExperience',
+				plural: 'UserWorkingExperiences',
+				tableName: 'user_working_ex'
 			}
-		);
+		)
 	}
 
 	static associate(models) {
-		this.belongsTo(models.User);
+		this.belongsTo(models.User)
 	}
 }

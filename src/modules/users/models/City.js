@@ -14,7 +14,7 @@ export default class City extends Model {
 	}
 
 	static associate(models) {
-		this.hasMany(models.User, {
+		this.hasMany(models.Job, {
 			foreignKey: 'city_id'
 		})
 	}

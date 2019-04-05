@@ -9,14 +9,26 @@ const operator = sequelize.Op
  */
 class AuthService {
 	/**
-	 * check the user by different criteria
+	 * check the user by different criteria, turns True if doesn't exist
+	 */
+	static async ifUserNotExist(criteria) {
+		// find user in database and return
+		let user = await models.User.findOne({
+			where: criteria
+		})
+		if (user !== null) throw new Error(ka.auth.user_found)
+		else return user
+	}
+
+	/**
+	 * check the user by different criteria, turns True if exists
 	 */
 	static async ifUserExist(criteria) {
 		// find user in database and return
 		let user = await models.User.findOne({
 			where: criteria
 		})
-		if (user !== null) throw new Error(ka.auth.user_found)
+		if (user === null) throw new Error(ka.auth.user_not_found)
 		else return user
 	}
 
@@ -32,7 +44,7 @@ class AuthService {
 			code: code,
 			activated: 0
 		})
-		// responce
+		// response
 		return code
 	}
 

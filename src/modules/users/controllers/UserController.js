@@ -1,10 +1,12 @@
 import models from 'database/modelBootstrap'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import responseHelper from 'helper/Response'
+import response from 'helper/Response'
 import ka from 'lang/ka'
 import jwtConfig from 'config/jwt'
-import passwordResetService from '../services/PasswordResetService'
+import sms from 'helper/SmsHelper'
+import AuthService from '../services/AuthService'
+import UserService from '../services/UserService'
 
 /**
  *
@@ -20,42 +22,52 @@ class UserController {
 				phone: req.body.phone
 			}
 		})
-
 		// compare password
 		if (user && bcrypt.compareSync(req.body.password, user.password)) {
 			// generate token and save the user
 			jwt.sign(user.dataValues, jwtConfig.secret, (error, token) => {
 				// generate response
-				res.json(responseHelper.success(ka.tokenGenerated, { token }))
+				res.json(response.success(ka.tokenGenerated, { token }))
 			})
 		} else {
 			// not found response
-			res.json(responseHelper.error(ka.tokenNotGenerated))
+			res.json(response.error(ka.tokenNotGenerated))
 		}
 	}
 
-	static async resetInit(req, res) {
-		let checkUser = await models.User.findOne({
-			where: { phone: req.body.phone }
-		})
-
-		if (checkUser == null) {
-			return res.json(responseHelper.error('ანგარიში მსგავსი ნომრით არ არსებობს'))
+	static async initializePasswordReset(req, res) {
+		try {
+			// check user existence
+			await AuthService.ifUserExist({ phone: req.body.phone })
+			let code = await AuthService.generateUserActivationCode(req.body.phone)
+			// send code to user
+			await sms.send(req.body.phone, code)
+			// send sms
+			await sms.send()
+			// response
+			res.json(response.success(ka.auth.user_password_reset_initialized))
+		} catch (error) {
+			// response when error happens
+			return res.json(response.error(error.message))
 		}
-
-		// let activationStatus = await activationService.requestCode(req.body.phone)
-
-		// return activationStatus
-		// 	? res.json(responseHelper.success('Message has been sent'))
-		// 	: res.json(responseHelper.error('Message has not been sent'))
 	}
 
+	/**
+	 * Reset password
+	 */
 	static async resetPassword(req, res) {
-		let resetStatus = await passwordResetService.reset(req.body.phone, req.body.password, req.body.activationCode)
-
-		return resetStatus
-			? res.json(responseHelper.success('Password has been reset'))
-			: res.json(responseHelper.error('Password has not been reset'))
+		try {
+			// check if user is activated
+			await AuthService.isActivated(req.body.phone)
+			// hash new password
+			let hashedPassword = bcrypt.hashSync(req.body.password, 10)
+			// find by phone and update user password
+			await UserService.update({ phone: req.body.phone }, { password: hashedPassword })
+			// response
+			res.json(response.success(ka.auth.user_password_reset))
+		} catch (error) {
+			return res.json(response.error(error.message))
+		}
 	}
 }
 
