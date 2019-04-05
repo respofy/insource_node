@@ -23,15 +23,9 @@ class User extends Sequelize.Model {
 				birthday: { type: Sequelize.DATE },
 				about_me: { type: Sequelize.TEXT },
 				// action attributes
-				incognito: {
-					type: Sequelize.INTEGER,
-					defaultValue: 0
-				},
+				incognito: { type: Sequelize.INTEGER, defaultValue: 0 },
 				sleep: { type: Sequelize.INTEGER, allowNull: false },
-				last_login: {
-					type: Sequelize.DATE,
-					defaultValue: 1
-				}
+				last_login: { type: Sequelize.DATE, defaultValue: 1 }
 			},
 			{
 				sequelize,
@@ -47,9 +41,18 @@ class User extends Sequelize.Model {
 
 	static associate(models) {
 		// relationships
+		// this.hasMany(models.UserEducation)
+		this.hasMany(models.UserLanguage)
+		// this.hasMany(models.UserCertificate)
+		// this.hasMany(models.UserWorkingExperience)
 		this.belongsToMany(models.Company, {
 			through: 'company_owners',
 			foreignKey: 'user_id'
+		})
+
+		this.belongsToMany(models.Industry, {
+			through: 'user_industries',
+			unique: 'false'
 		})
 	}
 }

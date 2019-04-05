@@ -62,7 +62,7 @@ class AuthController {
 	}
 
 	/**
-	 *
+	 * fill user data
 	 */
 	static async fillData(req, res) {
 		try {

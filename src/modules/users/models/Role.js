@@ -6,10 +6,7 @@ export default class Role extends Model {
 			{
 				title: { type: Sequelize.STRING, allowNull: false }
 			},
-			{
-				sequelize,
-				tableName: 'roles'
-			}
+			{ sequelize, tableName: 'roles' }
 		)
 	}
 

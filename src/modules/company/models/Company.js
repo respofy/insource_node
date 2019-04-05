@@ -19,6 +19,8 @@ export default class Company extends Sequelize.Model {
 			foreignKey: 'company_id'
 		})
 
+		// this.belongsTo(models.City)
+
 		this.belongsTo(models.Industry)
 	}
 }

@@ -17,8 +17,6 @@ export default class LanguageKnowledge extends Model {
 	}
 
 	static associate(models) {
-		this.hasMany(models.UserLanguage, {
-			foreignKey: 'language_knowledge_id'
-		})
+		this.hasMany(models.UserLanguage)
 	}
 }

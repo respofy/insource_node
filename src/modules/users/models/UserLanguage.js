@@ -20,6 +20,8 @@ export default class UserLanguage extends Model {
 	}
 
 	static associate(models) {
-		//
+		this.belongsTo(models.User)
+		this.belongsTo(models.Language)
+		this.belongsTo(models.LanguageKnowledge)
 	}
 }

@@ -18,12 +18,12 @@ export default class Industry extends Model {
 
 	static associate(models) {
 		this.belongsToMany(models.User, {
-			through: 'user_industries',
-			foreignKey: 'industry_id'
+			through: 'user_industries'
 		})
 
 		this.hasMany(models.Company, {
-			foreignKey: 'industry_id'
+			foreignKey: 'industry_id',
+			unique: 'false'
 		})
 	}
 }

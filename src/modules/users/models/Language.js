@@ -14,6 +14,6 @@ export default class Language extends Model {
 	}
 
 	static associate(models) {
-		//relation
+		this.hasMany(models.UserLanguage)
 	}
 }
