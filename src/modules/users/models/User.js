@@ -27,7 +27,10 @@ class User extends Sequelize.Model {
 					type: Sequelize.INTEGER,
 					defaultValue: 0
 				},
-				sleep: { type: Sequelize.INTEGER, allowNull: false },
+				sleep: {
+					type: Sequelize.INTEGER,
+					allowNull: false
+				},
 				last_login: {
 					type: Sequelize.DATE,
 					defaultValue: 1

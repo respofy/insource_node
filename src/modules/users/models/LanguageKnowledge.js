@@ -1,4 +1,4 @@
-import { Sequelize, Model } from "sequelize";
+import { Sequelize, Model } from 'sequelize'
 
 export default class LanguageKnowledge extends Model {
 	static init(sequelize) {
@@ -9,16 +9,16 @@ export default class LanguageKnowledge extends Model {
 			},
 			{
 				sequelize,
-				singular: "languageKnowledge",
-				plural: "languageKnowledges",
-				tableName: "language_knowledge"
+				singular: 'languageKnowledge',
+				plural: 'languageKnowledges',
+				tableName: 'language_knowledge'
 			}
-		);
+		)
 	}
 
 	static associate(models) {
 		this.hasMany(models.UserLanguage, {
-			foreignKey: "language_knowledge_id"
-		});
+			foreignKey: 'language_knowledge_id'
+		})
 	}
 }
