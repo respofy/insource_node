@@ -7,7 +7,7 @@ export default class UserWorkingExperience extends Model {
 				started_at: { type: Sequelize.DATE, allowNull: false },
 				finished_at: { type: Sequelize.DATE },
 				company_name: { type: Sequelize.STRING, allowNull: false },
-				company_id: { type: Sequelize.INTEGER, allowNull: false },
+				company_id: { type: Sequelize.INTEGER, allowNull: true },
 				user_id: { type: Sequelize.INTEGER, allowNull: false },
 				profession_id: { type: Sequelize.INTEGER, allowNull: false }
 			},
@@ -21,6 +21,11 @@ export default class UserWorkingExperience extends Model {
 	}
 
 	static associate(models) {
+		// User Relation
 		this.belongsTo(models.User)
+		// Profession Relation
+		this.belongsTo(models.Profession)
+		// Company Relation
+		this.belongsTo(models.Company)
 	}
 }

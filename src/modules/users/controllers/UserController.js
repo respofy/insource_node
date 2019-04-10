@@ -53,7 +53,8 @@ class UserController {
 	static async setCity(req, res) {
 		try {
 			// get auth user
-			let user = await UserService.authUser(req.user.id)
+            let user = await UserService.authUser(req.user.id)
+            console.log(user)
 			// set city to the user
 			await user.setCity(req.body.id)
 			// response

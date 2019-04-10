@@ -4,6 +4,7 @@ import UserController from '../controllers/UserController'
 import UserSchemas from '../validations'
 import Auth from 'middleware/AuthMiddleware'
 import JoiMiddleware from 'middleware/JoiMiddleware'
+import WorkingExperienceController from '../controllers/WorkingExperienceController';
 
 const routes = express.Router()
 
@@ -16,7 +17,10 @@ routes.post('/authorization', JoiMiddleware(UserSchemas.UserLoginSchema), AuthCo
 routes.post('/reset/init', JoiMiddleware(UserSchemas.AuthResendSMSSchema), UserController.initializePasswordReset)
 routes.post('/reset/password', JoiMiddleware(UserSchemas.UserResetPasswordSchema), UserController.resetPassword)
 
+// CV
 routes.post('/cv/city/set', Auth, JoiMiddleware(UserSchemas.UserCitySchema), UserController.setCity)
 routes.post('/cv/status/set', Auth, JoiMiddleware(UserSchemas.UserStatusSchema), UserController.setStatus)
+// User Working Experience
+routes.post('/cv/working-experience/create', Auth, WorkingExperienceController.create)
 
 export default routes
