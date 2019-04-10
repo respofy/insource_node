@@ -21,6 +21,8 @@ class User extends Sequelize.Model {
 				gender: { type: Sequelize.STRING, allowNull: false },
 				avatar: { type: Sequelize.STRING, allowNull: false },
 				birthday: { type: Sequelize.DATE },
+				city_id: { type: Sequelize.INTEGER, allowNull: true },
+				status_id: { type: Sequelize.INTEGER, allowNull: true },
 				about_me: { type: Sequelize.TEXT },
 				// action attributes
 				incognito: {
@@ -49,7 +51,9 @@ class User extends Sequelize.Model {
 
 	static associate(models) {
 		// City Relation
-		this.hasOne(models.City)
+		this.belongsTo(models.City)
+		// Status Relation
+		this.belongsTo(models.Status)
 		// Language Relation
 		this.hasMany(models.UserLanguage)
 		// Company Relation

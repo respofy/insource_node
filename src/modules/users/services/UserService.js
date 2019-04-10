@@ -6,6 +6,13 @@ import ka from 'lang/ka'
  */
 class UserService {
 	/**
+	 *  Get authorized user instance by id
+	 */
+	static async authUser(id) {
+		return await models.User.findOne({ where: { id } })
+	}
+
+	/**
 	 * check the user by different criteria
 	 */
 	static async create(data) {
@@ -25,13 +32,6 @@ class UserService {
 			throw new Error(ka.auth.user_not_updated)
 		}
 		return updatedUser
-	}
-
-	/**
-	 * set city to user
-	 */
-	static async setCity() {
-		// TODO: update user based on city id
 	}
 }
 

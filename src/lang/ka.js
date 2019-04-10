@@ -12,7 +12,12 @@ export default {
 		user_was_registered: 'მომხმარებელი დარეგისტრირდა წარამტებით',
 		user_not_activated: 'მომხმარებლის პროფილი არ არის გააქტიურებული'
 	},
-
+	cv: {
+		city_updated: 'ქალაქი განახლდა',
+		city_not_updated: 'ქალაქი ვერ განახლდა',
+		status_updated: 'სტატუსი განახლდა',
+		status_not_updated: 'სტატუსი ვერ განახლდა'
+	},
 	model: {
 		unique_phone_error: 'ანგარიში მსგავსი ტელეფონით უკვე არსებობს'
 	},

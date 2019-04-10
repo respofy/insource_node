@@ -10,7 +10,7 @@ import UserService from '../services/UserService'
  */
 class UserController {
 	/**
-	 *
+	 * Initialize password reset
 	 */
 	static async initializePasswordReset(req, res) {
 		try {
@@ -48,10 +48,35 @@ class UserController {
 	}
 
 	/**
-	 *
+	 * Set city in CV by id
 	 */
 	static async setCity(req, res) {
-		return res.json('here')
+		try {
+			// get auth user
+			let user = await UserService.authUser(req.user.id)
+			// set city to the user
+			await user.setCity(req.body.id)
+			// response
+			res.json(response.success(ka.cv.city_updated))
+		} catch (error) {
+			return res.json(response.error(ka.cv.city_not_updated))
+		}
+	}
+
+	/**
+	 * Set status in CV by id
+	 */
+	static async setStatus(req, res) {
+		try {
+			// get auth user
+			let user = await UserService.authUser(req.user.id)
+			// set status
+			await user.setStatus(req.body.id)
+			// response
+			res.json(response.success(ka.cv.status_updated))
+		} catch (error) {
+			return res.json(response.error(ka.cv.status_not_updated))
+		}
 	}
 }
 

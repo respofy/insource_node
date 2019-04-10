@@ -11,28 +11,30 @@ const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USERNAME
 })
 
 // pass your sequelize config here
-import UserModel from 'modules/users/models/User'
+import User from 'modules/users/models/User'
 import City from 'modules/users/models/City'
 import Job from 'modules/company/models/Job'
 
-import LanguageModel from '../modules/users/models/Language'
-import LanguageKnowledgeModel from '../modules/users/models/LanguageKnowledge'
-import UserLanguageModel from '../modules/users/models/UserLanguage'
-import ActivationModel from '../modules/users/models/Activation'
-import CompanyModel from '../modules/company/models/Company'
-import IndustryModel from '../modules/users/models/Industry'
+import Language from 'modules/users/models/Language'
+import LanguageKnowledge from 'modules/users/models/LanguageKnowledge'
+import UserLanguage from 'modules/users/models/UserLanguage'
+import Activation from 'modules/users/models/Activation'
+import Company from 'modules/company/models/Company'
+import Industry from 'modules/users/models/Industry'
+import Status from 'modules/users/models/Status'
 
 const models = {
-	User: UserModel.init(sequelize, Sequelize),
+	User: User.init(sequelize, Sequelize),
 	City: City.init(sequelize, Sequelize),
+	Status: Status.init(sequelize, Sequelize),
 	Job: Job.init(sequelize, Sequelize),
 
-	Language: LanguageModel.init(sequelize, Sequelize),
-	LanguageKnowledge: LanguageKnowledgeModel.init(sequelize, Sequelize),
-	UserLanguage: UserLanguageModel.init(sequelize, Sequelize),
-	Industry: IndustryModel.init(sequelize, Sequelize),
-	Activation: ActivationModel.init(sequelize, Sequelize),
-	Company: CompanyModel.init(sequelize, Sequelize)
+	Language: Language.init(sequelize, Sequelize),
+	LanguageKnowledge: LanguageKnowledge.init(sequelize, Sequelize),
+	UserLanguage: UserLanguage.init(sequelize, Sequelize),
+	Industry: Industry.init(sequelize, Sequelize),
+	Activation: Activation.init(sequelize, Sequelize),
+	Company: Company.init(sequelize, Sequelize)
 }
 
 // Run `.associate` if it exists,
