@@ -24,8 +24,14 @@ class UserService {
 		if (updatedUser === null) {
 			throw new Error(ka.auth.user_not_updated)
 		}
-
 		return updatedUser
+	}
+
+	/**
+	 * set city to user
+	 */
+	static async setCity() {
+		// TODO: update user based on city id
 	}
 }
 

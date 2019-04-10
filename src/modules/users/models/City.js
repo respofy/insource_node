@@ -1,6 +1,6 @@
-import { Sequelize, Model } from 'sequelize'
+import Sequelize from 'sequelize'
 
-export default class City extends Model {
+class City extends Sequelize.Model {
 	static init(sequelize) {
 		return super.init(
 			{
@@ -19,3 +19,5 @@ export default class City extends Model {
 		})
 	}
 }
+
+export default City

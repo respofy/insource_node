@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize'
 
-export default class Company extends Sequelize.Model {
+class Company extends Sequelize.Model {
 	static init(sequelize) {
 		return super.init(
 			{
@@ -24,3 +24,5 @@ export default class Company extends Sequelize.Model {
 		this.belongsTo(models.Industry)
 	}
 }
+
+export default Company

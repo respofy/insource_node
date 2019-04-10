@@ -32,8 +32,7 @@ class User extends Sequelize.Model {
 					defaultValue: 0
 				},
 				last_login: {
-					type: Sequelize.DATE,
-					defaultValue: 1
+					type: Sequelize.DATE
 				}
 			},
 			{
@@ -49,16 +48,16 @@ class User extends Sequelize.Model {
 	}
 
 	static associate(models) {
-		// relationships
-		// this.hasMany(models.UserEducation)
+		// City Relation
+		this.hasOne(models.City)
+		// Language Relation
 		this.hasMany(models.UserLanguage)
-		// this.hasMany(models.UserCertificate)
-		// this.hasMany(models.UserWorkingExperience)
+		// Company Relation
 		this.belongsToMany(models.Company, {
 			through: 'company_owners',
 			foreignKey: 'user_id'
 		})
-
+		// Industry Relation
 		this.belongsToMany(models.Industry, {
 			through: 'user_industries',
 			unique: 'false'

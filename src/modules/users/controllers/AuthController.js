@@ -3,6 +3,10 @@ import AuthService from 'modules/users/services/AuthService'
 import UserService from 'modules/users/services/UserService'
 import ka from 'lang/ka'
 import sms from 'helper/SmsHelper'
+import models from 'database/modelBootstrap'
+import jwt from 'jsonwebtoken'
+import bcrypt from 'bcrypt'
+import {} from 'dotenv/config'
 
 /**
  * @description class to make user registration and authorization
@@ -75,6 +79,32 @@ class AuthController {
 		} catch (err) {
 			// response when error happens
 			return res.json(response.error(err.message))
+		}
+	}
+
+	/**
+	 * user authorization request handler
+	 */
+	static async authorization(req, res) {
+		// TODO: set last login
+		// TODO: change user find to service
+		// get data from database
+		const user = await models.User.findOne({
+			where: {
+				phone: req.body.phone
+			}
+		})
+
+		// compare password
+		if (user && bcrypt.compareSync(req.body.password, user.password)) {
+			// generate token and save the user
+			jwt.sign(user.dataValues, process.env.JWT_SECRET, (error, token) => {
+				// generate response
+				res.json(response.success(ka.tokenGenerated, { token }))
+			})
+		} else {
+			// not found response
+			res.json(response.error(ka.tokenNotGenerated))
 		}
 	}
 }

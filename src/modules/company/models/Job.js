@@ -1,6 +1,6 @@
-import { Sequelize, Model } from 'sequelize'
+import Sequelize from 'sequelize'
 
-export default class Job extends Model {
+class Job extends Sequelize.Model {
 	static init(sequelize) {
 		return super.init(
 			{
@@ -26,9 +26,12 @@ export default class Job extends Model {
 		)
 	}
 
+	// eslint-disable-next-line no-unused-vars
 	static associate(models) {
 		// this.hasMany(models.User, {
-		// 	foreignKey: "city_id"
-		// });
+		// 	foreignKey: 'city_id'
+		// })
 	}
 }
+
+export default Job

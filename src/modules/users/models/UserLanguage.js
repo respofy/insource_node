@@ -1,6 +1,6 @@
-import { Sequelize, Model } from 'sequelize'
+import Sequelize from 'sequelize'
 
-export default class UserLanguage extends Model {
+class UserLanguage extends Sequelize.Model {
 	static init(sequelize) {
 		return super.init(
 			{
@@ -25,3 +25,5 @@ export default class UserLanguage extends Model {
 		this.belongsTo(models.LanguageKnowledge)
 	}
 }
+
+export default UserLanguage

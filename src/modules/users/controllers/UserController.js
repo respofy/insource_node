@@ -1,9 +1,6 @@
-import models from 'database/modelBootstrap'
 import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
 import response from 'helper/Response'
 import ka from 'lang/ka'
-import jwtConfig from 'config/jwt'
 import sms from 'helper/SmsHelper'
 import AuthService from '../services/AuthService'
 import UserService from '../services/UserService'
@@ -13,28 +10,8 @@ import UserService from '../services/UserService'
  */
 class UserController {
 	/**
-	 * user authorization request handler
+	 *
 	 */
-	static async authorization(req, res) {
-		// get data from database
-		const user = await models.User.findOne({
-			where: {
-				phone: req.body.phone
-			}
-		})
-		// compare password
-		if (user && bcrypt.compareSync(req.body.password, user.password)) {
-			// generate token and save the user
-			jwt.sign(user.dataValues, jwtConfig.secret, (error, token) => {
-				// generate response
-				res.json(response.success(ka.tokenGenerated, { token }))
-			})
-		} else {
-			// not found response
-			res.json(response.error(ka.tokenNotGenerated))
-		}
-	}
-
 	static async initializePasswordReset(req, res) {
 		try {
 			// check user existence
@@ -68,6 +45,13 @@ class UserController {
 		} catch (error) {
 			return res.json(response.error(error.message))
 		}
+	}
+
+	/**
+	 *
+	 */
+	static async setCity(req, res) {
+		return res.json('here')
 	}
 }
 
