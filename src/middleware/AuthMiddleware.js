@@ -1,5 +1,5 @@
 import Jwt from 'jsonwebtoken'
-import jwtConfig from 'config/jwt'
+import {} from 'dotenv/config'
 import Extend from 'extend'
 import Response from 'helper/Response'
 import ka from 'lang/ka'
@@ -12,7 +12,7 @@ export default function verify(req, res, next) {
 	// Get token from headers
 	let token = req.get('Authorization')
 	// Verify if token is valid
-	Jwt.verify(token, jwtConfig.secret, (error, authData) => {
+	Jwt.verify(token, process.env.JWT_SECRET, (error, authData) => {
 		if (error) {
 			res.json(Response.error(ka.middleware.not_authorize))
 		} else {
