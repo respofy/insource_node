@@ -1,4 +1,4 @@
-version: '3.7'
+version: '2.1'
 
 services: 
   web:
@@ -11,6 +11,9 @@ services:
       - webnet
     environment:
       DB_HOST: db
+    depends_on:
+      db:
+        condition: service_healthy
   db:
     container_name: mysql-db
     image: mysql:5.7
@@ -19,9 +22,9 @@ services:
     networks:
       - webnet
     environment:
-      - MYSQL_ROOT_PASSWORD=anri1991
       - MYSQL_DATABASE=insource
-      - MYSQL_USER=anrito
-      - MYSQL_PASSWORD=anri1991
+      - MYSQL_ROOT_PASSWORD=anri1991
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u root --password=$$MYSQL_ROOT_PASSWORD
 networks: 
   webnet:

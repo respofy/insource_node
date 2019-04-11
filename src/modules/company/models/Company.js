@@ -22,6 +22,7 @@ class Company extends Sequelize.Model {
 		// this.belongsTo(models.City)
 
 		this.belongsTo(models.Industry)
+		this.hasMany(models.UserWorkingExperience)
 	}
 }
 

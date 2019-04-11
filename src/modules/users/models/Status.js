@@ -19,9 +19,7 @@ export default class Status extends Model {
 	}
 
 	static associate(models) {
-		this.belongsToMany(models.User, {
-			through: 'user_statuses',
-			foreignKey: 'status_id'
-		})
+		// User Relation
+		this.hasOne(models.User)
 	}
 }

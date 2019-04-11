@@ -17,6 +17,8 @@ class City extends Sequelize.Model {
 		this.hasMany(models.Job, {
 			foreignKey: 'city_id'
 		})
+		// User Relation
+		this.hasOne(models.User)
 	}
 }
 

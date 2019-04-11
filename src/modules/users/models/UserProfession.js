@@ -18,9 +18,12 @@ export default class UserProfession extends Model {
 	}
 
 	static associate(models) {
-		this.belongsToMany(models.Skill, {
-			through: 'user_profession_skills',
-			foreignKey: 'user_profession_id'
-		})
+		// this.belongsToMany(models.Skill, {
+		// 	through: 'user_profession_skills',
+		// 	foreignKey: 'user_profession_id'
+		// })
+
+		this.belongsTo(models.User)
+		// this.hasMany(models.UserProfessionSkill)
 	}
 }

@@ -1,9 +1,9 @@
 import Joi from 'joi'
 
-const UserCitySchema = {
+const UserStatusSchema = {
 	body: {
 		id: Joi.number().required()
 	}
 }
 
-export default UserCitySchema
+export default UserStatusSchema

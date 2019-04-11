@@ -14,14 +14,20 @@ export default class Skill extends Model {
 	}
 
 	static associate(models) {
-		this.belongsToMany(models.UserProfession, {
-			through: 'user_profession_skills',
+		// Profession Relation
+		this.belongsToMany(models.Profession, {
+			through: 'user_profession',
 			foreignKey: 'skill_id'
 		})
-
-		this.belongsToMany(models.UserWorkingExperience, {
-			through: 'user_working_experience_skills',
-			foreignKey: 'skill_id'
-		})
+		// // User Profession Relation
+		// this.belongsToMany(models.UserProfession, {
+		// 	through: 'user_profession_skills',
+		// 	foreignKey: 'skill_id'
+		// })
+		// // User Working Experience Relation
+		// this.belongsToMany(models.UserWorkingExperience, {
+		// 	through: 'user_working_experience_skills',
+		// 	foreignKey: 'skill_id'
+		// })
 	}
 }
