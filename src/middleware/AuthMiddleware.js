@@ -1,4 +1,5 @@
 import Jwt from 'jsonwebtoken'
+import {} from 'dotenv/config'
 import Extend from 'extend'
 import Response from 'helper/Response'
 import ka from 'lang/ka'
