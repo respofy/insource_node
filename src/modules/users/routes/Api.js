@@ -6,6 +6,7 @@ import Auth from 'middleware/AuthMiddleware'
 import JoiMiddleware from 'middleware/JoiMiddleware'
 import WorkingExperienceController from '../controllers/WorkingExperienceController'
 import InterestController from '../controllers/InterestController'
+import EducationController from '../controllers/EducationController'
 
 const routes = express.Router()
 
@@ -29,5 +30,9 @@ routes.post('/cv/working-experience/delete/:id', Auth, WorkingExperienceControll
 // interests
 routes.get('/cv/interests/role/all', Auth, InterestController.getRoles)
 routes.post('/cv/interests/role/set', Auth, InterestController.setRole)
+// universities
+routes.post('/cv/universities', Auth, EducationController.universities)
+routes.post('/cv/faculties', Auth, EducationController.faculties)
+routes.post('/cv/degrees', Auth, EducationController.degrees)
 
 export default routes

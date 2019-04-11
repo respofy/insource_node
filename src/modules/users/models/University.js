@@ -1,11 +1,16 @@
 import { Sequelize, Model } from 'sequelize'
 
-export default class University extends Model {
+/**
+ *
+ */
+class University extends Model {
+	/**
+	 *
+	 */
 	static init(sequelize) {
 		return super.init(
 			{
-				name: { type: Sequelize.STRING, allowNull: false },
-				description: { type: Sequelize.TEXT }
+				title: { type: Sequelize.STRING, allowNull: false }
 			},
 			{
 				sequelize,
@@ -14,9 +19,14 @@ export default class University extends Model {
 		)
 	}
 
+	/**
+	 *
+	 */
 	static associate(models) {
 		this.hasMany(models.UserEducation, {
 			foreignKey: 'university_id'
 		})
 	}
 }
+
+export default University
