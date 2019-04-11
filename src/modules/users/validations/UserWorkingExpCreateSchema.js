@@ -6,7 +6,7 @@ const UserWorkingExpCreateSchema = {
 		started_at: Joi.date()
 			.required()
 			.error(() => ka.joi.date_valid),
-		finished_at: Joi.date(),
+		finished_at: Joi.date().min(Joi.ref('started_at')),
 		company_name: Joi.string()
 			.required()
 			.error(() => ka.joi.company_name_required),
