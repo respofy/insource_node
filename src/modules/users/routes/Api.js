@@ -4,7 +4,7 @@ import UserController from '../controllers/UserController'
 import UserSchemas from '../validations'
 import Auth from 'middleware/AuthMiddleware'
 import JoiMiddleware from 'middleware/JoiMiddleware'
-import WorkingExperienceController from '../controllers/WorkingExperienceController';
+import WorkingExperienceController from '../controllers/WorkingExperienceController'
 
 const routes = express.Router()
 
@@ -21,6 +21,9 @@ routes.post('/reset/password', JoiMiddleware(UserSchemas.UserResetPasswordSchema
 routes.post('/cv/city/set', Auth, JoiMiddleware(UserSchemas.UserCitySchema), UserController.setCity)
 routes.post('/cv/status/set', Auth, JoiMiddleware(UserSchemas.UserStatusSchema), UserController.setStatus)
 // User Working Experience
-routes.post('/cv/working-experience/create', Auth, WorkingExperienceController.create)
+routes.get('/cv/working-experience/get/all', Auth, WorkingExperienceController.getAll)
+routes.post('/cv/working-experience/create', Auth, JoiMiddleware(UserSchemas.UserWorkingExpCreateSchema), WorkingExperienceController.create)
+routes.post('/cv/working-experience/update/:id', Auth, JoiMiddleware(UserSchemas.UserWorkingExpUpdateSchema), WorkingExperienceController.update)
+routes.post('/cv/working-experience/delete/:id', Auth, WorkingExperienceController.delete)
 
 export default routes

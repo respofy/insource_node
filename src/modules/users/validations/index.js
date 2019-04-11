@@ -6,6 +6,8 @@ import UserStatusSchema from './UserStatusSchema'
 import UserLoginSchema from './UserLoginSchema'
 import UserRegistrationSchema from './UserRegistrationSchema'
 import UserResetPasswordSchema from './UserResetPasswordSchema'
+import UserWorkingExpCreateSchema from './UserWorkingExpCreateSchema'
+import UserWorkingExpUpdateSchema from './UserWorkingExpUpdateSchema'
 
 export default {
 	AuthFillDataSchema,
@@ -15,5 +17,7 @@ export default {
 	UserRegistrationSchema,
 	UserResetPasswordSchema,
 	UserCitySchema,
-	UserStatusSchema
+	UserStatusSchema,
+	UserWorkingExpCreateSchema,
+	UserWorkingExpUpdateSchema
 }

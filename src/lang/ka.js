@@ -1,4 +1,5 @@
 export default {
+	request_success: 'მოთხოვნა შესრულდა წარმატებით',
 	auth: {
 		user_found: 'მომხმარებელი უკვე არსებობს ბაზაში',
 		user_not_found: 'მომხმარებელი არ მოიძებნა',
@@ -18,7 +19,11 @@ export default {
 		status_updated: 'სტატუსი განახლდა',
 		status_not_updated: 'სტატუსი ვერ განახლდა',
 		working_exp_created: 'სამუშაო გამოცდილება შეიქმნა',
-		working_exp_not_created: 'სამუშაო გამოცდილება არ შეიქმნა'
+		working_exp_create_error: 'სამუშაო გამოცდილება არ შეიქმნა',
+		working_exp_updated: 'სამუშაო გამოცდილება განახლდა',
+		working_exp_update_error: 'სამუშაო გამოცდილება ვერ განახლდა',
+		working_exp_deleted: 'სამუშაო გამოცდილება წაიშალა',
+		working_exp_deleted_error: 'სამუშაო გამოცდილების წაშლისას დაფიქსირდა შეცდომა'
 	},
 	model: {
 		unique_phone_error: 'ანგარიში მსგავსი ტელეფონით უკვე არსებობს'
@@ -26,11 +31,16 @@ export default {
 	joi: {
 		phone_required: 'ტელეფონის ნომრის შეყვანა აუცილებელია',
 		phone_min_length: 'ტელეფონის ნომერი უნდა შედგებოდეს ცხრა სიმბოლოსაგან',
-		is_number: 'zzz'
+		is_number: 'zzz',
+		date_valid: 'თარიღი არ არის სწორი',
+		profession_required: 'პროფესიის არჩევა სავალდებულოა',
+		company_name_required: 'კომპანიის სახელი სავალდებულოა',
+		company_name_valid: 'კომპანიის სახელი არ არის ვალიდური'
 	},
 	middleware: {
 		not_authorize: 'მომხმარებელი არ არის ავტორიზებული სისტემაში'
 	},
+
 	tokenGenerated: 'თოქენი დაგენერირდა წარმატებით',
 	tokenNotGenerated: 'თოქენი არ დაგენერირდა',
 	validEmailError: 'მეილი არ არის ვალიდური',
