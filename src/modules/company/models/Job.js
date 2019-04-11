@@ -28,9 +28,8 @@ class Job extends Sequelize.Model {
 
 	// eslint-disable-next-line no-unused-vars
 	static associate(models) {
-		// this.hasMany(models.User, {
-		// 	foreignKey: 'city_id'
-		// })
+		// this.belongsTo(models.User)
+		// this.belongsTo(model.Role)
 	}
 }
 

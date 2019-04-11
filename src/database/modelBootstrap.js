@@ -27,6 +27,7 @@ import Industry from 'modules/users/models/Industry'
 import Status from 'modules/users/models/Status'
 import Profession from 'modules/users/models/Profession'
 import Skill from 'modules/users/models/Skill'
+import Role from 'modules/users/models/Role'
 
 const models = {
 	User: User.init(sequelize, Sequelize),
@@ -43,6 +44,7 @@ const models = {
 	Profession: Profession.init(sequelize, Sequelize),
 	Skill: Skill.init(sequelize, Sequelize),
 	Industry: Industry.init(sequelize, Sequelize),
+	Role: Role.init(sequelize, Sequelize),
 	Company: Company.init(sequelize, Sequelize)
 }
 

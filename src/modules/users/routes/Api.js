@@ -5,6 +5,7 @@ import UserSchemas from '../validations'
 import Auth from 'middleware/AuthMiddleware'
 import JoiMiddleware from 'middleware/JoiMiddleware'
 import WorkingExperienceController from '../controllers/WorkingExperienceController'
+import InterestController from '../controllers/InterestController'
 
 const routes = express.Router()
 
@@ -25,5 +26,8 @@ routes.get('/cv/working-experience/get/all', Auth, WorkingExperienceController.g
 routes.post('/cv/working-experience/create', Auth, JoiMiddleware(UserSchemas.UserWorkingExpCreateSchema), WorkingExperienceController.create)
 routes.post('/cv/working-experience/update/:id', Auth, JoiMiddleware(UserSchemas.UserWorkingExpUpdateSchema), WorkingExperienceController.update)
 routes.post('/cv/working-experience/delete/:id', Auth, WorkingExperienceController.delete)
+// interests
+routes.get('/cv/interests/role/all', Auth, InterestController.getRoles)
+routes.post('/cv/interests/role/set', Auth, InterestController.setRole)
 
 export default routes

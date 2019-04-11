@@ -65,6 +65,11 @@ class User extends Sequelize.Model {
 			through: 'company_owners',
 			foreignKey: 'user_id'
 		})
+		// Role Relation
+		this.belongsToMany(models.Role, {
+			through: { model: 'user_role', unique: false },
+			foreignKey: 'user_id',
+		})
 		// Industry Relation
 		this.belongsToMany(models.Industry, {
 			through: 'user_industries',
