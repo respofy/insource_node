@@ -4,7 +4,7 @@ import UserController from '../controllers/UserController'
 import UserSchemas from '../validations'
 import Auth from 'middleware/AuthMiddleware'
 import JoiMiddleware from 'middleware/JoiMiddleware'
-import WorkingExperienceController from '../controllers/WorkingExperienceController';
+import WorkingExperienceController from '../controllers/WorkingExperienceController'
 
 const routes = express.Router()
 
