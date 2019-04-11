@@ -1,6 +1,12 @@
 import { Sequelize, Model } from 'sequelize'
 
-export default class Faculty extends Model {
+/**
+ *
+ */
+class Faculty extends Model {
+	/**
+	 *
+	 */
 	static init(sequelize) {
 		return super.init(
 			{
@@ -13,9 +19,14 @@ export default class Faculty extends Model {
 		)
 	}
 
-	static associate(models) {
+	/**
+	 *
+	 */
+	static associate(/* models */) {
 		// this.hasMany(models.User, {
 		// 	foreignKey: "city_id"
 		// });
 	}
 }
+
+export default Faculty

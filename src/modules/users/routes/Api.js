@@ -5,6 +5,7 @@ import UserSchemas from '../validations'
 import Auth from 'middleware/AuthMiddleware'
 import JoiMiddleware from 'middleware/JoiMiddleware'
 import WorkingExperienceController from '../controllers/WorkingExperienceController'
+import EducationController from '../controllers/EducationController'
 
 const routes = express.Router()
 
@@ -25,5 +26,9 @@ routes.get('/cv/working-experience/get/all', Auth, WorkingExperienceController.g
 routes.post('/cv/working-experience/create', Auth, JoiMiddleware(UserSchemas.UserWorkingExpCreateSchema), WorkingExperienceController.create)
 routes.post('/cv/working-experience/update/:id', Auth, JoiMiddleware(UserSchemas.UserWorkingExpUpdateSchema), WorkingExperienceController.update)
 routes.post('/cv/working-experience/delete/:id', Auth, WorkingExperienceController.delete)
+// universities
+routes.post('/cv/universities', Auth, EducationController.universities)
+routes.post('/cv/faculties', Auth, EducationController.faculties)
+routes.post('/cv/degrees', Auth, EducationController.degrees)
 
 export default routes

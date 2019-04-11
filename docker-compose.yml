@@ -23,7 +23,7 @@ services:
       - webnet
     environment:
       - MYSQL_DATABASE=insource
-      - MYSQL_ROOT_PASSWORD=anri1991
+      - MYSQL_ROOT_PASSWORD=PFTq6wrByaD5wrYM
     healthcheck:
       test: mysqladmin ping -h 127.0.0.1 -u root --password=$$MYSQL_ROOT_PASSWORD
 networks: 

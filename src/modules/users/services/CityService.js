@@ -1,4 +1,6 @@
+/* eslint-disable linebreak-style */
 import models from 'database/modelBootstrap'
+
 /**
  *
  */
