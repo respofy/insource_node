@@ -4,7 +4,7 @@ import UserController from '../controllers/UserController'
 import UserSchemas from '../validations'
 import Auth from 'middleware/AuthMiddleware'
 import JoiMiddleware from 'middleware/JoiMiddleware'
-import WorkingExperienceController from '../controllers/WorkingExperienceController'
+import WorkingExController from '../controllers/WorkingExController'
 import InterestController from '../controllers/InterestController'
 import EducationController from '../controllers/EducationController'
 import LanguageController from '../controllers/LanguageController'
@@ -25,10 +25,19 @@ routes.post('/auth', Auth, AuthController.getAuthUser)
 routes.post('/cv/city/set', Auth, JoiMiddleware(UserSchemas.UserCitySchema), UserController.setCity)
 routes.post('/cv/status/set', Auth, JoiMiddleware(UserSchemas.UserStatusSchema), UserController.setStatus)
 // User Working Experience
-routes.get('/cv/working-experience/get/all', Auth, WorkingExperienceController.getAll)
-routes.post('/cv/working-experience/create', Auth, JoiMiddleware(UserSchemas.UserWorkingExpCreateSchema), WorkingExperienceController.create)
-routes.post('/cv/working-experience/update/:id', Auth, JoiMiddleware(UserSchemas.UserWorkingExpUpdateSchema), WorkingExperienceController.update)
-routes.post('/cv/working-experience/delete/:id', Auth, WorkingExperienceController.delete)
+routes.get('/cv/working-ex/companies', Auth, JoiMiddleware(UserSchemas.UserWorkingExCompanies), WorkingExController.companies)
+routes.get('/cv/working-ex/roles', Auth, WorkingExController.roles)
+routes.get('/cv/working-ex/professions', Auth, WorkingExController.professions)
+routes.get('/cv/working-ex/skills/by/professions', Auth, JoiMiddleware(UserSchemas.UserWorkingExSkillsByProfessions), WorkingExController.skillsByProfessions)
+routes.post('/cv/working-ex/create', Auth, JoiMiddleware(UserSchemas.UserWorkingExCreateSchema), WorkingExController.create)
+routes.post('/cv/working-ex/update', Auth, WorkingExController.update)
+routes.post('/cv/working-ex/delete', Auth, WorkingExController.delete)
+routes.get('/cv/working-ex/list', Auth, WorkingExController.list)
+
+// routes.get('/cv/working-experience/get/all', Auth, WorkingExController.getAll)
+// routes.post('/cv/working-experience/create', Auth, JoiMiddleware(UserSchemas.UserWorkingExCreateSchema), WorkingExController.create)
+// routes.post('/cv/working-experience/update/:id', Auth, JoiMiddleware(UserSchemas.UserWorkingExUpdateSchema), WorkingExController.update)
+// routes.post('/cv/working-experience/delete/:id', Auth, WorkingExController.delete)
 // interests
 routes.get('/cv/interests/role/all', Auth, InterestController.getRoles)
 routes.post('/cv/interests/role/set', Auth, InterestController.setRole)

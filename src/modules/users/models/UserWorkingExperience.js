@@ -1,6 +1,6 @@
 import { Sequelize, Model } from 'sequelize'
 
-export default class UserWorkingExperience extends Model {
+class UserWorkingExperience extends Model {
 	static init(sequelize) {
 		return super.init(
 			{
@@ -32,3 +32,5 @@ export default class UserWorkingExperience extends Model {
 		this.belongsTo(models.Company)
 	}
 }
+
+export default UserWorkingExperience

@@ -1,6 +1,9 @@
 import { Sequelize, Model } from 'sequelize'
 
-export default class Skill extends Model {
+class Skill extends Model {
+	/**
+	 *
+	 */
 	static init(sequelize) {
 		return super.init(
 			{
@@ -8,7 +11,7 @@ export default class Skill extends Model {
 			},
 			{
 				sequelize,
-				tableName: 'cities'
+				tableName: 'skills'
 			}
 		)
 	}
@@ -16,9 +19,15 @@ export default class Skill extends Model {
 	static associate(models) {
 		// Profession Relation
 		this.belongsToMany(models.Profession, {
-			through: 'user_profession',
+			through: 'profession_skill',
 			foreignKey: 'skill_id'
 		})
+
+		// Profession Relation
+		// this.belongsToMany(models.Profession, {
+		// 	through: 'user_profession',
+		// 	foreignKey: 'skill_id'
+		// })
 		// // User Profession Relation
 		// this.belongsToMany(models.UserProfession, {
 		// 	through: 'user_profession_skills',
@@ -31,3 +40,5 @@ export default class Skill extends Model {
 		// })
 	}
 }
+
+export default Skill

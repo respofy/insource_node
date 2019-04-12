@@ -6,12 +6,14 @@ import UserStatusSchema from './UserStatusSchema'
 import UserLoginSchema from './UserLoginSchema'
 import UserRegistrationSchema from './UserRegistrationSchema'
 import UserResetPasswordSchema from './UserResetPasswordSchema'
-import UserWorkingExpCreateSchema from './UserWorkingExpCreateSchema'
-import UserWorkingExpUpdateSchema from './UserWorkingExpUpdateSchema'
+import UserWorkingExCreateSchema from './UserWorkingExCreateSchema'
+import UserWorkingExUpdateSchema from './UserWorkingExUpdateSchema'
 import UserEducationCreateSchema from './UserEducationCreateSchema'
 import UserEducationUpdateSchema from './UserEducationUpdateSchema'
 import UserLanguageCreateSchema from './UserLanguageCreateSchema'
 import UserLanguageUpdateSchema from './UserLanguageUpdateSchema'
+import UserWorkingExSkillsByProfessions from './UserWorkingExSkillsByProfessions'
+import UserWorkingExCompanies from './UserWorkingExCompanies'
 
 export default {
 	AuthFillDataSchema,
@@ -22,10 +24,12 @@ export default {
 	UserResetPasswordSchema,
 	UserCitySchema,
 	UserStatusSchema,
-	UserWorkingExpCreateSchema,
-	UserWorkingExpUpdateSchema,
+	UserWorkingExCreateSchema,
+	UserWorkingExUpdateSchema,
 	UserEducationCreateSchema,
 	UserEducationUpdateSchema,
 	UserLanguageCreateSchema,
 	UserLanguageUpdateSchema,
+	UserWorkingExSkillsByProfessions,
+	UserWorkingExCompanies
 }

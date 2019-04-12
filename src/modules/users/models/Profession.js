@@ -14,22 +14,24 @@ export default class Profession extends Model {
 	}
 
 	static associate(models) {
-		this.belongsToMany(models.User, {
-			through: 'user_profession',
-			foreignKey: 'profession_id'
-		})
 		// Skill Relation
 		this.belongsToMany(models.Skill, {
 			through: 'profession_skill',
 			foreignKey: 'profession_id'
 		})
-		// // User Education Relation
-		// this.hasMany(models.UserEducation, {
-		// 	foreignKey: 'profession_id'
-		// })
+
 		// User Working Experience Relation
 		this.hasMany(models.UserWorkingExperience, {
 			foreignKey: 'profession_id'
 		})
+
+		// // User Education Relation
+		// this.hasMany(models.UserEducation, {
+		// 	foreignKey: 'profession_id'
+		// })
+		// this.belongsToMany(models.User, {
+		// 	through: 'user_profession',
+		// 	foreignKey: 'profession_id'
+		// })
 	}
 }

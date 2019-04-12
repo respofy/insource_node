@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import ka from 'lang/ka'
 
-const UserWorkingExpUpdateSchema = {
+const UserWorkingExUpdateSchema = {
 	body: {
 		started_at: Joi.date().error(() => ka.joi.date_valid),
 		finished_at: Joi.date()
@@ -14,4 +14,4 @@ const UserWorkingExpUpdateSchema = {
 	}
 }
 
-export default UserWorkingExpUpdateSchema
+export default UserWorkingExUpdateSchema

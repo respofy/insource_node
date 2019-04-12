@@ -1,5 +1,6 @@
 export default {
 	request_success: 'მოთხოვნა შესრულდა წარმატებით',
+	request_error: 'მოთხოვნა არ შესრულდა',
 	auth: {
 		user_found: 'მომხმარებელი უკვე არსებობს ბაზაში',
 		user_not_found: 'მომხმარებელი არ მოიძებნა',
