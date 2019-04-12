@@ -107,6 +107,13 @@ class AuthController {
 			res.json(response.error(ka.tokenNotGenerated))
 		}
 	}
+
+	/**
+	 * Return authorized user object
+	 */
+	static async getAuthUser(req, res) {
+		return res.json(response.success(ka.request_success, req.user))
+	}
 }
 
 export default AuthController
