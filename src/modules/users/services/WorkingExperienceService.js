@@ -50,6 +50,32 @@ class WorkingExperienceService {
 		// read user working experiences
 		return await user.getUserWorkingExperiences()
 	}
+
+	/**
+	 * update working experience
+	 */
+	static async update(id, requestBody) {
+		// get working experience by id
+		let workingExp = await models.UserWorkingExperience.findOne({ where: { id } })
+		// update working experience
+		let updatedWorkingExp = await workingExp.update(requestBody)
+		// throw error on negative result
+		if (updatedWorkingExp === null) {
+			throw new Error()
+		}
+		// return updated record
+		return updatedWorkingExp
+	}
+
+	/**
+	 * delete working experience
+	 */
+	static async delete(id) {
+		// get working experience by id
+		let workingExp = await models.UserWorkingExperience.findOne({ where: { id } })
+		// delete working experience
+		return await workingExp.destroy()
+	}
 }
 
 export default WorkingExperienceService

@@ -1,4 +1,3 @@
-import models from 'database/modelBootstrap'
 import ka from 'lang/ka'
 // import UserService from '../services/UserService'
 import response from 'helper/Response'
@@ -41,10 +40,8 @@ class WorkingExperienceController {
 	 */
 	static async update(req, res) {
 		try {
-			// get working experience by id
-			let workingExp = await models.UserWorkingExperience.findOne({ where: { id: req.params.id } })
 			// update working experience
-			let updatedWorkingExp = await workingExp.update(req.body)
+			let updatedWorkingExp = WorkingExperienceService.update(req.params.id, req.body)
 			// response
 			res.json(response.success(ka.cv.working_exp_updated, updatedWorkingExp))
 		} catch (error) {
@@ -58,9 +55,7 @@ class WorkingExperienceController {
 	static async delete(req, res) {
 		try {
 			// get working experience by id
-			let workingExp = await models.UserWorkingExperience.findOne({ where: { id: req.params.id } })
-			// delete working experience
-			await workingExp.destroy()
+			await WorkingExperienceService.delete(req.params.id)
 			// response
 			res.json(response.success(ka.cv.working_exp_deleted))
 		} catch (error) {
