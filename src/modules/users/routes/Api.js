@@ -31,8 +31,9 @@ routes.post('/cv/working-experience/delete/:id', Auth, WorkingExperienceControll
 routes.get('/cv/interests/role/all', Auth, InterestController.getRoles)
 routes.post('/cv/interests/role/set', Auth, InterestController.setRole)
 // universities
-routes.post('/cv/universities', Auth, EducationController.universities)
-routes.post('/cv/faculties', Auth, EducationController.faculties)
-routes.post('/cv/degrees', Auth, EducationController.degrees)
+routes.post('/cv/education/universities', Auth, EducationController.universities)
+routes.post('/cv/education/faculties', Auth, EducationController.faculties)
+routes.post('/cv/education/degrees', Auth, EducationController.degrees)
+routes.post('/cv/education/create', Auth, JoiMiddleware(UserSchemas.UserEducationCreateSchema), EducationController.degrees)
 
 export default routes

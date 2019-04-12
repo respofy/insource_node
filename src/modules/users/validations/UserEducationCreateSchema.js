@@ -3,12 +3,13 @@ import Joi from 'joi'
 const UserEducationCreateSchema = {
 	body: {
 		started_at: Joi.date().required(),
-		finished_at: Joi.date().min(Joi.ref('started_at')),
-		user_id: Joi.number().required(),
+		finished_at: Joi.date()
+			.min(Joi.ref('started_at'))
+			.required(),
 		profession_id: Joi.number().required(),
 		degree_id: Joi.number().required(),
 		university_id: Joi.number().required(),
-		faculty_id: Joi.number().required(),
+		faculty_id: Joi.number().required()
 	}
 }
 
