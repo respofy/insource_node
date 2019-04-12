@@ -43,4 +43,9 @@ routes.post('/cv/user-languages/all', Auth, LanguageController.getUserLanguages)
 routes.post('/cv/user-language/create', Auth, JoiMiddleware(UserSchemas.UserLanguageCreateSchema), LanguageController.createUserLanguage)
 routes.post('/cv/user-language/update/:id', Auth, JoiMiddleware(UserSchemas.UserLanguageUpdateSchema), LanguageController.updateUserLanguage)
 
+routes.post('/cv/education/universities', Auth, EducationController.universities)
+routes.post('/cv/education/faculties', Auth, EducationController.faculties)
+routes.post('/cv/education/degrees', Auth, EducationController.degrees)
+routes.post('/cv/education/create', Auth, JoiMiddleware(UserSchemas.UserEducationCreateSchema), EducationController.degrees)
+
 export default routes
