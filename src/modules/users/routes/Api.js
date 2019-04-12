@@ -7,6 +7,7 @@ import JoiMiddleware from 'middleware/JoiMiddleware'
 import WorkingExperienceController from '../controllers/WorkingExperienceController'
 import InterestController from '../controllers/InterestController'
 import EducationController from '../controllers/EducationController'
+import LanguageController from '../controllers/LanguageController'
 
 const routes = express.Router()
 
@@ -35,5 +36,11 @@ routes.post('/cv/interests/role/set', Auth, InterestController.setRole)
 routes.post('/cv/universities', Auth, EducationController.universities)
 routes.post('/cv/faculties', Auth, EducationController.faculties)
 routes.post('/cv/degrees', Auth, EducationController.degrees)
+// languages
+routes.post('/cv/languages/all', Auth, LanguageController.getLanguages)
+routes.post('/cv/language-knowledge/all', Auth, LanguageController.getLanguageLevels)
+routes.post('/cv/user-languages/all', Auth, LanguageController.getUserLanguages)
+routes.post('/cv/user-language/create', Auth, JoiMiddleware(UserSchemas.UserLanguageCreateSchema), LanguageController.createUserLanguage)
+routes.post('/cv/user-language/update/:id', Auth, JoiMiddleware(UserSchemas.UserLanguageUpdateSchema), LanguageController.updateUserLanguage)
 
 export default routes

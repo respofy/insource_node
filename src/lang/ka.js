@@ -23,7 +23,11 @@ export default {
 		working_exp_updated: 'სამუშაო გამოცდილება განახლდა',
 		working_exp_update_error: 'სამუშაო გამოცდილება ვერ განახლდა',
 		working_exp_deleted: 'სამუშაო გამოცდილება წაიშალა',
-		working_exp_deleted_error: 'სამუშაო გამოცდილების წაშლისას დაფიქსირდა შეცდომა'
+		working_exp_deleted_error: 'სამუშაო გამოცდილების წაშლისას დაფიქსირდა შეცდომა',
+		user_language_created: 'ენა წარმატებით დაემატა',
+		user_language_create_error: 'ენა არ დაემატა',
+		user_language_updated: 'ენა განახლდა წარმატებით',
+		user_language_update_error: 'ენის განახლებისას დაფიქსირდა შეცდომა'
 	},
 	model: {
 		unique_phone_error: 'ანგარიში მსგავსი ტელეფონით უკვე არსებობს'

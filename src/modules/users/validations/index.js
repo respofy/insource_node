@@ -10,6 +10,8 @@ import UserWorkingExpCreateSchema from './UserWorkingExpCreateSchema'
 import UserWorkingExpUpdateSchema from './UserWorkingExpUpdateSchema'
 import UserEducationCreateSchema from './UserEducationCreateSchema'
 import UserEducationUpdateSchema from './UserEducationUpdateSchema'
+import UserLanguageCreateSchema from './UserLanguageCreateSchema'
+import UserLanguageUpdateSchema from './UserLanguageUpdateSchema'
 
 export default {
 	AuthFillDataSchema,
@@ -23,5 +25,7 @@ export default {
 	UserWorkingExpCreateSchema,
 	UserWorkingExpUpdateSchema,
 	UserEducationCreateSchema,
-	UserEducationUpdateSchema
+	UserEducationUpdateSchema,
+	UserLanguageCreateSchema,
+	UserLanguageUpdateSchema,
 }
