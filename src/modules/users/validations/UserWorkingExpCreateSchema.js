@@ -14,7 +14,8 @@ const UserWorkingExpCreateSchema = {
 		user_id: Joi.number(),
 		profession_id: Joi.number()
 			.required()
-			.error(() => ka.joi.profession_required)
+			.error(() => ka.joi.profession_required),
+		role_id: Joi.number().required()
 	}
 }
 

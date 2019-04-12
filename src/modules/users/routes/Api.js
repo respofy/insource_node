@@ -18,6 +18,7 @@ routes.post('/fill/data', JoiMiddleware(UserSchemas.AuthFillDataSchema), AuthCon
 routes.post('/authorization', JoiMiddleware(UserSchemas.UserLoginSchema), AuthController.authorization)
 routes.post('/reset/init', JoiMiddleware(UserSchemas.AuthResendSMSSchema), UserController.initializePasswordReset)
 routes.post('/reset/password', JoiMiddleware(UserSchemas.UserResetPasswordSchema), UserController.resetPassword)
+routes.post('/auth', Auth, AuthController.getAuthUser)
 
 // CV
 routes.post('/cv/city/set', Auth, JoiMiddleware(UserSchemas.UserCitySchema), UserController.setCity)

@@ -9,7 +9,8 @@ const UserWorkingExpUpdateSchema = {
 			.error(() => ka.joi.date_valid),
 		company_name: Joi.string().error(() => ka.joi.company_name_valid),
 		company_id: Joi.number(),
-		profession_id: Joi.number()
+		profession_id: Joi.number(),
+		role_id: Joi.number()
 	}
 }
 

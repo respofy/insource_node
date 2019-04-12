@@ -1,7 +1,8 @@
 import models from 'database/modelBootstrap'
 import ka from 'lang/ka'
-import UserService from '../services/UserService'
+// import UserService from '../services/UserService'
 import response from 'helper/Response'
+import WorkingExperienceService from '../services/WorkingExperienceService'
 
 /**
  * Resourceful controller for user working experience
@@ -12,14 +13,10 @@ class WorkingExperienceController {
 	 */
 	static async create(req, res) {
 		try {
-			// get auth user
-			let user = await UserService.authUser(req.user.id)
-			// add auth user in body
-			req.body.user_id = user.id
 			// create working experience
-			let workingExp = await user.createUserWorkingExperience(req.body)
+			let workingExperience = await WorkingExperienceService.create(req.user.id, req.body)
 			// response
-			res.json(response.success(ka.cv.working_exp_created, workingExp))
+			res.json(response.success(ka.cv.working_exp_created, workingExperience))
 		} catch (error) {
 			return res.json(response.error(ka.cv.working_exp_create_error))
 		}
@@ -30,10 +27,8 @@ class WorkingExperienceController {
 	 */
 	static async getAll(req, res) {
 		try {
-			// get auth user
-			let user = await UserService.authUser(req.user.id)
-			// read user working experiences
-			let userWorkingExps = await user.getUserWorkingExperiences()
+			// fetch all user Experience
+			let userWorkingExps = await WorkingExperienceService.getAll(req.user.id)
 			// response
 			res.json(response.success(ka.request_success, userWorkingExps))
 		} catch (error) {

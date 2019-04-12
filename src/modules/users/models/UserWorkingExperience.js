@@ -9,7 +9,8 @@ export default class UserWorkingExperience extends Model {
 				company_name: { type: Sequelize.STRING, allowNull: false },
 				company_id: { type: Sequelize.INTEGER, allowNull: true },
 				user_id: { type: Sequelize.INTEGER, allowNull: false },
-				profession_id: { type: Sequelize.INTEGER, allowNull: false }
+				profession_id: { type: Sequelize.INTEGER, allowNull: false },
+				role_id: { type: Sequelize.INTEGER, allowNull: false }
 			},
 			{
 				sequelize,
@@ -25,6 +26,8 @@ export default class UserWorkingExperience extends Model {
 		this.belongsTo(models.User)
 		// Profession Relation
 		this.belongsTo(models.Profession)
+		// Role Relation
+		this.belongsTo(models.Role)
 		// Company Relation
 		this.belongsTo(models.Company)
 	}
