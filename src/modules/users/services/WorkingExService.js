@@ -54,7 +54,7 @@ class WorkingExService {
 			profession_id: params.profession_id,
 			role_id: params.role_id
 		})
-		// craete skill record if id equals null
+		// create skill record if id equals null
 		params.skills.forEach(async item => {
 			// check if item does not have id
 			if (item.id == null) {
@@ -72,7 +72,6 @@ class WorkingExService {
 			// associate existing skill with user working experience
 			await newWorkingExp.addSkill(item.id)
 		})
-		// TODO: write all skill ids into working ex
 	}
 
 	/**
@@ -104,9 +103,9 @@ class WorkingExService {
 	/**
 	 * delete working experience
 	 */
-	static async delete(id) {
+	static async delete(id, user_id) {
 		// get working experience by id
-		let workingExp = await models.UserWorkingExperience.findOne({ where: { id } })
+		let workingExp = await models.UserWorkingExperience.findOne({ where: { id, user_id } })
 		// delete working experience
 		return await workingExp.destroy()
 	}

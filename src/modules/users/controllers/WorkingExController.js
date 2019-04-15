@@ -89,13 +89,23 @@ class WorkingExController {
 		}
 	}
 	/**
-	 *
+	 * TODO:
 	 */
 	static async update() {}
+
 	/**
-	 *
+	 * Delete working experience
 	 */
-	static async delete() {}
+	static async delete(req, res) {
+		try {
+			// destroy user working experience from service
+			await WorkingExService.delete(req.query.id, req.user.id)
+			// response
+			res.json(response.success(ka.request_success))
+		} catch (error) {
+			res.json(response.success(error.message))
+		}
+	}
 	/**
 	 * Get list of working experiences by user
 	 */
