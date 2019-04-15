@@ -49,7 +49,7 @@ class LanguageService {
 	 */
 	static async updateUserLanguage(id, requestBody) {
 		// get working experience by id
-        let userLanguage = await models.UserLanguage.findOne({ where: { id } })
+		let userLanguage = await models.UserLanguage.findByPk(id)
 		// update working experience
 		let updatedUserLanguage = await userLanguage.update(requestBody)
 		// throw error on negative result
@@ -63,7 +63,7 @@ class LanguageService {
 	// Delete user language
 	static async deleteUserLanguage(id) {
 		// get working experience by id
-		let userLanguage = await models.UserLanguage.findOne({ where: { id } })
+		let userLanguage = await models.UserLanguage.findByPk(id)
 		// delete working experience
 		return await userLanguage.destroy()
 	}

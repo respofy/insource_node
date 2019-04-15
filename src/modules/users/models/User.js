@@ -56,6 +56,8 @@ class User extends Sequelize.Model {
 		this.belongsTo(models.Status)
 		// Language Relation
 		this.hasMany(models.UserLanguage)
+		// Education Relation
+		this.hasMany(models.UserEducation)
 		// Working Experience Relation
 		this.hasMany(models.UserWorkingExperience)
 		// User Profession Relation
@@ -68,7 +70,7 @@ class User extends Sequelize.Model {
 		// Role Relation
 		this.belongsToMany(models.Role, {
 			through: { model: 'user_role', unique: false },
-			foreignKey: 'user_id',
+			foreignKey: 'user_id'
 		})
 		// Industry Relation
 		this.belongsToMany(models.Industry, {

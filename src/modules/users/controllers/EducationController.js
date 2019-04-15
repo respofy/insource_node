@@ -30,6 +30,60 @@ class EducationController {
 		let degrees = await EducationService.degrees()
 		res.json(response.success(ka.request_success, degrees))
 	}
+
+	// create user education
+	static async create(req, res) {
+		try {
+			// create user education from education service
+			let createdEducation = await EducationService.create(req.user.id, req.body)
+			// return  response
+			res.json(response.success(ka.request_success, createdEducation))
+		} catch (error) {
+			res.json(response.error(ka.cv.user_education_create_error))
+		}
+	}
+
+	/**
+	 * Get list of education by user
+	 */
+	static async list(req, res) {
+		try {
+			// get list educations by auth user id
+			let userEducation = await EducationService.list(req.user.id)
+			// response
+			res.json(response.success(ka.request_success, userEducation))
+		} catch (error) {
+			res.json(response.error(error.message))
+		}
+	}
+
+	/**
+	 * Update user education by ID
+	 */
+	static async update(req, res) {
+		try {
+			// update education from education service
+			let updatedEducation = await EducationService.update(req.params.id, req.user.id, req.body)
+			// return response
+			res.json(response.success(ka.cv.user_education_updated, updatedEducation))
+		} catch (error) {
+			res.json(response.error(ka.cv.user_education_update_error))
+		}
+	}
+
+	/**
+	 * Delete user education by ID
+	 */
+	static async delete(req, res) {
+		try {
+			// delete user education from service
+			await EducationService.delete(req.params.id, req.user.id)
+			// response
+			res.json(response.success(ka.cv.user_education_deleted))
+		} catch (error) {
+			res.json(response.error(ka.cv.user_education_delete_error))
+		}
+	}
 }
 
 export default EducationController

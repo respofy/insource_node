@@ -6,10 +6,10 @@ class UserEducation extends Model {
 			{
 				started_at: { type: Sequelize.DATE, allowNull: false },
 				finished_at: { type: Sequelize.DATE },
-				user_id: { type: Sequelize.INTEGER, allowNull: false },
-				profession_id: { type: Sequelize.INTEGER, allowNull: false },
-				degree_id: { type: Sequelize.INTEGER, allowNull: false },
-				university_id: { type: Sequelize.INTEGER, allowNull: false }
+				user_id: { type: Sequelize.INTEGER, allowNull: false, unique: 'compositeIndex' },
+				profession_id: { type: Sequelize.INTEGER, allowNull: false, unique: 'compositeIndex' },
+				degree_id: { type: Sequelize.INTEGER, allowNull: false, unique: 'compositeIndex' },
+				university_id: { type: Sequelize.INTEGER, allowNull: false, unique: 'compositeIndex' }
 			},
 			{
 				sequelize,

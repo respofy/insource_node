@@ -53,10 +53,14 @@ routes.post('/cv/language-knowledge/all', Auth, LanguageController.getLanguageLe
 routes.post('/cv/user-languages/all', Auth, LanguageController.getUserLanguages)
 routes.post('/cv/user-language/create', Auth, JoiMiddleware(UserSchemas.UserLanguageCreateSchema), LanguageController.createUserLanguage)
 routes.post('/cv/user-language/update/:id', Auth, JoiMiddleware(UserSchemas.UserLanguageUpdateSchema), LanguageController.updateUserLanguage)
-
+// TODO: delete user language
+// education
 routes.post('/cv/education/universities', Auth, EducationController.universities)
 routes.post('/cv/education/faculties', Auth, EducationController.faculties)
 routes.post('/cv/education/degrees', Auth, EducationController.degrees)
-routes.post('/cv/education/create', Auth, JoiMiddleware(UserSchemas.UserEducationCreateSchema), EducationController.degrees)
+routes.get('/cv/education/list', Auth, EducationController.list)
+routes.post('/cv/education/create', Auth, JoiMiddleware(UserSchemas.UserEducationCreateSchema), EducationController.create)
+routes.post('/cv/education/update/:id', Auth, JoiMiddleware(UserSchemas.UserEducationUpdateSchema), EducationController.update)
+routes.post('/cv/education/delete/:id', Auth, EducationController.delete)
 
 export default routes

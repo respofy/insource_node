@@ -19,16 +19,25 @@ export default {
 		city_not_updated: 'ქალაქი ვერ განახლდა',
 		status_updated: 'სტატუსი განახლდა',
 		status_not_updated: 'სტატუსი ვერ განახლდა',
+		// working exp
 		working_exp_created: 'სამუშაო გამოცდილება შეიქმნა',
 		working_exp_create_error: 'სამუშაო გამოცდილება არ შეიქმნა',
 		working_exp_updated: 'სამუშაო გამოცდილება განახლდა',
 		working_exp_update_error: 'სამუშაო გამოცდილება ვერ განახლდა',
 		working_exp_deleted: 'სამუშაო გამოცდილება წაიშალა',
 		working_exp_deleted_error: 'სამუშაო გამოცდილების წაშლისას დაფიქსირდა შეცდომა',
+		// languages
 		user_language_created: 'ენა წარმატებით დაემატა',
 		user_language_create_error: 'ენა არ დაემატა',
 		user_language_updated: 'ენა განახლდა წარმატებით',
-		user_language_update_error: 'ენის განახლებისას დაფიქსირდა შეცდომა'
+		user_language_update_error: 'ენის განახლებისას დაფიქსირდა შეცდომა',
+		// education
+		user_education_created: 'განათლება წარმატებით დაემატა',
+		user_education_create_error: 'განათლება არ დაემატა, მსგავსი ჩანაწერი უვკე არსებობს',
+		user_education_updated: 'განათლება განახლდა წარმატებით',
+		user_education_update_error: 'განათლების განახლებისას დაფიქსირდა შეცდომა',
+		user_education_deleted: 'განათლება წაიშალა წარმატებით',
+		user_education_delete_error: 'განათლების წაშლისას მოხდა შეცდომა'
 	},
 	model: {
 		unique_phone_error: 'ანგარიში მსგავსი ტელეფონით უკვე არსებობს'
