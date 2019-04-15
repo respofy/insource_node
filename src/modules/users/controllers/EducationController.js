@@ -63,7 +63,7 @@ class EducationController {
 	static async update(req, res) {
 		try {
 			// update education from education service
-			let updatedEducation = await EducationService.update(req.params.id, req.user.id, req.body)
+			let updatedEducation = await EducationService.update(req.query.id, req.user.id, req.body)
 			// return response
 			res.json(response.success(ka.cv.user_education_updated, updatedEducation))
 		} catch (error) {
@@ -77,7 +77,7 @@ class EducationController {
 	static async delete(req, res) {
 		try {
 			// delete user education from service
-			await EducationService.delete(req.params.id, req.user.id)
+			await EducationService.delete(req.query.id, req.user.id)
 			// response
 			res.json(response.success(ka.cv.user_education_deleted))
 		} catch (error) {

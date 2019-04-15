@@ -14,9 +14,16 @@ class Company extends Sequelize.Model {
 	}
 
 	static associate(models) {
+		// User Relation
 		this.belongsToMany(models.User, {
 			through: 'company_owners',
 			foreignKey: 'company_id'
+		})
+		// Favorite Company Relation
+		this.belongsToMany(models.User, {
+			through: 'user_companies',
+			foreignKey: 'company_id',
+			as: 'FavouredByUsers'
 		})
 
 		// this.belongsTo(models.City)

@@ -65,11 +65,24 @@ class LanguageController {
 	static async updateUserLanguage(req, res) {
 		try {
 			// update user
-			let updatedUserLanguage = await LanguageService.updateUserLanguage(req.params.id, req.body)
+			let updatedUserLanguage = await LanguageService.updateUserLanguage(req.query.id, req.user.id, req.body)
 			// response
 			res.json(response.success(ka.cv.user_language_updated, updatedUserLanguage))
 		} catch (error) {
 			return res.json(response.error(ka.cv.user_language_update_error))
+		}
+	}
+
+	/**
+	 * Delete user language
+	 */
+	static async deleteUserLanguage(req, res) {
+		try {
+			// delete user language from service
+			await LanguageService.deleteUserLanguage(req.query.id, req.user.id)
+			res.json(response.success(ka.request_success))
+		} catch (error) {
+			return res.json(response.error(error.message))
 		}
 	}
 }

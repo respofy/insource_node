@@ -53,6 +53,33 @@ class UserService {
 		// set status
 		return await user.setStatus(status_id)
 	}
+
+	static async getFavoriteCompanies(user_id) {
+		// get auth user
+		let user = await UserService.authUser(user_id)
+		// return favorite companies
+		return await user.getFavoriteCompanies()
+	}
+
+	/**
+	 * Add company to favorites
+	 */
+	static async addCompanyToFavorites(user_id, company_id) {
+		// get auth user instance
+		let user = await models.User.findByPk(user_id)
+		// add company to favorites by company_id
+		return await user.addFavoriteCompany(company_id)
+	}
+
+	/**
+	 * Remove company from favorites
+	 */
+	static async removeCompanyFromFavorites(user_id, company_id) {
+		// get auth user instance
+		let user = await models.User.findByPk(user_id)
+		// remove company to favorites by company_id
+		return await user.removeFavoriteCompany(company_id)
+	}
 }
 
 export default UserService

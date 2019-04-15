@@ -1,10 +1,10 @@
-import responseHelper from 'helper/Response'
+import response from 'helper/Response'
 import models from 'database/modelBootstrap'
 
 class CompanyController {
 	static async fillData(req, res) {
 		let createdCompany = await models.Company.create(req.body)
-		return createdCompany ? res.json(responseHelper.success('Company has been created', createdCompany)) : res.json(responseHelper.error('Error in company creation'))
+		return createdCompany ? res.json(response.success('Company has been created', createdCompany)) : res.json(responseHelper.error('Error in company creation'))
 	}
 
 	static async invite(req, res) {

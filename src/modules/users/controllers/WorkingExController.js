@@ -54,13 +54,27 @@ class WorkingExController {
 			// get the roles form service
 			let skillsByProfession = await WorkingExService.getSkillsByProfession(req.body.profession_id)
 			// eslint-disable-next-line no-console
-			console.log(skillsByProfession)
 			// return the responce
 			res.json(response.success(ka.request_success, skillsByProfession))
 		} catch (error) {
 			res.json(response.success(ka.request_error))
 		}
 	}
+
+	/**
+	 * Get skills by
+	 */
+	static async skillsByWorkingExperience(req, res) {
+		try {
+			// get skills from working experience service by user working experience
+			let skills = await WorkingExService.getSkillsByWorkingExperience(req.body.user_working_ex_id)
+			// response
+			res.json(response.success(ka.request_success, skills))
+		} catch (error) {
+			res.json(response.success(ka.request_error))
+		}
+	}
+
 	/**
 	 *
 	 */

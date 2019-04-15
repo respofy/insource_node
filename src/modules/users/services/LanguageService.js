@@ -25,13 +25,13 @@ class LanguageService {
 	/**
 	 * Create user language
 	 */
-	static async createUserLanguage(userId, requestBody) {
+	static async createUserLanguage(userId, data) {
 		// get auth user
 		let user = await UserService.authUser(userId)
 		// add auth user in body
-		requestBody.user_id = userId
+		data.user_id = userId
 		// create working experience
-		return await user.createUserLanguage(requestBody)
+		return await user.createUserLanguage(data)
 	}
 
 	/**
@@ -47,11 +47,11 @@ class LanguageService {
 	/**
 	 * Update user language
 	 */
-	static async updateUserLanguage(id, requestBody) {
+	static async updateUserLanguage(id, user_id, data) {
 		// get working experience by id
-		let userLanguage = await models.UserLanguage.findByPk(id)
+		let userLanguage = await models.UserLanguage.findOne({ where: { id, user_id } })
 		// update working experience
-		let updatedUserLanguage = await userLanguage.update(requestBody)
+		let updatedUserLanguage = await userLanguage.update(data)
 		// throw error on negative result
 		if (updatedUserLanguage === null) {
 			throw new Error()
@@ -61,9 +61,9 @@ class LanguageService {
 	}
 
 	// Delete user language
-	static async deleteUserLanguage(id) {
+	static async deleteUserLanguage(id, user_id) {
 		// get working experience by id
-		let userLanguage = await models.UserLanguage.findByPk(id)
+		let userLanguage = await models.UserLanguage.findOne({ where: { id, user_id } })
 		// delete working experience
 		return await userLanguage.destroy()
 	}

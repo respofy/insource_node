@@ -31,6 +31,7 @@ routes.get('/cv/working-ex/companies', Auth, JoiMiddleware(UserSchemas.UserWorki
 routes.get('/cv/working-ex/roles', Auth, WorkingExController.roles)
 routes.get('/cv/working-ex/professions', Auth, WorkingExController.professions)
 routes.get('/cv/working-ex/skills/by/professions', Auth, JoiMiddleware(UserSchemas.UserWorkingExSkillsByProfessions), WorkingExController.skillsByProfessions)
+routes.get('/cv/working-ex/skills/by/experience', Auth, WorkingExController.skillsByWorkingExperience)
 routes.post('/cv/working-ex/create', Auth, JoiMiddleware(UserSchemas.UserWorkingExCreateSchema), WorkingExController.create)
 routes.post('/cv/working-ex/update', Auth, WorkingExController.update)
 routes.post('/cv/working-ex/delete', Auth, WorkingExController.delete)
@@ -48,19 +49,26 @@ routes.post('/cv/universities', Auth, EducationController.universities)
 routes.post('/cv/faculties', Auth, EducationController.faculties)
 routes.post('/cv/degrees', Auth, EducationController.degrees)
 // languages
-routes.post('/cv/languages/all', Auth, LanguageController.getLanguages)
-routes.post('/cv/language-knowledge/all', Auth, LanguageController.getLanguageLevels)
-routes.post('/cv/user-languages/all', Auth, LanguageController.getUserLanguages)
+routes.get('/cv/languages/all', Auth, LanguageController.getLanguages)
+routes.get('/cv/language-knowledge/all', Auth, LanguageController.getLanguageLevels)
+routes.get('/cv/user-languages/all', Auth, LanguageController.getUserLanguages)
 routes.post('/cv/user-language/create', Auth, JoiMiddleware(UserSchemas.UserLanguageCreateSchema), LanguageController.createUserLanguage)
-routes.post('/cv/user-language/update/:id', Auth, JoiMiddleware(UserSchemas.UserLanguageUpdateSchema), LanguageController.updateUserLanguage)
-// TODO: delete user language
+routes.post('/cv/user-language/update', Auth, JoiMiddleware(UserSchemas.UserLanguageUpdateSchema), LanguageController.updateUserLanguage)
+routes.post('/cv/user-language/delete', Auth, LanguageController.deleteUserLanguage)
+
 // education
 routes.post('/cv/education/universities', Auth, EducationController.universities)
 routes.post('/cv/education/faculties', Auth, EducationController.faculties)
 routes.post('/cv/education/degrees', Auth, EducationController.degrees)
 routes.get('/cv/education/list', Auth, EducationController.list)
 routes.post('/cv/education/create', Auth, JoiMiddleware(UserSchemas.UserEducationCreateSchema), EducationController.create)
-routes.post('/cv/education/update/:id', Auth, JoiMiddleware(UserSchemas.UserEducationUpdateSchema), EducationController.update)
-routes.post('/cv/education/delete/:id', Auth, EducationController.delete)
+routes.post('/cv/education/update', Auth, JoiMiddleware(UserSchemas.UserEducationUpdateSchema), EducationController.update)
+routes.post('/cv/education/delete', Auth, EducationController.delete)
+
+// favorite companies // FIXME: make company search reusable
+routes.post('/cv/favorite/company/search', Auth, JoiMiddleware(UserSchemas.UserWorkingExCompanies), WorkingExController.companies)
+routes.post('/cv/favorite/company/add', Auth, JoiMiddleware(UserSchemas.FavoriteCompanyAddSchema), UserController.addCompanyToFavorites)
+routes.post('/cv/favorite/company/remove', Auth, JoiMiddleware(UserSchemas.FavoriteCompanyRemoveSchema), UserController.removeCompanyFromFavorites)
+routes.get('/cv/favorite/company/all', Auth, UserController.favoriteCompanies)
 
 export default routes

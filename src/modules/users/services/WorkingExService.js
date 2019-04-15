@@ -31,6 +31,16 @@ class WorkingExService {
 	}
 
 	/**
+	 * Get skills by user working experience
+	 */
+	static async getSkillsByWorkingExperience(id) {
+		// get working experience instance by id
+		let workingExp = await models.UserWorkingExperience.findByPk(id)
+		// get skills associated with given working experience
+		return await workingExp.getSkills()
+	}
+
+	/**
 	 * Create working experience
 	 */
 	static async create(user_id, params) {
@@ -44,7 +54,6 @@ class WorkingExService {
 			profession_id: params.profession_id,
 			role_id: params.role_id
 		})
-		console.log(newWorkingExp)
 		// craete skill record if id equals null
 		params.skills.forEach(async item => {
 			// check if item does not have id

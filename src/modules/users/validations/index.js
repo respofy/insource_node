@@ -14,6 +14,8 @@ import UserLanguageCreateSchema from './UserLanguageCreateSchema'
 import UserLanguageUpdateSchema from './UserLanguageUpdateSchema'
 import UserWorkingExSkillsByProfessions from './UserWorkingExSkillsByProfessions'
 import UserWorkingExCompanies from './UserWorkingExCompanies'
+import FavoriteCompanyAddSchema from './FavoriteCompanyAddSchema'
+import FavoriteCompanyRemoveSchema from './FavoriteCompanyRemoveSchema'
 
 export default {
 	AuthFillDataSchema,
@@ -31,5 +33,7 @@ export default {
 	UserLanguageCreateSchema,
 	UserLanguageUpdateSchema,
 	UserWorkingExSkillsByProfessions,
-	UserWorkingExCompanies
+	UserWorkingExCompanies,
+	FavoriteCompanyAddSchema,
+	FavoriteCompanyRemoveSchema,
 }

@@ -37,7 +37,11 @@ export default {
 		user_education_updated: 'განათლება განახლდა წარმატებით',
 		user_education_update_error: 'განათლების განახლებისას დაფიქსირდა შეცდომა',
 		user_education_deleted: 'განათლება წაიშალა წარმატებით',
-		user_education_delete_error: 'განათლების წაშლისას მოხდა შეცდომა'
+		user_education_delete_error: 'განათლების წაშლისას მოხდა შეცდომა',
+		// favorite company
+        add_company_to_favorites: 'კომპანია დაემატა ფავორიტებში',
+        add_company_favorites_error: 'კომპანია არ დაემატა',
+        remove_company_from_favorites: 'კომპანია ფავორიტებიდან ამოიშალა წარმატებით'
 	},
 	model: {
 		unique_phone_error: 'ანგარიში მსგავსი ტელეფონით უკვე არსებობს'
