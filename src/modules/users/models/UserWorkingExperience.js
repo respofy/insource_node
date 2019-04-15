@@ -30,6 +30,11 @@ class UserWorkingExperience extends Model {
 		this.belongsTo(models.Role)
 		// Company Relation
 		this.belongsTo(models.Company)
+		// Skills Relation
+		this.belongsToMany(models.Skill, {
+			foreignKey: 'user_working_experience_id',
+			through: 'user_working_experience_skills'
+		})
 	}
 }
 

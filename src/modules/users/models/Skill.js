@@ -22,7 +22,11 @@ class Skill extends Model {
 			through: 'profession_skill',
 			foreignKey: 'skill_id'
 		})
-
+		// WorkingExp Relation
+		this.belongsToMany(models.UserWorkingExperience, {
+			foreignKey: 'skill_id',
+			through: 'user_working_experience_skills'
+		})
 		// Profession Relation
 		// this.belongsToMany(models.Profession, {
 		// 	through: 'user_profession',

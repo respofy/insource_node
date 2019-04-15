@@ -35,7 +35,7 @@ class WorkingExService {
 	 */
 	static async create(user_id, params) {
 		// create item
-		await models.UserWorkingExperience.create({
+		let newWorkingExp = await models.UserWorkingExperience.create({
 			started_at: params.started_at,
 			finished_at: params.finished_at,
 			company_name: params.company.name,
@@ -44,6 +44,7 @@ class WorkingExService {
 			profession_id: params.profession_id,
 			role_id: params.role_id
 		})
+		console.log(newWorkingExp)
 		// craete skill record if id equals null
 		params.skills.forEach(async item => {
 			// check if item does not have id
@@ -56,7 +57,11 @@ class WorkingExService {
 				let profession = await models.Profession.findByPk(params.profession_id)
 				// attach skill to profession
 				await profession.addSkill(skill.id)
+				// associate new skill with user working experience
+				await newWorkingExp.addSkill(skill.id)
 			}
+			// associate existing skill with user working experience
+			await newWorkingExp.addSkill(item.id)
 		})
 		// TODO: write all skill ids into working ex
 	}
@@ -67,7 +72,7 @@ class WorkingExService {
 	static async getAll(userId) {
 		// get auth user
 		let user = await UserService.authUser(userId)
-		// // read user working experiences
+		// read user working experiences
 		return await user.getUserWorkingExperiences()
 	}
 

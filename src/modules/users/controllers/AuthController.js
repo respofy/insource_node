@@ -100,7 +100,7 @@ class AuthController {
 			// generate token and save the user
 			jwt.sign(user.dataValues, process.env.JWT_SECRET, (error, token) => {
 				// generate response
-				res.json(response.success(ka.tokenGenerated, { token }))
+				res.json(response.success(ka.tokenGenerated, { token, user: user.dataValues }))
 			})
 		} else {
 			// not found response

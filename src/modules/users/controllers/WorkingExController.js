@@ -83,9 +83,18 @@ class WorkingExController {
 	 */
 	static async delete() {}
 	/**
-	 *
+	 * Get list of working experiences by user
 	 */
-	static async list() {}
+	static async list(req, res) {
+		try {
+			// fetch all working experiences by user
+			let workingExps = await WorkingExService.getAll(req.user.id)
+			// response
+			res.json(response.success(ka.request_success, workingExps))
+		} catch (error) {
+			res.json(response.success(error.message))
+		}
+	}
 	/**
 	 * Create user working experience
 	 */
