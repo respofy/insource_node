@@ -33,6 +33,26 @@ class UserService {
 		}
 		return updatedUser
 	}
+
+	/**
+	 * Set city in CV
+	 */
+	static async setCity(user_id, city_id) {
+		// get auth user
+		let user = await UserService.authUser(user_id)
+		// set city to the user
+		return await user.setCity(city_id)
+	}
+
+	/**
+	 * Set status in CV
+	 */
+	static async setStatus(user_id, status_id) {
+		// get auth user
+		let user = await UserService.authUser(user_id)
+		// set status
+		return await user.setStatus(status_id)
+	}
 }
 
 export default UserService

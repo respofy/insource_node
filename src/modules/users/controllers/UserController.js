@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt'
 import response from 'helper/Response'
 import ka from 'lang/ka'
 import sms from 'helper/SmsHelper'
+import models from 'database/modelBootstrap'
 import AuthService from '../services/AuthService'
 import UserService from '../services/UserService'
 
@@ -48,14 +49,22 @@ class UserController {
 	}
 
 	/**
+	 * Get list of cities
+	 */
+	static async getCities(req, res) {
+		// get list of cities
+		let cities = await models.City.findAll()
+		// response
+		res.json(response.success(ka.request_success, cities))
+	}
+
+	/**
 	 * Set city in CV by id
 	 */
 	static async setCity(req, res) {
 		try {
-			// get auth user
-			let user = await UserService.authUser(req.user.id)
-			// set city to the user
-			await user.setCity(req.body.id)
+			// set city from user service
+			await UserService.setCity(req.user.id, req.body.id)
 			// response
 			res.json(response.success(ka.cv.city_updated))
 		} catch (error) {
@@ -64,14 +73,22 @@ class UserController {
 	}
 
 	/**
+	 * Get list of statuses
+	 */
+	static async getStatuses(req, res) {
+		// get list of statuses
+		let statuses = await models.Status.findAll()
+		// response
+		res.json(response.success(ka.request_success, statuses))
+	}
+
+	/**
 	 * Set status in CV by id
 	 */
 	static async setStatus(req, res) {
 		try {
-			// get auth user
-			let user = await UserService.authUser(req.user.id)
-			// set status
-			await user.setStatus(req.body.id)
+			// set status from user service
+			await UserService.setStatus(req.user.id, req.body.id)
 			// response
 			res.json(response.success(ka.cv.status_updated))
 		} catch (error) {

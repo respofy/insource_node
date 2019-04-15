@@ -22,7 +22,9 @@ routes.post('/reset/password', JoiMiddleware(UserSchemas.UserResetPasswordSchema
 routes.post('/auth', Auth, AuthController.getAuthUser)
 
 // CV
+routes.get('/cv/city/all', Auth, UserController.getCities)
 routes.post('/cv/city/set', Auth, JoiMiddleware(UserSchemas.UserCitySchema), UserController.setCity)
+routes.get('/cv/status/all', Auth, UserController.getStatuses)
 routes.post('/cv/status/set', Auth, JoiMiddleware(UserSchemas.UserStatusSchema), UserController.setStatus)
 // User Working Experience
 routes.get('/cv/working-ex/companies', Auth, JoiMiddleware(UserSchemas.UserWorkingExCompanies), WorkingExController.companies)
