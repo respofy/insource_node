@@ -44,7 +44,6 @@ class WorkingExService {
 			profession_id: params.profession_id,
 			role_id: params.role_id
 		})
-		console.log(newWorkingExp)
 		// craete skill record if id equals null
 		params.skills.forEach(async item => {
 			// check if item does not have id
