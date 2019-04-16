@@ -17,7 +17,7 @@ export default class Role extends Model {
 		this.hasMany(models.UserWorkingExperience)
 		// User Relation
 		this.belongsToMany(models.User, {
-			through: { model: 'user_role', unique: false },
+			through: 'user_role',
 			foreignKey: 'role_id'
 		})
 	}

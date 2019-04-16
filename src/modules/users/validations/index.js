@@ -16,6 +16,10 @@ import UserWorkingExSkillsByProfessions from './UserWorkingExSkillsByProfessions
 import UserWorkingExCompanies from './UserWorkingExCompanies'
 import FavoriteCompanyAddSchema from './FavoriteCompanyAddSchema'
 import FavoriteCompanyRemoveSchema from './FavoriteCompanyRemoveSchema'
+import InterestIndustrySetSchema from './InterestIndustrySetSchema'
+import InterestRoleSetSchema from './InterestRoleSetSchema'
+import InterestWorkingTypeSetSchema from './InterestWorkingTypeSetSchema'
+import InterestSalarySetSchema from './InterestSalarySetSchema'
 
 export default {
 	AuthFillDataSchema,
@@ -36,4 +40,8 @@ export default {
 	UserWorkingExCompanies,
 	FavoriteCompanyAddSchema,
 	FavoriteCompanyRemoveSchema,
+	InterestIndustrySetSchema,
+	InterestRoleSetSchema,
+	InterestWorkingTypeSetSchema,
+	InterestSalarySetSchema
 }

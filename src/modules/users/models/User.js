@@ -62,6 +62,8 @@ class User extends Sequelize.Model {
 		this.hasMany(models.UserWorkingExperience)
 		// User Profession Relation
 		this.hasMany(models.UserProfession)
+		// Salary Relation
+		this.hasMany(models.Salary)
 		// Company Relation
 		this.belongsToMany(models.Company, {
 			through: 'company_owners',
@@ -75,13 +77,23 @@ class User extends Sequelize.Model {
 		})
 		// Role Relation
 		this.belongsToMany(models.Role, {
-			through: { model: 'user_role', unique: false },
+			through: 'user_role',
 			foreignKey: 'user_id'
 		})
 		// Industry Relation
 		this.belongsToMany(models.Industry, {
 			through: 'user_industries',
 			unique: 'false'
+		})
+		// Working Type
+		this.belongsToMany(models.WorkingType, {
+			through: 'user_working_types',
+			foreignKey: 'user_id'
+		})
+		// Profession Relation
+		this.belongsToMany(models.Profession, {
+			through: 'user_profession',
+			foreignKey: 'user_id'
 		})
 	}
 }

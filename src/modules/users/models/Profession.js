@@ -29,9 +29,10 @@ export default class Profession extends Model {
 		// this.hasMany(models.UserEducation, {
 		// 	foreignKey: 'profession_id'
 		// })
-		// this.belongsToMany(models.User, {
-		// 	through: 'user_profession',
-		// 	foreignKey: 'profession_id'
-		// })
+		// User Relation
+		this.belongsToMany(models.User, {
+			through: 'user_profession',
+			foreignKey: 'profession_id'
+		})
 	}
 }
