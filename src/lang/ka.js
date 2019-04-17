@@ -16,6 +16,12 @@ export default {
 		avatar_required: 'ავატარის ატვირთვა აუცილებელია',
 		avatar_size_error: 'ავატარის ზომა აჭარბებს ლიმიტს'
 	},
+	company: {
+		created: 'კომპანია შეიქმნა',
+		create_error: 'კომპანია არ შეიქმნა',
+		logo_required: 'ლოგოს ატვირთვა სავალედბულოა',
+		logo_size_error: 'ლოგოს ზომა აჭარბებს ლიმიტს'
+	},
 	cv: {
 		city_updated: 'ქალაქი განახლდა',
 		city_not_updated: 'ქალაქი ვერ განახლდა',

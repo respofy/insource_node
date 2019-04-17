@@ -9,7 +9,7 @@ const CompanyFillDataSchema = {
 		identification_code: Joi.string()
 			.min(2)
 			.required(),
-		logo: Joi.string().required()
+		// logo: Joi.string().required()
 	}
 }
 

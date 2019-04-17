@@ -1,17 +1,31 @@
 import response from 'helper/Response'
 import ka from 'lang/ka'
-import models from 'database/modelBootstrap'
 import UserService from '../../users/services/UserService'
 import CompanyService from '../services/CompanyService'
 
 class CompanyController {
 	static async fillData(req, res) {
-		let createdCompany = await models.Company.create(req.body)
-		return createdCompany ? res.json(response.success('Company has been created', createdCompany)) : res.json(response.error('Error in company creation'))
+		try {
+			// validate uploaded logo
+			req.body.logo = await CompanyService.validateLogo(req.file)
+			// create company from service
+			let createdCompany = await CompanyService.register(req.user.id, req.body)
+			// response
+			res.json(response.success(ka.company.created, createdCompany))
+		} catch (error) {
+			res.json(response.error(ka.company.create_error))
+		}
 	}
 
 	static async invite(req, res) {
-		return res.json('invite')
+		try {
+			// invite users
+			await CompanyService.invite(req.user.id, req.body)
+			// response
+			res.json(response.success(ka.request_success))
+		} catch (error) {
+			res.json(response.error(error.message))
+		}
 	}
 
 	/**
