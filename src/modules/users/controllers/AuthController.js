@@ -72,6 +72,8 @@ class AuthController {
 		try {
 			// check if user is activated
 			await AuthService.isActivated(req.body.phone)
+			// validate image and return path
+			req.body.avatar = await AuthService.validateImage(req.file)
 			// create the user
 			await UserService.create(req.body)
 			// response
@@ -112,7 +114,10 @@ class AuthController {
 	 * Return authorized user object
 	 */
 	static async getAuthUser(req, res) {
-		return res.json(response.success(ka.request_success, req.user))
+		// get instance
+		let user = await UserService.authUser(req.user.id)
+		// return response
+		return res.json(response.success(ka.request_success, user))
 	}
 }
 

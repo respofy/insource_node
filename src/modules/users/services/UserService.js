@@ -13,6 +13,16 @@ class UserService {
 	}
 
 	/**
+	 * Get active company
+	 */
+	static async getActiveCompany(user_id) {
+		// get user instance
+		let user = await this.authUser(user_id)
+		// get active company id
+		return await models.Company.findByPk(user.active_company_id)
+	}
+
+	/**
 	 * check the user by different criteria
 	 */
 	static async create(data) {

@@ -12,7 +12,9 @@ export default {
 		user_resend_sms_successfully: 'სმს ხელთავიდან გაიგავნა წარმატებით',
 		verify_code_not_correct: 'ვერიფიკაციის კოდი არასწორია',
 		user_was_registered: 'მომხმარებელი დარეგისტრირდა წარამტებით',
-		user_not_activated: 'მომხმარებლის პროფილი არ არის გააქტიურებული'
+		user_not_activated: 'მომხმარებლის პროფილი არ არის გააქტიურებული',
+		avatar_required: 'ავატარის ატვირთვა აუცილებელია',
+		avatar_size_error: 'ავატარის ზომა აჭარბებს ლიმიტს'
 	},
 	cv: {
 		city_updated: 'ქალაქი განახლდა',

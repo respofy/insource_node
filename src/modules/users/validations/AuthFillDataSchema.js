@@ -21,7 +21,7 @@ const UserFillDataSchema = {
 		// gender
 		gender: Joi.string().required(),
 		// avatar
-		avatar: Joi.string().required(),
+		// avatar: Joi.string().required(),
 		// birth day
 		birthday: Joi.date(),
 		// about me

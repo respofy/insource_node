@@ -29,6 +29,7 @@ class User extends Sequelize.Model {
 					type: Sequelize.INTEGER,
 					defaultValue: 0
 				},
+				active_company_id: { type: Sequelize.INTEGER, allowNull: true, defaultValue: null },
 				sleep: {
 					type: Sequelize.INTEGER,
 					defaultValue: 0
@@ -50,6 +51,8 @@ class User extends Sequelize.Model {
 	}
 
 	static associate(models) {
+		// Active Company Relation
+		this.belongsTo(models.Company, { as: 'ActiveCompany' })
 		// City Relation
 		this.belongsTo(models.City)
 		// Status Relation
@@ -67,7 +70,8 @@ class User extends Sequelize.Model {
 		// Company Relation
 		this.belongsToMany(models.Company, {
 			through: 'company_owners',
-			foreignKey: 'user_id'
+			foreignKey: 'user_id',
+			as: 'OwnedCompanies'
 		})
 		// Favorite Company Relation
 		this.belongsToMany(models.Company, {

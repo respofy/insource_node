@@ -20,6 +20,7 @@
     "express-joi-validator": "^2.0.1",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.1",
     "mysql2": "^1.6.5",
     "sequelize": "^5.2.4"
   },

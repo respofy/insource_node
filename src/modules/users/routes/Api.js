@@ -1,4 +1,6 @@
 import express from 'express'
+import multer from 'multer'
+import storage from 'helper/uploadStorageHelper'
 import AuthController from '../controllers/AuthController'
 import UserController from '../controllers/UserController'
 import UserSchemas from '../validations'
@@ -10,12 +12,13 @@ import EducationController from '../controllers/EducationController'
 import LanguageController from '../controllers/LanguageController'
 
 const routes = express.Router()
+const upload = multer({ storage })
 
 // Auth & Password reset
 routes.post('/initialize', JoiMiddleware(UserSchemas.AuthInitializeSchema), AuthController.initialize)
 routes.post('/resend/sms', JoiMiddleware(UserSchemas.AuthResendSMSSchema), AuthController.resendSMS)
 routes.post('/verify/code', AuthController.verify)
-routes.post('/fill/data', JoiMiddleware(UserSchemas.AuthFillDataSchema), AuthController.fillData)
+routes.post('/fill/data', upload.single('avatar'), JoiMiddleware(UserSchemas.AuthFillDataSchema), AuthController.fillData)
 routes.post('/authorization', JoiMiddleware(UserSchemas.UserLoginSchema), AuthController.authorization)
 routes.post('/reset/init', JoiMiddleware(UserSchemas.AuthResendSMSSchema), UserController.initializePasswordReset)
 routes.post('/reset/password', JoiMiddleware(UserSchemas.UserResetPasswordSchema), UserController.resetPassword)
@@ -28,10 +31,10 @@ routes.get('/cv/status/all', Auth, UserController.getStatuses)
 routes.post('/cv/status/set', Auth, JoiMiddleware(UserSchemas.UserStatusSchema), UserController.setStatus)
 // User Working Experience
 routes.post('/cv/working-ex/companies', Auth, JoiMiddleware(UserSchemas.UserWorkingExCompanies), WorkingExController.companies)
-routes.get('/cv/working-ex/roles', Auth, WorkingExController.roles)
-routes.get('/cv/working-ex/professions', Auth, WorkingExController.professions)
-routes.get('/cv/working-ex/skills/by/professions', Auth, JoiMiddleware(UserSchemas.UserWorkingExSkillsByProfessions), WorkingExController.skillsByProfessions)
-routes.get('/cv/working-ex/skills/by/experience', Auth, WorkingExController.skillsByWorkingExperience)
+routes.post('/cv/working-ex/roles', Auth, WorkingExController.roles)
+routes.post('/cv/working-ex/professions', Auth, WorkingExController.professions)
+routes.post('/cv/working-ex/skills/by/professions', Auth, JoiMiddleware(UserSchemas.UserWorkingExSkillsByProfessions), WorkingExController.skillsByProfessions)
+routes.post('/cv/working-ex/skills/by/experience', Auth, WorkingExController.skillsByWorkingExperience)
 routes.post('/cv/working-ex/create', Auth, JoiMiddleware(UserSchemas.UserWorkingExCreateSchema), WorkingExController.create)
 routes.post('/cv/working-ex/update', Auth, WorkingExController.update)
 routes.post('/cv/working-ex/delete', Auth, WorkingExController.delete)
@@ -75,6 +78,5 @@ routes.post('/cv/interests/industry/set', Auth, JoiMiddleware(UserSchemas.Intere
 routes.get('/cv/interests/profession/all', Auth, InterestController.getProfessions)
 routes.post('/cv/interests/profession/set', Auth, JoiMiddleware(UserSchemas.InterestProfessionSetSchema), InterestController.setProfession)
 routes.post('/cv/interests/salary/set', Auth, JoiMiddleware(UserSchemas.InterestSalarySetSchema), InterestController.setSalary)
-
 
 export default routes

@@ -69,6 +69,20 @@ class AuthService {
 	}
 
 	/**
+	 * Validate image upload
+	 */
+	static async validateImage(image) {
+		if (!image) {
+			throw new Error(ka.auth.avatar_required)
+		}
+		// validate size
+		if (image.size > 1000000) {
+			throw new Error(ka.auth.avatar_size_error)
+		}
+		return image.path
+	}
+
+	/**
 	 * check if user is activated or not
 	 */
 	static async isActivated(phone) {
