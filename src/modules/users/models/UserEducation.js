@@ -7,7 +7,7 @@ class UserEducation extends Model {
 				started_at: { type: Sequelize.DATE, allowNull: false },
 				finished_at: { type: Sequelize.DATE },
 				user_id: { type: Sequelize.INTEGER, allowNull: false, unique: 'compositeIndex' },
-				profession_id: { type: Sequelize.INTEGER, allowNull: false, unique: 'compositeIndex' },
+				faculty_id: { type: Sequelize.INTEGER, allowNull: false, unique: 'compositeIndex' },
 				degree_id: { type: Sequelize.INTEGER, allowNull: false, unique: 'compositeIndex' },
 				university_id: { type: Sequelize.INTEGER, allowNull: false, unique: 'compositeIndex' }
 			},
@@ -22,8 +22,8 @@ class UserEducation extends Model {
 
 	static associate(models) {
 		this.belongsTo(models.User)
-		this.belongsTo(models.Profession)
 		this.belongsTo(models.Degree)
+		this.belongsTo(models.Faculty)
 		this.belongsTo(models.University)
 	}
 }

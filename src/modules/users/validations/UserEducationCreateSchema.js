@@ -6,10 +6,9 @@ const UserEducationCreateSchema = {
 		finished_at: Joi.date()
 			.min(Joi.ref('started_at'))
 			.required(),
-		profession_id: Joi.number().required(),
+		faculty_id: Joi.number().required(),
 		degree_id: Joi.number().required(),
-		university_id: Joi.number().required(),
-		faculty_id: Joi.number().required()
+		university_id: Joi.number().required()
 	}
 }
 

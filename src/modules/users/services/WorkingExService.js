@@ -81,7 +81,10 @@ class WorkingExService {
 		// get auth user
 		let user = await UserService.authUser(userId)
 		// read user working experiences
-		return await user.getUserWorkingExperiences()
+		return await user.getUserWorkingExperiences({
+			attributes: ['id', 'started_at', 'finished_at', 'company_name'],
+			include: [models.Role, models.Company, models.Profession]
+		})
 	}
 
 	/**

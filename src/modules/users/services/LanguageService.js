@@ -41,7 +41,10 @@ class LanguageService {
 		// get auth user
 		let user = await UserService.authUser(userId)
 		// read user working experiences
-		return await user.getUserLanguages()
+		return await user.getUserLanguages({
+			attributes: ['id'],
+			include: [models.Language, models.LanguageKnowledge]
+		})
 	}
 
 	/**

@@ -48,7 +48,10 @@ class EducationService {
 		// get auth user instance
 		let user = await models.User.findByPk(userId)
 		// fetch and return list of user education
-		return await user.getUserEducations()
+		return await user.getUserEducations({
+			attributes: ['id', 'started_at', 'finished_at'],
+			include: [models.Degree, models.University, models.Faculty]
+		})
 	}
 
 	/**

@@ -22,10 +22,8 @@ class Faculty extends Model {
 	/**
 	 *
 	 */
-	static associate(/* models */) {
-		// this.hasMany(models.User, {
-		// 	foreignKey: "city_id"
-		// });
+	static associate(models) {
+		this.hasMany(models.UserEducation)
 	}
 }
 
