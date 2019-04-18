@@ -5,9 +5,9 @@ const AuthInitializeSchema = {
 	body: {
 		// phone
 		phone: Joi.string()
-			.regex(/^[0-9]+$/, 'phone') // make sure phone is number
-			.length(9) // phone number length
-			.required() // phone number is required
+			.regex(/^[0-9]+$/, 'phone')
+			.length(9) 
+			.required()
 	}
 }
 

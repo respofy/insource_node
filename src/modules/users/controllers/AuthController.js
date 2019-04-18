@@ -111,6 +111,44 @@ class AuthController {
 	}
 
 	/**
+	 * Initialize password reset
+	 */
+	static async initializePasswordReset(req, res) {
+		try {
+			// check user existence
+			await AuthService.ifUserExist({ phone: req.body.phone })
+			let code = await AuthService.generateUserActivationCode(req.body.phone)
+			// send code to user
+			await sms.send(req.body.phone, code)
+			// send sms
+			await sms.send()
+			// response
+			res.json(response.success(ka.auth.user_password_reset_initialized))
+		} catch (error) {
+			// response when error happens
+			return res.json(response.error(error.message))
+		}
+	}
+
+	/**
+	 * Reset password
+	 */
+	static async resetPassword(req, res) {
+		try {
+			// check if user is activated
+			await AuthService.isActivated(req.body.phone)
+			// hash new password
+			let hashedPassword = bcrypt.hashSync(req.body.password, 10)
+			// find by phone and update user password
+			await UserService.update({ phone: req.body.phone }, { password: hashedPassword })
+			// response
+			res.json(response.success(ka.auth.user_password_reset))
+		} catch (error) {
+			return res.json(response.error(error.message))
+		}
+	}
+
+	/**
 	 * Return authorized user object
 	 */
 	static async getAuthUser(req, res) {
@@ -121,4 +159,5 @@ class AuthController {
 	}
 }
 
+// export class
 export default AuthController
