@@ -16,6 +16,7 @@ class AuthService {
 		let user = await models.User.findOne({
 			where: criteria
 		})
+
 		if (user !== null) throw new Error(ka.auth.user_found)
 		else return user
 	}
@@ -28,6 +29,7 @@ class AuthService {
 		let user = await models.User.findOne({
 			where: criteria
 		})
+
 		if (user === null) throw new Error(ka.auth.user_not_found)
 		else return user
 	}
@@ -57,8 +59,8 @@ class AuthService {
 			where: {
 				[operator.and]: {
 					phone: phone,
-					code: code,
-					activated: 0
+					code: code
+					// activated: 0
 				}
 			}
 		})
@@ -74,10 +76,6 @@ class AuthService {
 	static async validateImage(image) {
 		if (!image) {
 			throw new Error(ka.auth.avatar_required)
-		}
-		// validate size
-		if (image.size > 1000000) {
-			throw new Error(ka.auth.avatar_size_error)
 		}
 		return image.path
 	}
@@ -95,6 +93,25 @@ class AuthService {
 		if (activatedRow === null || activatedRow.activated == 0) {
 			throw new Error(ka.auth.user_not_activated)
 		}
+	}
+
+	/**
+	 *  Get authorized user instance by id
+	 */
+	static async authUser(id) {
+		return await models.User.findOne({
+			where: { id },
+			attributes: ['id', 'phone', 'name', 'surname', 'avatar', 'incognito', 'sleep', 'last_login', 'active_company_id'],
+			include: [
+				{
+					model: models.Company,
+					as: 'activeCompany',
+					include: {
+						model: models.Industry
+					}
+				}
+			]
+		})
 	}
 }
 

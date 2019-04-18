@@ -3,31 +3,11 @@ import UserService from './UserService'
 
 class LanguageService {
 	/**
-	 * Get all language
-	 */
-	static async getLanguages() {
-		// fetch all language
-		return await models.Language.findAll({
-			order: [['title', 'ASC']]
-		})
-	}
-
-	/**
-	 * Get language knowledge levels
-	 */
-	static async getLanguageKnowledges() {
-		// get language knowledges
-		return await models.LanguageKnowledge.findAll({
-			order: [['weight', 'ASC']]
-		})
-	}
-
-	/**
 	 * Create user language
 	 */
 	static async createUserLanguage(userId, data) {
 		// get auth user
-		let user = await UserService.authUser(userId)
+		let user = await AuthService.authUser(userId)
 		// add auth user in body
 		data.user_id = userId
 		// create working experience
@@ -39,7 +19,7 @@ class LanguageService {
 	 */
 	static async readUserLanguages(userId) {
 		// get auth user
-		let user = await UserService.authUser(userId)
+		let user = await AuthService.authUser(userId)
 		// read user working experiences
 		return await user.getUserLanguages({
 			attributes: ['id'],

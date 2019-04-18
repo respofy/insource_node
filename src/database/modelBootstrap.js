@@ -7,7 +7,8 @@ const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USERNAME
 	define: {
 		underscored: true,
 		timestamps: true
-	}
+	},
+	timezone: 'Asia/Tbilisi'
 })
 
 // pass your sequelize config here

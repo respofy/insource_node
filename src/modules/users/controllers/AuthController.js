@@ -90,6 +90,7 @@ class AuthController {
 	static async authorization(req, res) {
 		// TODO: set last login
 		// TODO: change user find to service
+
 		// get data from database
 		const user = await models.User.findOne({
 			where: {
@@ -97,7 +98,7 @@ class AuthController {
 			}
 		})
 		//user instance
-		let userInstance = await UserService.authUser(user.dataValues.id)
+		let userInstance = await AuthService.authUser(user.dataValues.id)
 		// compare password
 		if (user && bcrypt.compareSync(req.body.password, user.password)) {
 			// generate token and save the user
@@ -136,8 +137,8 @@ class AuthController {
 	 */
 	static async resetPassword(req, res) {
 		try {
-			// check if user is activated
-			await AuthService.isActivated(req.body.phone)
+			// make code verify
+			await AuthService.verify(req.body.phone, req.body.code)
 			// hash new password
 			let hashedPassword = bcrypt.hashSync(req.body.password, 10)
 			// find by phone and update user password
@@ -154,7 +155,7 @@ class AuthController {
 	 */
 	static async getAuthUser(req, res) {
 		// get instance
-		let user = await UserService.authUser(req.user.id)
+		let user = await AuthService.authUser(req.user.id)
 		// return response
 		return res.json(response.success(ka.request_success, user))
 	}

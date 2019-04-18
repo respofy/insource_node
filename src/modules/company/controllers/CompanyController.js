@@ -4,6 +4,22 @@ import UserService from '../../users/services/UserService'
 import CompanyService from '../services/CompanyService'
 
 class CompanyController {
+	/**
+	 *
+	 */
+	static async searchCompaniesByName(req, res) {
+		try {
+			// get the roles form service
+			let companies = await CompanyService.searchCompaniesByName(req.body.criteria)
+			// return the responce
+			res.json(response.success(ka.request_success, companies))
+		} catch (error) {
+			res.json(response.success(ka.request_error))
+		}
+	}
+	/**
+	 *
+	 */
 	static async fillData(req, res) {
 		try {
 			// validate uploaded logo
@@ -17,6 +33,9 @@ class CompanyController {
 		}
 	}
 
+	/**
+	 *
+	 */
 	static async invite(req, res) {
 		try {
 			// invite users

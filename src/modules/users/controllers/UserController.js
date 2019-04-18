@@ -1,6 +1,5 @@
 import response from 'helper/Response'
 import ka from 'lang/ka'
-import models from 'database/modelBootstrap'
 import UserService from '../services/UserService'
 
 /**
@@ -8,17 +7,66 @@ import UserService from '../services/UserService'
  */
 class UserController {
 	/**
-	 * Get list of cities
+	 * create user working experience
 	 */
-	static async getCities(req, res) {
-		// get list of cities
-		let cities = await models.City.findAll()
-		// response
-		res.json(response.success(ka.request_success, cities))
+	static async addWorkingExperience(req, res) {
+		try {
+			// create the item
+			let create = await UserService.addWorkingExperience(req.user.id, req.body)
+			// responce
+			res.json(response.success(ka.request_success, create))
+		} catch (error) {
+			res.json(response.success(error.message))
+		}
 	}
 
 	/**
+	 * update user working experience
+	 */
+	static async updateWorkingExperience() {}
+
+	/**
+	 * Delete working experience
+	 */
+	static async deleteWorkingExperience(req, res) {
+		try {
+			// destroy user working experience from service
+			await UserService.deleteWorkingExperience(req.params.id, req.user.id)
+			// response
+			res.json(response.success(ka.request_success))
+		} catch (error) {
+			res.json(response.success(error.message))
+		}
+	}
+
+	/**
+	 * Get list of working experiences by user
+	 */
+	static async listWorkingExperiences(req, res) {
+		try {
+			// fetch all working experiences by user
+			let workingExps = await UserService.listWorkingExperiences(req.user.id)
+			// response
+			res.json(response.success(ka.request_success, workingExps))
+		} catch (error) {
+			res.json(response.success(error.message))
+		}
+	}
+
+	/** -------------------------------------------------------------------- */
+
+	/**
 	 * Set city in CV by id
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
 	 */
 	static async setCity(req, res) {
 		try {
@@ -29,16 +77,6 @@ class UserController {
 		} catch (error) {
 			return res.json(response.error(ka.cv.city_not_updated))
 		}
-	}
-
-	/**
-	 * Get list of statuses
-	 */
-	static async getStatuses(req, res) {
-		// get list of statuses
-		let statuses = await models.Status.findAll()
-		// response
-		res.json(response.success(ka.request_success, statuses))
 	}
 
 	/**
