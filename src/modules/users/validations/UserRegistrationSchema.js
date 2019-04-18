@@ -3,6 +3,7 @@ import Joi from 'joi'
 const UserRegistrationSchema = {
 	body: {
 		phone: Joi.string()
+			.regex(/^[0-9]+$/, 'phone')
 			.length(9)
 			.required(),
 		name: Joi.string()

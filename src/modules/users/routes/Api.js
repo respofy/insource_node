@@ -14,14 +14,14 @@ import LanguageController from '../controllers/LanguageController'
 const routes = express.Router()
 const upload = multer({ storage })
 
-// Auth & Password reset
+// Auth Requests
 routes.post('/initialize', JoiMiddleware(UserSchemas.AuthInitializeSchema), AuthController.initialize)
 routes.post('/resend/sms', JoiMiddleware(UserSchemas.AuthResendSMSSchema), AuthController.resendSMS)
 routes.post('/verify/code', AuthController.verify)
 routes.post('/fill/data', upload.single('avatar'), JoiMiddleware(UserSchemas.AuthFillDataSchema), AuthController.fillData)
 routes.post('/authorization', JoiMiddleware(UserSchemas.UserLoginSchema), AuthController.authorization)
-routes.post('/reset/init', JoiMiddleware(UserSchemas.AuthResendSMSSchema), UserController.initializePasswordReset)
-routes.post('/reset/password', JoiMiddleware(UserSchemas.UserResetPasswordSchema), UserController.resetPassword)
+routes.post('/reset/init', JoiMiddleware(UserSchemas.AuthResendSMSSchema), AuthController.initializePasswordReset)
+routes.post('/reset/password', JoiMiddleware(UserSchemas.UserResetPasswordSchema), AuthController.resetPassword)
 routes.post('/auth', Auth, AuthController.getAuthUser)
 
 // CV

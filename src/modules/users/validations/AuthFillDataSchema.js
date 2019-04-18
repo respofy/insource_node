@@ -4,6 +4,7 @@ const UserFillDataSchema = {
 	body: {
 		// phone
 		phone: Joi.string()
+			.regex(/^[0-9]+$/, 'phone')
 			.length(9)
 			.required(),
 		// password
