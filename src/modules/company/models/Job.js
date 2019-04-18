@@ -21,6 +21,7 @@ class Job extends Sequelize.Model {
 			},
 			{
 				sequelize,
+				modelName: 'job',
 				tableName: 'jobs'
 			}
 		)

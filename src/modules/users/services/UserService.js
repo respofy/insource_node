@@ -68,7 +68,10 @@ class UserService {
 		// get auth user
 		let user = await UserService.authUser(user_id)
 		// return favorite companies
-		return await user.getFavoriteCompanies()
+		return await user.getFavoriteCompanies({
+			attributes: ['id', 'name', 'logo', 'identification_code'],
+			include: [models.Industry]
+		})
 	}
 
 	/**

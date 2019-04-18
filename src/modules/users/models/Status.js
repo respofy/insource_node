@@ -13,7 +13,8 @@ export default class Status extends Model {
 				sequelize,
 				singular: 'status',
 				plural: 'statuses',
-				tableName: 'statuses'
+				tableName: 'statuses',
+				modelName: 'status'
 			}
 		)
 	}

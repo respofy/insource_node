@@ -4,7 +4,7 @@ export default class Salary extends Model {
 	static init(sequelize) {
 		return super.init(
 			{
-				id: { type: Sequelize.INTEGER, primaryKey: true, allowNull: false, autoIncrement: true  },
+				id: { type: Sequelize.INTEGER, primaryKey: true, allowNull: false, autoIncrement: true },
 				salary_amount: { type: Sequelize.DOUBLE, allowNull: false },
 				user_id: { type: Sequelize.INTEGER, allowNull: false }
 			},
@@ -12,7 +12,8 @@ export default class Salary extends Model {
 				sequelize,
 				singular: 'salary',
 				plural: 'salaries',
-				tableName: 'user_salaries'
+				tableName: 'user_salaries',
+				modelName: 'salary'
 			}
 		)
 	}

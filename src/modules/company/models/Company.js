@@ -9,7 +9,7 @@ class Company extends Sequelize.Model {
 				logo: { type: Sequelize.STRING, allowNull: false },
 				identification_code: { type: Sequelize.STRING, allowNull: false }
 			},
-			{ sequelize, underscored: true, timestamps: true }
+			{ sequelize, modelName: 'company', underscored: true, timestamps: true }
 		)
 	}
 

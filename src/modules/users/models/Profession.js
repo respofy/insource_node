@@ -8,7 +8,8 @@ export default class Profession extends Model {
 			},
 			{
 				sequelize,
-				tableName: 'professions'
+				tableName: 'professions',
+				modelName: 'profession'
 			}
 		)
 	}

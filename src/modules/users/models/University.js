@@ -14,7 +14,8 @@ class University extends Model {
 			},
 			{
 				sequelize,
-				tableName: 'universities'
+				tableName: 'universities',
+				modelName: 'university'
 			}
 		)
 	}

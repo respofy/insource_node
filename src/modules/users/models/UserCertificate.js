@@ -14,7 +14,7 @@ export default class UserCertificate extends Model {
 				sequelize,
 				singular: 'UserCertificate',
 				plural: 'UserCertificates',
-				tableName: 'user_certificates'
+				tableName: 'user_certificates',
 			}
 		)
 	}

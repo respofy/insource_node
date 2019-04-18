@@ -15,7 +15,7 @@ class UserEducation extends Model {
 				sequelize,
 				singular: 'UserEducation',
 				plural: 'UserEducations',
-				tableName: 'user_education'
+				tableName: 'user_education',
 			}
 		)
 	}

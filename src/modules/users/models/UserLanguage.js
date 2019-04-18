@@ -12,7 +12,7 @@ class UserLanguage extends Sequelize.Model {
 				sequelize,
 				singular: 'UserLanguage',
 				plural: 'UserLanguages',
-				tableName: 'user_languages'
+				tableName: 'user_languages',
 			}
 		)
 	}

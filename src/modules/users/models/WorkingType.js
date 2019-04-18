@@ -11,7 +11,8 @@ export default class WorkingType extends Model {
 				sequelize,
 				singular: 'WorkingType',
 				plural: 'WorkingTypes',
-				tableName: 'working_types'
+				tableName: 'working_types',
+				modelName: 'workingType'
 			}
 		)
 	}

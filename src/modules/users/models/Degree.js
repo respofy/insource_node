@@ -14,7 +14,8 @@ class Degree extends Model {
 			},
 			{
 				sequelize,
-				tableName: 'degrees'
+				tableName: 'degrees',
+				modelName: 'degree'
 			}
 		)
 	}

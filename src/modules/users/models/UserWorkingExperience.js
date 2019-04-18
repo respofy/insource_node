@@ -16,7 +16,7 @@ class UserWorkingExperience extends Model {
 				sequelize,
 				singular: 'UserWorkingExperience',
 				plural: 'UserWorkingExperiences',
-				tableName: 'user_working_ex'
+				tableName: 'user_working_ex',
 			}
 		)
 	}

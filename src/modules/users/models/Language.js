@@ -8,7 +8,8 @@ export default class Language extends Model {
 			},
 			{
 				sequelize,
-				tableName: 'languages'
+				tableName: 'languages',
+				modelName: 'language'
 			}
 		)
 	}

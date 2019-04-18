@@ -11,7 +11,8 @@ class Skill extends Model {
 			},
 			{
 				sequelize,
-				tableName: 'skills'
+				tableName: 'skills',
+				modelName: 'skill'
 			}
 		)
 	}

@@ -11,7 +11,8 @@ export default class LanguageKnowledge extends Model {
 				sequelize,
 				singular: 'languageKnowledge',
 				plural: 'languageKnowledges',
-				tableName: 'language_knowledge'
+				tableName: 'language_knowledge',
+				modelName: 'languageKnowledge'
 			}
 		)
 	}

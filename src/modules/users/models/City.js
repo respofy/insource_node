@@ -8,7 +8,8 @@ class City extends Sequelize.Model {
 			},
 			{
 				sequelize,
-				tableName: 'cities'
+				tableName: 'cities',
+				modelName: 'city'
 			}
 		)
 	}

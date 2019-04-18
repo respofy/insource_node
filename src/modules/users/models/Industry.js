@@ -11,7 +11,8 @@ export default class Industry extends Model {
 				sequelize,
 				singular: 'industry',
 				plural: 'industries',
-				tableName: 'industries'
+				tableName: 'industries',
+				modelName: 'industry'
 			}
 		)
 	}

@@ -12,7 +12,7 @@ export default class UserProfession extends Model {
 				sequelize,
 				singular: 'UserProfession',
 				plural: 'UserProfessions',
-				tableName: 'user_profession'
+				tableName: 'user_profession',
 			}
 		)
 	}
