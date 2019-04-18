@@ -96,13 +96,14 @@ class AuthController {
 				phone: req.body.phone
 			}
 		})
-
+		//user instance
+		let userInstance = await UserService.authUser(user.dataValues.id)
 		// compare password
 		if (user && bcrypt.compareSync(req.body.password, user.password)) {
 			// generate token and save the user
 			jwt.sign(user.dataValues, process.env.JWT_SECRET, (error, token) => {
 				// generate response
-				res.json(response.success(ka.tokenGenerated, { token, user: user.dataValues }))
+				res.json(response.success(ka.tokenGenerated, { token, user: userInstance }))
 			})
 		} else {
 			// not found response

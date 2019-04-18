@@ -12,7 +12,15 @@ class UserService {
 		return await models.User.findOne({
 			where: { id },
 			attributes: ['id', 'phone', 'name', 'surname', 'avatar', 'incognito', 'sleep', 'last_login', 'active_company_id'],
-			include: [{ model: models.Company, as: 'activeCompany' }]
+			include: [
+				{
+					model: models.Company,
+					as: 'activeCompany',
+					include: {
+						model: models.Industry
+					}
+				}
+			]
 		})
 	}
 
