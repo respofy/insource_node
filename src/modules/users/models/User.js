@@ -67,6 +67,8 @@ class User extends Sequelize.Model {
 		this.hasMany(models.UserProfession)
 		// Salary Relation
 		this.hasMany(models.Salary)
+		// Certificate Relation
+		this.hasMany(models.UserCertificate)
 		// Company Relation
 		this.belongsToMany(models.Company, {
 			through: 'company_owners',

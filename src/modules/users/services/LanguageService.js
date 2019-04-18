@@ -67,6 +67,10 @@ class LanguageService {
 	static async deleteUserLanguage(id, user_id) {
 		// get working experience by id
 		let userLanguage = await models.UserLanguage.findOne({ where: { id, user_id } })
+		// check result
+		if (userLanguage === null) {
+			throw new Error()
+		}
 		// delete working experience
 		return await userLanguage.destroy()
 	}

@@ -26,6 +26,7 @@ import LanguageKnowledge from 'modules/users/models/LanguageKnowledge'
 import UserLanguage from 'modules/users/models/UserLanguage'
 import UserProfession from 'modules/users/models/UserProfession'
 import UserWorkingExperience from 'modules/users/models/UserWorkingExperience'
+import UserCertificate from 'modules/users/models/UserCertificate'
 
 import Company from 'modules/company/models/Company'
 import Industry from 'modules/users/models/Industry'
@@ -51,6 +52,7 @@ const models = {
 	UserLanguage: UserLanguage.init(sequelize, Sequelize),
 	UserProfession: UserProfession.init(sequelize, Sequelize),
 	UserWorkingExperience: UserWorkingExperience.init(sequelize, Sequelize),
+	UserCertificate: UserCertificate.init(sequelize, Sequelize),
 	Language: Language.init(sequelize, Sequelize),
 	LanguageKnowledge: LanguageKnowledge.init(sequelize, Sequelize),
 	Profession: Profession.init(sequelize, Sequelize),

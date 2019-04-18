@@ -20,6 +20,8 @@ import InterestIndustrySetSchema from './InterestIndustrySetSchema'
 import InterestRoleSetSchema from './InterestRoleSetSchema'
 import InterestWorkingTypeSetSchema from './InterestWorkingTypeSetSchema'
 import InterestSalarySetSchema from './InterestSalarySetSchema'
+import UserCertificateCreateSchema from './UserCertificateCreateSchema'
+import UserCertificateUpdateSchema from './UserCertificateUpdateSchema'
 
 export default {
 	AuthFillDataSchema,
@@ -43,5 +45,7 @@ export default {
 	InterestIndustrySetSchema,
 	InterestRoleSetSchema,
 	InterestWorkingTypeSetSchema,
-	InterestSalarySetSchema
+	InterestSalarySetSchema,
+	UserCertificateCreateSchema,
+	UserCertificateUpdateSchema
 }

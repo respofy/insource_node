@@ -10,6 +10,7 @@ import WorkingExController from '../controllers/WorkingExController'
 import InterestController from '../controllers/InterestController'
 import EducationController from '../controllers/EducationController'
 import LanguageController from '../controllers/LanguageController'
+import CertificateController from '../controllers/CertificateController'
 
 const routes = express.Router()
 const upload = multer({ storage })
@@ -25,6 +26,7 @@ routes.post('/reset/password', JoiMiddleware(UserSchemas.UserResetPasswordSchema
 routes.post('/auth', Auth, AuthController.getAuthUser)
 
 // CV
+
 routes.get('/cv/city/all', Auth, UserController.getCities)
 routes.post('/cv/city/set', Auth, JoiMiddleware(UserSchemas.UserCitySchema), UserController.setCity)
 routes.get('/cv/status/all', Auth, UserController.getStatuses)
@@ -78,5 +80,11 @@ routes.post('/cv/interests/industry/set', Auth, JoiMiddleware(UserSchemas.Intere
 routes.get('/cv/interests/profession/all', Auth, InterestController.getProfessions)
 routes.post('/cv/interests/profession/set', Auth, JoiMiddleware(UserSchemas.InterestProfessionSetSchema), InterestController.setProfession)
 routes.post('/cv/interests/salary/set', Auth, JoiMiddleware(UserSchemas.InterestSalarySetSchema), InterestController.setSalary)
+
+// certificates
+routes.get('/cv/certificate/all', Auth, CertificateController.list)
+routes.post('/cv/certificate/create', Auth, JoiMiddleware(UserSchemas.UserCertificateCreateSchema), CertificateController.create)
+routes.post('/cv/certificate/update', Auth, JoiMiddleware(UserSchemas.UserCertificateUpdateSchema), CertificateController.update)
+routes.post('/cv/certificate/delete', Auth, CertificateController.delete)
 
 export default routes

@@ -76,6 +76,10 @@ class EducationService {
 	static async delete(id, user_id) {
 		// get instance by id
 		let userEducation = await models.UserEducation.findOne({ where: { id, user_id } })
+		// check result
+		if (userEducation === null) {
+			throw new Error()
+		}
 		// destroy record
 		return await userEducation.destroy()
 	}

@@ -49,7 +49,14 @@ export default {
 		// favorite company
 		add_company_to_favorites: 'კომპანია დაემატა ფავორიტებში',
 		add_company_favorites_error: 'კომპანია არ დაემატა',
-		remove_company_from_favorites: 'კომპანია ფავორიტებიდან ამოიშალა წარმატებით'
+		remove_company_from_favorites: 'კომპანია ფავორიტებიდან ამოიშალა წარმატებით',
+		// certificate
+		certificate_created: 'სერტიფიკატი დაემატა',
+		certificate_create_error: 'სერტიფიკატი არ დაემატა',
+		certificate_updated: 'სერტიფიკატი განახლდა',
+		certificate_update_error: 'სერტიფიკატი არ განახლდა',
+		certificate_deleted: 'სერტიფიკატი წაიშალა',
+		certificate_delete_error: 'სერტიფიკატის წაშლისას დაფიქსირდა შეცდომა'
 	},
 	model: {
 		unique_phone_error: 'ანგარიში მსგავსი ტელეფონით უკვე არსებობს'
