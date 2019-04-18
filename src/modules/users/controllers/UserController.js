@@ -20,8 +20,7 @@ class UserController {
 			let code = await AuthService.generateUserActivationCode(req.body.phone)
 			// send code to user
 			await sms.send(req.body.phone, code)
-			// send sms
-			await sms.send()
+
 			// response
 			res.json(response.success(ka.auth.user_password_reset_initialized))
 		} catch (error) {
