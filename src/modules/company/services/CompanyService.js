@@ -48,10 +48,6 @@ class CompanyService {
 		if (!logo) {
 			throw new Error(ka.auth.logo_required)
 		}
-		// validate size
-		if (logo.size > 1000000) {
-			throw new Error(ka.auth.logo_size_error)
-		}
 		return logo.path
 	}
 
