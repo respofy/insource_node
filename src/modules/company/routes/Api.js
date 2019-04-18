@@ -16,4 +16,6 @@ routes.get('/owned/list', Auth, CompanyController.getUserOwnedCompanies)
 routes.get('/active', Auth, CompanyController.getActiveCompany)
 routes.post('/switch', Auth, JoiMiddleware(CompanySchemas.ActiveCompanySwitchSchema), CompanyController.switchActiveCompany)
 
+routes.post('/search/companies/by/name', Auth, CompanyController.searchCompaniesByName)
+
 export default routes

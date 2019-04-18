@@ -3,39 +3,11 @@ import UserService from '../services/UserService'
 
 class InterestService {
 	/**
-	 * Fetch list of roles
-	 */
-	static async getRoles() {
-		return await models.Role.findAll()
-	}
-
-	/**
-	 * Fetch list of working types
-	 */
-	static async getWorkingTypes() {
-		return await models.WorkingType.findAll()
-	}
-
-	/**
-	 * Fetch list of industries
-	 */
-	static async getIndustries() {
-		return await models.Industry.findAll()
-	}
-
-	/**
-	 * Fetch list of professions
-	 */
-	static async getProfessions() {
-		return await models.Profession.findAll()
-	}
-
-	/**
 	 * Set role interest to user
 	 */
 	static async setRole(user_id, role_id) {
 		// get auth user instance
-		let user = await UserService.authUser(user_id)
+		let user = await AuthService.authUser(user_id)
 		// attach role to user result
 		return await user.setRoles(role_id)
 	}
@@ -45,7 +17,7 @@ class InterestService {
 	 */
 	static async setWorkingType(user_id, working_type_id) {
 		// get auth user instance
-		let user = await UserService.authUser(user_id)
+		let user = await AuthService.authUser(user_id)
 		// attach role to user result
 		return await user.setWorkingTypes(working_type_id)
 	}
@@ -55,7 +27,7 @@ class InterestService {
 	 */
 	static async setIndustry(user_id, industry_id) {
 		// get auth user instance
-		let user = await UserService.authUser(user_id)
+		let user = await AuthService.authUser(user_id)
 		// attach role to user result
 		return await user.setIndustries(industry_id)
 	}
@@ -65,7 +37,7 @@ class InterestService {
 	 */
 	static async setProfession(user_id, profession_id) {
 		// get auth user instance
-		let user = await UserService.authUser(user_id)
+		let user = await AuthService.authUser(user_id)
 		// attach role to user result
 		return await user.setProfessions(profession_id)
 	}
@@ -75,7 +47,7 @@ class InterestService {
 	 */
 	static async setSalary(user_id, salary_amount) {
 		// get auth user instance
-		let user = await UserService.authUser(user_id)
+		let user = await AuthService.authUser(user_id)
 		// attach role to user result
 		return await user.createSalary({ user_id, salary_amount })
 	}
@@ -85,7 +57,7 @@ class InterestService {
 	 */
 	static async getInterests(user_id) {
 		// get auth user instance
-		let user = await UserService.authUser(user_id)
+		let user = await AuthService.authUser(user_id)
 		// fetch interests
 		let salary = await models.Salary.findOne({
 			limit: 1,

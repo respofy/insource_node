@@ -1,31 +1,107 @@
 import models from 'database/modelBootstrap'
 import ka from 'lang/ka'
+import AuthService from '../services/AuthService'
 
 /**
  * User Services
  */
 class UserService {
 	/**
-	 *  Get authorized user instance by id
+	 * add user working experience
 	 */
-	static async authUser(id) {
-		return await models.User.findOne({
-			where: { id },
-			attributes: ['id', 'phone', 'name', 'surname', 'avatar', 'incognito', 'sleep', 'last_login', 'active_company_id'],
-			include: [
-				{
-					model: models.Company,
-					as: 'activeCompany',
-					include: {
-						model: models.Industry
-					}
-				}
-			]
+	static async addWorkingExperience(user_id, params) {
+		// create working experience item
+		let newWorkingExp = await models.UserWorkingExperience.create({
+			started_at: params.started_at,
+			finished_at: params.finished_at,
+			company_name: params.company.name,
+			company_id: params.company.id,
+			user_id: user_id,
+			profession_id: params.profession_id,
+			role_id: params.role_id
+		})
+		// create skill record if id equals null
+		params.skills.forEach(async item => {
+			// check if item does not have id
+			if (item.id == null) {
+				let skill = await models.Skill.create({
+					title: item.title
+				})
+				// after create skill record relate the record to profession
+				// get profession instance
+				let profession = await models.Profession.findByPk(params.profession_id)
+				// attach skill to profession
+				await profession.addSkill(skill.id)
+				// associate new skill with user working experience
+				await newWorkingExp.addSkill(skill.id)
+			}
+			// associate existing skill with user working experience
+			await newWorkingExp.addSkill(item.id)
 		})
 	}
 
 	/**
+	 * update working experience
+	 */
+	// eslint-disable-next-line no-unused-vars
+	static async updateWorkingExperience(id, requestBody) {
+		// // get working experience by id
+		// let workingExp = await models.UserWorkingExperience.findOne({ where: { id } })
+		// // update working experience
+		// let updatedWorkingExp = await workingExp.update(requestBody)
+		// // throw error on negative result
+		// if (updatedWorkingExp === null) {
+		// 	throw new Error()
+		// }
+		// // return updated record
+		// return updatedWorkingExp
+	}
+
+	/**
+	 * delete working experience
+	 */
+	static async deleteWorkingExperience(id, user_id) {
+		// get working experience by id
+		let workingExp = await models.UserWorkingExperience.findOne({ where: { id, user_id } })
+		// delete working experience
+		return await workingExp.destroy()
+	}
+
+	/**
+	 * Get all working experience
+	 */
+	static async listWorkingExperiences(userId) {
+		// get auth user
+		let user = await AuthService.authUser(userId)
+		// read user working experiences
+		return await user.getUserWorkingExperiences({
+			attributes: ['id', 'started_at', 'finished_at', 'company_name'],
+			include: [models.Role, models.Company, models.Profession]
+		})
+	}
+
+	/**
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 */
+
+	/**
 	 * Get active company
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
 	 */
 	static async getActiveCompany(user_id) {
 		// get user instance
@@ -61,7 +137,7 @@ class UserService {
 	 */
 	static async setCity(user_id, city_id) {
 		// get auth user
-		let user = await UserService.authUser(user_id)
+		let user = await AuthService.authUser(user_id)
 		// set city to the user
 		return await user.setCity(city_id)
 	}
@@ -71,7 +147,7 @@ class UserService {
 	 */
 	static async setStatus(user_id, status_id) {
 		// get auth user
-		let user = await UserService.authUser(user_id)
+		let user = await AuthService.authUser(user_id)
 		// set status
 		return await user.setStatus(status_id)
 	}
@@ -81,7 +157,7 @@ class UserService {
 	 */
 	static async getFavoriteCompanies(user_id) {
 		// get auth user
-		let user = await UserService.authUser(user_id)
+		let user = await AuthService.authUser(user_id)
 		// return favorite companies
 		return await user.getFavoriteCompanies({
 			attributes: ['id', 'name', 'logo', 'identification_code'],

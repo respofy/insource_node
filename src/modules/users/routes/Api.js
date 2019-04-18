@@ -1,12 +1,14 @@
 import express from 'express'
 import multer from 'multer'
 import storage from 'helper/uploadStorageHelper'
-import AuthController from '../controllers/AuthController'
-import UserController from '../controllers/UserController'
 import UserSchemas from '../validations'
 import Auth from 'middleware/AuthMiddleware'
 import JoiMiddleware from 'middleware/JoiMiddleware'
-import WorkingExController from '../controllers/WorkingExController'
+
+import AuthController from '../controllers/AuthController'
+import UserController from '../controllers/UserController'
+import AttributesController from '../controllers/AttributesController'
+
 import InterestController from '../controllers/InterestController'
 import EducationController from '../controllers/EducationController'
 import LanguageController from '../controllers/LanguageController'
@@ -14,7 +16,7 @@ import LanguageController from '../controllers/LanguageController'
 const routes = express.Router()
 const upload = multer({ storage })
 
-// Auth Requests
+// auth requests
 routes.post('/initialize', JoiMiddleware(UserSchemas.AuthInitializeSchema), AuthController.initialize)
 routes.post('/resend/sms', JoiMiddleware(UserSchemas.AuthResendSMSSchema), AuthController.resendSMS)
 routes.post('/verify/code', AuthController.verify)
@@ -24,21 +26,37 @@ routes.post('/reset/init', JoiMiddleware(UserSchemas.AuthResendSMSSchema), AuthC
 routes.post('/reset/password', JoiMiddleware(UserSchemas.UserResetPasswordSchema), AuthController.resetPassword)
 routes.post('/auth', Auth, AuthController.getAuthUser)
 
+// attributes
+routes.get('/attributes/roles', Auth, AttributesController.roles)
+routes.get('/attributes/professions', Auth, AttributesController.professions)
+routes.get('/attributes/skills/by/profession/:profession_id', Auth, AttributesController.skillsByProfession)
+routes.get('/attributes/cities', Auth, AttributesController.cities)
+routes.get('/attributes/working/types', Auth, AttributesController.workingTypes)
+routes.get('/attributes/universities', Auth, AttributesController.universities)
+routes.get('/attributes/faculties', Auth, AttributesController.faculties)
+routes.get('/attributes/degrees', Auth, AttributesController.degrees)
+routes.get('/attributes/statuses', Auth, AttributesController.statuses)
+routes.get('/attributes/languages', Auth, AttributesController.languages)
+routes.get('/attributes/language/knowledges', Auth, AttributesController.languageKnowledges)
+
+// working experience
+routes.post('/working/experience/create', Auth, JoiMiddleware(UserSchemas.UserWorkingExCreateSchema), UserController.addWorkingExperience)
+routes.post('/working/experience/update', Auth, UserController.updateWorkingExperience)
+routes.post('/working/experience/delete/:id', Auth, UserController.deleteWorkingExperience)
+routes.get('/working/experience/read', Auth, UserController.listWorkingExperiences)
+
+// routes.post('/add/working-experience', Auth, JoiMiddleware(UserSchemas.UserWorkingExCompanies), WorkingExController.companies)
+
+// routes.post('/cv/working-ex/companies', Auth, JoiMiddleware(UserSchemas.UserWorkingExCompanies), WorkingExController.companies)
+
+// routes.post('/cv/working-ex/skills/by/professions', Auth, JoiMiddleware(UserSchemas.UserWorkingExSkillsByProfessions), WorkingExController.skillsByProfessions)
+// routes.post('/cv/working-ex/skills/by/experience', Auth, WorkingExController.skillsByWorkingExperience)
+
 // CV
-routes.get('/cv/city/all', Auth, UserController.getCities)
+// routes.get('/cv/city/all', Auth, UserController.getCities)
 routes.post('/cv/city/set', Auth, JoiMiddleware(UserSchemas.UserCitySchema), UserController.setCity)
-routes.get('/cv/status/all', Auth, UserController.getStatuses)
+// routes.get('/cv/status/all', Auth, UserController.getStatuses)
 routes.post('/cv/status/set', Auth, JoiMiddleware(UserSchemas.UserStatusSchema), UserController.setStatus)
-// User Working Experience
-routes.post('/cv/working-ex/companies', Auth, JoiMiddleware(UserSchemas.UserWorkingExCompanies), WorkingExController.companies)
-routes.post('/cv/working-ex/roles', Auth, WorkingExController.roles)
-routes.post('/cv/working-ex/professions', Auth, WorkingExController.professions)
-routes.post('/cv/working-ex/skills/by/professions', Auth, JoiMiddleware(UserSchemas.UserWorkingExSkillsByProfessions), WorkingExController.skillsByProfessions)
-routes.post('/cv/working-ex/skills/by/experience', Auth, WorkingExController.skillsByWorkingExperience)
-routes.post('/cv/working-ex/create', Auth, JoiMiddleware(UserSchemas.UserWorkingExCreateSchema), WorkingExController.create)
-routes.post('/cv/working-ex/update', Auth, WorkingExController.update)
-routes.post('/cv/working-ex/delete', Auth, WorkingExController.delete)
-routes.get('/cv/working-ex/list', Auth, WorkingExController.list)
 
 // universities
 routes.post('/cv/universities', Auth, EducationController.universities)
@@ -61,8 +79,7 @@ routes.post('/cv/education/create', Auth, JoiMiddleware(UserSchemas.UserEducatio
 routes.post('/cv/education/update', Auth, JoiMiddleware(UserSchemas.UserEducationUpdateSchema), EducationController.update)
 routes.post('/cv/education/delete', Auth, EducationController.delete)
 
-// favorite companies // FIXME: make company search reusable
-routes.post('/cv/favorite/company/search', Auth, JoiMiddleware(UserSchemas.UserWorkingExCompanies), WorkingExController.companies)
+// routes.post('/cv/favorite/company/search', Auth, JoiMiddleware(UserSchemas.UserWorkingExCompanies), WorkingExController.companies)
 routes.post('/cv/favorite/company/add', Auth, JoiMiddleware(UserSchemas.FavoriteCompanyAddSchema), UserController.addCompanyToFavorites)
 routes.post('/cv/favorite/company/remove', Auth, JoiMiddleware(UserSchemas.FavoriteCompanyRemoveSchema), UserController.removeCompanyFromFavorites)
 routes.get('/cv/favorite/company/all', Auth, UserController.favoriteCompanies)
