@@ -1,7 +1,6 @@
 import models from 'database/modelBootstrap'
 import ka from 'lang/ka'
 import sequelize from 'sequelize'
-import moment from 'moment'
 
 const operator = sequelize.Op
 
