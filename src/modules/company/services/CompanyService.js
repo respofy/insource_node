@@ -29,7 +29,7 @@ class CompanyService {
 		let activeCompany = await UserService.getActiveCompany(user_id)
 		// loop through invited user phones
 
-		return await invited_users.forEach(async phone => {
+		invited_users.forEach(async phone => {
 			// get invited user instance
 			let invitedUser = await models.User.findOne({ where: { phone } })
 			// if user has not found thow Error
@@ -47,10 +47,6 @@ class CompanyService {
 	static async validateLogo(logo) {
 		if (!logo) {
 			throw new Error(ka.auth.logo_required)
-		}
-		// validate size
-		if (logo.size > 1000000) {
-			throw new Error(ka.auth.logo_size_error)
 		}
 		return logo.path
 	}

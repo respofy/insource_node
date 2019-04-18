@@ -52,7 +52,7 @@ class User extends Sequelize.Model {
 
 	static associate(models) {
 		// Active Company Relation
-		this.belongsTo(models.Company, { as: 'ActiveCompany' })
+		this.belongsTo(models.Company, { as: 'activeCompany' })
 		// City Relation
 		this.belongsTo(models.City)
 		// Status Relation

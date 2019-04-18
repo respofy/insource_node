@@ -9,7 +9,11 @@ class UserService {
 	 *  Get authorized user instance by id
 	 */
 	static async authUser(id) {
-		return await models.User.findOne({ where: { id } })
+		return await models.User.findOne({
+			where: { id },
+			attributes: ['id', 'phone', 'name', 'surname', 'avatar', 'incognito', 'sleep', 'last_login', 'active_company_id'],
+			include: [{ model: models.Company, as: 'activeCompany' }]
+		})
 	}
 
 	/**
