@@ -64,6 +64,9 @@ class UserService {
 		return await user.setStatus(status_id)
 	}
 
+	/**
+	 *
+	 */
 	static async getFavoriteCompanies(user_id) {
 		// get auth user
 		let user = await UserService.authUser(user_id)

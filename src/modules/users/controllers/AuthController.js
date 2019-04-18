@@ -135,8 +135,8 @@ class AuthController {
 	 */
 	static async resetPassword(req, res) {
 		try {
-			// check if user is activated
-			await AuthService.isActivated(req.body.phone)
+			// make code verify
+			await AuthService.verify(req.body.phone, req.body.code)
 			// hash new password
 			let hashedPassword = bcrypt.hashSync(req.body.password, 10)
 			// find by phone and update user password

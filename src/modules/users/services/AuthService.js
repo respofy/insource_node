@@ -1,6 +1,7 @@
 import models from 'database/modelBootstrap'
 import ka from 'lang/ka'
 import sequelize from 'sequelize'
+import moment from 'moment'
 
 const operator = sequelize.Op
 
@@ -16,6 +17,7 @@ class AuthService {
 		let user = await models.User.findOne({
 			where: criteria
 		})
+
 		if (user !== null) throw new Error(ka.auth.user_found)
 		else return user
 	}
@@ -28,6 +30,7 @@ class AuthService {
 		let user = await models.User.findOne({
 			where: criteria
 		})
+
 		if (user === null) throw new Error(ka.auth.user_not_found)
 		else return user
 	}
@@ -57,8 +60,8 @@ class AuthService {
 			where: {
 				[operator.and]: {
 					phone: phone,
-					code: code,
-					activated: 0
+					code: code
+					// activated: 0
 				}
 			}
 		})
@@ -74,10 +77,6 @@ class AuthService {
 	static async validateImage(image) {
 		if (!image) {
 			throw new Error(ka.auth.avatar_required)
-		}
-		// validate size
-		if (image.size > 1000000) {
-			throw new Error(ka.auth.avatar_size_error)
 		}
 		return image.path
 	}
