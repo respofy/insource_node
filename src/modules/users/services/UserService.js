@@ -105,7 +105,7 @@ class UserService {
 	 */
 	static async getActiveCompany(user_id) {
 		// get user instance
-		let user = await this.authUser(user_id)
+		let user = await models.User.findByPk(user_id)
 		// get active company id
 		return await models.Company.findByPk(user.active_company_id)
 	}
