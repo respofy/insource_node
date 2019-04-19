@@ -2,6 +2,7 @@ import models from 'database/modelBootstrap'
 import ka from 'lang/ka'
 import sequelize from 'sequelize'
 import UserService from '../../users/services/UserService'
+import AuthService from '../../users/services/AuthService'
 
 const operator = sequelize.Op
 
@@ -25,20 +26,40 @@ class CompanyService {
 	 * Invite user in company
 	 */
 	static async invite(user_id, invited_users) {
-		// get user active company
-		let activeCompany = await UserService.getActiveCompany(user_id)
-		// loop through invited user phones
+		// FIXME: services needs to be adjusted 
+		let activeUser = await AuthService.authUser(user_id)
+		let activeCompany = await models.Company.findByPk(activeUser.active_company_id)
 
-		invited_users.forEach(async phone => {
-			// get invited user instance
-			let invitedUser = await models.User.findOne({ where: { phone } })
-			// if user has not found thow Error
-			if (invitedUser === null) {
-				throw new Error('მომხმარებელი ნომრით ' + phone + ' არ მოიძებნა')
-			}
-			// add in company
-			await activeCompany.addOwner(invitedUser.id)
-		})
+		/**
+		 * check users in db
+		 */
+		async function validateAndInvite() {
+			// prepare array for candidates
+			let candidates = []
+			// loop provided phones
+			let promises = await invited_users.map(async phone => {
+				// validate in db
+				let invitedUser = await models.User.findOne({ where: { phone } })
+				// if doest exists return rejected promise
+				if (invitedUser === null) {
+					throw new Error('მომხმარებელი ნომრით ' + phone + ' არ იქნა ნამოვნი')
+				}
+				// if exists push in candidates
+				candidates.push(invitedUser.id)
+			})
+
+			// return resolved promise
+			return await Promise.all(promises).then(() => {
+				// add users after all promise resolves
+				activeCompany.addOwners(candidates)
+			})
+		}
+
+		try {
+			await validateAndInvite()
+		} catch (error) {
+			throw new Error(error.message)
+		}
 	}
 
 	/**
