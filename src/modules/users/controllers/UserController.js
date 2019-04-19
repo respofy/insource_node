@@ -56,17 +56,64 @@ class UserController {
 	/** -------------------------------------------------------------------- */
 
 	/**
+	 * Create user language
+	 */
+	static async addLanguage(req, res) {
+		try {
+			// create new user language from language service
+			let newUserLanguage = await UserService.addLanguage(req.user.id, req.body)
+			// response
+			res.json(response.success(ka.cv.user_language_created, newUserLanguage))
+		} catch (error) {
+			return res.json(response.error(error.message))
+			// return res.json(response.error(ka.cv.user_language_create_error))
+		}
+	}
+
+	/**
+	 * Update user language
+	 */
+	static async updateLanguage(req, res) {
+		try {
+			// update user
+			let updatedUserLanguage = await UserService.updateLanguage(req.body.id, req.user.id, req.body)
+			// response
+			res.json(response.success(ka.cv.user_language_updated, updatedUserLanguage))
+		} catch (error) {
+			return res.json(response.error(ka.cv.user_language_update_error))
+		}
+	}
+
+	/**
+	 * Delete user language
+	 */
+	static async deleteLanguage(req, res) {
+		try {
+			// delete user language from service
+			await UserService.deleteLanguage(req.query.id, req.user.id)
+			res.json(response.success(ka.request_success))
+		} catch (error) {
+			return res.json(response.error(error.message))
+		}
+	}
+
+	/**
+	 * Read  user languages
+	 */
+	static async readLanguages(req, res) {
+		try {
+			// fetch all user language
+			let userLanguages = await UserService.readLanguages(req.user.id)
+			// response
+			res.json(response.success(ka.request_success, userLanguages))
+		} catch (error) {
+			return res.json(response.error(error.message))
+		}
+	}
+	/** -------------------------------------------------------------------- */
+
+	/**
 	 * Set city in CV by id
-	 *
-	 *
-	 *
-	 *
-	 *
-	 *
-	 *
-	 *
-	 *
-	 *
 	 */
 	static async setCity(req, res) {
 		try {

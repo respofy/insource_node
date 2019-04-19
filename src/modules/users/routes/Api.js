@@ -11,7 +11,6 @@ import AttributesController from '../controllers/AttributesController'
 
 import InterestController from '../controllers/InterestController'
 import EducationController from '../controllers/EducationController'
-import LanguageController from '../controllers/LanguageController'
 import CertificateController from '../controllers/CertificateController'
 
 const routes = express.Router()
@@ -46,6 +45,12 @@ routes.post('/working/experience/update', Auth, UserController.updateWorkingExpe
 routes.post('/working/experience/delete/:id', Auth, UserController.deleteWorkingExperience)
 routes.get('/working/experience/read', Auth, UserController.listWorkingExperiences)
 
+// languages
+routes.post('/language/create', Auth, JoiMiddleware(UserSchemas.UserLanguageCreateSchema), UserController.addLanguage)
+routes.post('/language/update', Auth, JoiMiddleware(UserSchemas.UserLanguageUpdateSchema), UserController.updateLanguage)
+routes.post('/language/delete', Auth, UserController.deleteLanguage)
+routes.get('/language/read', Auth, UserController.readLanguages)
+
 // routes.post('/add/working-experience', Auth, JoiMiddleware(UserSchemas.UserWorkingExCompanies), WorkingExController.companies)
 
 // routes.post('/cv/working-ex/companies', Auth, JoiMiddleware(UserSchemas.UserWorkingExCompanies), WorkingExController.companies)
@@ -60,18 +65,10 @@ routes.post('/cv/city/set', Auth, JoiMiddleware(UserSchemas.UserCitySchema), Use
 routes.post('/cv/status/set', Auth, JoiMiddleware(UserSchemas.UserStatusSchema), UserController.setStatus)
 
 // universities
+// education
 routes.post('/cv/universities', Auth, EducationController.universities)
 routes.post('/cv/faculties', Auth, EducationController.faculties)
 routes.post('/cv/degrees', Auth, EducationController.degrees)
-// languages
-routes.get('/cv/languages/all', Auth, LanguageController.getLanguages)
-routes.get('/cv/language-knowledge/all', Auth, LanguageController.getLanguageLevels)
-routes.get('/cv/user-languages/all', Auth, LanguageController.getUserLanguages)
-routes.post('/cv/user-language/create', Auth, JoiMiddleware(UserSchemas.UserLanguageCreateSchema), LanguageController.createUserLanguage)
-routes.post('/cv/user-language/update', Auth, JoiMiddleware(UserSchemas.UserLanguageUpdateSchema), LanguageController.updateUserLanguage)
-routes.post('/cv/user-language/delete', Auth, LanguageController.deleteUserLanguage)
-
-// education
 routes.post('/cv/education/universities', Auth, EducationController.universities)
 routes.post('/cv/education/faculties', Auth, EducationController.faculties)
 routes.post('/cv/education/degrees', Auth, EducationController.degrees)

@@ -80,28 +80,67 @@ class UserService {
 		})
 	}
 
+	/** -------------------------------------------------------------------- */
+
 	/**
-	 *
-	 *
-	 *
-	 *
-	 *
-	 *
-	 *
+	 * add language to user
 	 */
+	static async addLanguage(userId, data) {
+		// get auth user
+		let user = await AuthService.authUser(userId)
+		// add auth user in body
+		data.user_id = userId
+		// create working experience
+		return await user.createUserLanguage(data)
+	}
+
+	/**
+	 * Update user language
+	 */
+	static async updateLanguage(id, user_id, data) {
+		// get working experience by id
+		let userLanguage = await models.UserLanguage.findOne({ where: { id, user_id } })
+		// update working experience
+		let updatedUserLanguage = await userLanguage.update(data)
+		// throw error on negative result
+		if (updatedUserLanguage === null) {
+			throw new Error()
+		}
+		// return updated record
+		return updatedUserLanguage
+	}
+
+	/**
+	 * delete user language
+	 */
+	static async deleteLanguage(id, user_id) {
+		// get working experience by id
+		let userLanguage = await models.UserLanguage.findOne({ where: { id, user_id } })
+		// check result
+		if (userLanguage === null) {
+			throw new Error()
+		}
+		// delete working experience
+		return await userLanguage.destroy()
+	}
+
+	/**
+	 * Read all user languages
+	 */
+	static async readLanguages(userId) {
+		// get auth user
+		let user = await AuthService.authUser(userId)
+		// read user working experiences
+		return await user.getUserLanguages({
+			attributes: ['id'],
+			include: [models.Language, models.LanguageKnowledge]
+		})
+	}
+
+	/** -------------------------------------------------------------------- */
 
 	/**
 	 * Get active company
-	 *
-	 *
-	 *
-	 *
-	 *
-	 *
-	 *
-	 *
-	 *
-	 *
 	 */
 	static async getActiveCompany(user_id) {
 		// get user instance
