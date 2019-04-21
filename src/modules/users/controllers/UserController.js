@@ -61,12 +61,14 @@ class UserController {
 	static async addLanguage(req, res) {
 		try {
 			// create new user language from language service
-			let newUserLanguage = await UserService.addLanguage(req.user.id, req.body)
+			let userLanguage = await UserService.addLanguage(req.user.id, req.body)
 			// response
-			res.json(response.success(ka.cv.user_language_created, newUserLanguage))
+			res.json(response.success(ka.cv.user_language_created, userLanguage))
 		} catch (error) {
-			return res.json(response.error(error.message))
-			// return res.json(response.error(ka.cv.user_language_create_error))
+			// eslint-disable-next-line no-console
+			console.log(error)
+			// TODO: should implement log
+			return res.json(response.error(ka.cv.user_language_create_error))
 		}
 	}
 
@@ -76,7 +78,7 @@ class UserController {
 	static async updateLanguage(req, res) {
 		try {
 			// update user
-			let updatedUserLanguage = await UserService.updateLanguage(req.body.id, req.user.id, req.body)
+			let updatedUserLanguage = await UserService.updateLanguage(req.params.id, req.body)
 			// response
 			res.json(response.success(ka.cv.user_language_updated, updatedUserLanguage))
 		} catch (error) {
@@ -90,7 +92,8 @@ class UserController {
 	static async deleteLanguage(req, res) {
 		try {
 			// delete user language from service
-			await UserService.deleteLanguage(req.query.id, req.user.id)
+			await UserService.deleteLanguage(req.params.id)
+			// make responce
 			res.json(response.success(ka.request_success))
 		} catch (error) {
 			return res.json(response.error(error.message))
@@ -110,6 +113,126 @@ class UserController {
 			return res.json(response.error(error.message))
 		}
 	}
+
+	/** -------------------------------------------------------------------- */
+
+	/**
+	 * create user education
+	 */
+	static async addEducation(req, res) {
+		try {
+			// create user education from education service
+			let createEducation = await UserService.addEducation(req.user.id, req.body)
+			// return  response
+			res.json(response.success(ka.request_success, createEducation))
+		} catch (error) {
+			res.json(response.error(ka.cv.user_education_create_error))
+		}
+	}
+
+	/**
+	 * Update user education by ID
+	 */
+	static async updateEducation(req, res) {
+		try {
+			// update education from education service
+			let updatedEducation = await UserService.updateEducation(req.params.id, req.body)
+			// return response
+			res.json(response.success(ka.cv.user_education_updated, updatedEducation))
+		} catch (error) {
+			// eslint-disable-next-line no-console
+			console.log('error', error)
+			res.json(response.error(error.message))
+			// res.json(response.error(ka.cv.user_education_update_error))
+		}
+	}
+
+	/**
+	 * Delete user education by ID
+	 */
+	static async deleteEducation(req, res) {
+		try {
+			// delete user education from service
+			await UserService.deleteEducation(req.query.id, req.user.id)
+			// response
+			res.json(response.success(ka.cv.user_education_deleted))
+		} catch (error) {
+			res.json(response.error(ka.cv.user_education_delete_error))
+		}
+	}
+
+	/**
+	 * Get list of education by user
+	 */
+	static async readEducation(req, res) {
+		try {
+			// get list educations by auth user id
+			let userEducation = await UserService.readEducation(req.user.id)
+			// response
+			res.json(response.success(ka.request_success, userEducation))
+		} catch (error) {
+			res.json(response.error(error.message))
+		}
+	}
+
+	/** -------------------------------------------------------------------- */
+
+	/**
+	 * Create user certificate
+	 */
+	static async addCertificate(req, res) {
+		try {
+			// create service from certificate service
+			let certificate = await UserService.addCertificate(req.user.id, req.body)
+			// return created certificate
+			res.json(response.success(ka.cv.certificate_created, certificate))
+		} catch (error) {
+			res.json(response.error(ka.cv.certificate_create_error))
+		}
+	}
+
+	/**
+	 * Update user certificate
+	 */
+	static async updateCertificate(req, res) {
+		try {
+			// update education from education service
+			let updatedCertificate = await UserService.updateCertificate(req.params.id, req.body)
+			// return response
+			res.json(response.success(ka.cv.certificate_updated, updatedCertificate))
+		} catch (error) {
+			res.json(response.error(ka.cv.certificate_update_error))
+		}
+	}
+
+	/**
+	 * Delete user certificate
+	 */
+	static async deleteCertificate(req, res) {
+		try {
+			// delete user education from service
+			await UserService.deleteCertificate(req.params.id)
+			// response
+			res.json(response.success(ka.cv.certificate_deleted))
+		} catch (error) {
+			res.json(response.error(ka.cv.certificate_delete_error))
+		}
+	}
+
+	/**
+	 * Get list of user certificates
+	 */
+	static async readCertificate(req, res) {
+		try {
+			// fetch list from service
+			let userCertificates = await UserService.readCertificate(req.user.id)
+			// response
+			res.json(response.success(ka.request_success, userCertificates))
+		} catch (error) {
+			res.json(response.error(error.message))
+		}
+	}
+
 	/** -------------------------------------------------------------------- */
 
 	/**

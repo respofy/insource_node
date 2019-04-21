@@ -44,12 +44,10 @@ const models = {
 	City: City.init(sequelize, Sequelize),
 	Status: Status.init(sequelize, Sequelize),
 	Job: Job.init(sequelize, Sequelize),
-	// education
 	University: University.init(sequelize, Sequelize),
 	UserEducation: UserEducation.init(sequelize, Sequelize),
 	Degree: Degree.init(sequelize, Sequelize),
 	Faculty: Faculty.init(sequelize, Sequelize),
-	//
 	UserLanguage: UserLanguage.init(sequelize, Sequelize),
 	UserProfession: UserProfession.init(sequelize, Sequelize),
 	UserWorkingExperience: UserWorkingExperience.init(sequelize, Sequelize),

@@ -43,7 +43,7 @@ class AttributesService {
 	 * cities
 	 */
 	static async cities() {
-		return await models.Cities.findAll()
+		return await models.City.findAll()
 	}
 
 	/**

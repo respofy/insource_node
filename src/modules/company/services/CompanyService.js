@@ -1,7 +1,7 @@
 import models from 'database/modelBootstrap'
 import ka from 'lang/ka'
 import sequelize from 'sequelize'
-import UserService from '../../users/services/UserService'
+// import UserService from '../../users/services/UserService'
 import AuthService from '../../users/services/AuthService'
 
 const operator = sequelize.Op
@@ -26,7 +26,7 @@ class CompanyService {
 	 * Invite user in company
 	 */
 	static async invite(user_id, invited_users) {
-		// FIXME: services needs to be adjusted 
+		// TODO: services needs to be adjusted
 		let activeUser = await AuthService.authUser(user_id)
 		let activeCompany = await models.Company.findByPk(activeUser.active_company_id)
 

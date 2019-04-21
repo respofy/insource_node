@@ -85,27 +85,26 @@ class UserService {
 	/**
 	 * add language to user
 	 */
-	static async addLanguage(userId, data) {
-		// get auth user
-		let user = await AuthService.authUser(userId)
-		// add auth user in body
-		data.user_id = userId
-		// create working experience
-		return await user.createUserLanguage(data)
+	static async addLanguage(user_id, data) {
+		// create the item
+		return await models.UserLanguage.create({
+			user_id: user_id,
+			language_id: data.language_id,
+			language_knowledge_id: data.language_knowledge_id
+		})
 	}
 
 	/**
 	 * Update user language
 	 */
-	static async updateLanguage(id, user_id, data) {
+	static async updateLanguage(id, data) {
 		// get working experience by id
-		let userLanguage = await models.UserLanguage.findOne({ where: { id, user_id } })
+		let userLanguage = await models.UserLanguage.findOne({ where: { id } })
 		// update working experience
-		let updatedUserLanguage = await userLanguage.update(data)
-		// throw error on negative result
-		if (updatedUserLanguage === null) {
-			throw new Error()
-		}
+		let updatedUserLanguage = await userLanguage.update({
+			language_id: data.language_id,
+			language_knowledge_id: data.language_knowledge_id
+		})
 		// return updated record
 		return updatedUserLanguage
 	}
@@ -113,13 +112,9 @@ class UserService {
 	/**
 	 * delete user language
 	 */
-	static async deleteLanguage(id, user_id) {
+	static async deleteLanguage(id) {
 		// get working experience by id
-		let userLanguage = await models.UserLanguage.findOne({ where: { id, user_id } })
-		// check result
-		if (userLanguage === null) {
-			throw new Error()
-		}
+		let userLanguage = await models.UserLanguage.findOne({ where: { id } })
 		// delete working experience
 		return await userLanguage.destroy()
 	}
@@ -127,14 +122,133 @@ class UserService {
 	/**
 	 * Read all user languages
 	 */
-	static async readLanguages(userId) {
+	static async readLanguages(user_id) {
 		// get auth user
-		let user = await AuthService.authUser(userId)
+		let user = await AuthService.authUser(user_id)
 		// read user working experiences
 		return await user.getUserLanguages({
 			attributes: ['id'],
-			include: [models.Language, models.LanguageKnowledge]
+			include: [models.Language, models.LanguageKnowledge] // get relationship
 		})
+	}
+
+	/** -------------------------------------------------------------------- */
+
+	/**
+	 * create record for user and education
+	 */
+	static async addEducation(user_id, data) {
+		// create the user education
+		let education = models.UserEducation.create({
+			user_id: user_id,
+			started_at: data.started_at,
+			finished_at: data.finished_at,
+			degree_id: data.degree_id,
+			university_id: data.university_id,
+			faculty_id: data.faculty_id
+		})
+		// create working experience
+		return education
+	}
+
+	/**
+	 * Update user education
+	 */
+	static async updateEducation(id, data) {
+		// get working experience by id
+		let userEducation = await models.UserEducation.findOne({ where: { id } })
+		// update working experience
+		let updatedUserEducation = await userEducation.update({
+			started_at: data.started_at,
+			finished_at: data.finished_at,
+			degree_id: data.degree_id,
+			university_id: data.university_id,
+			faculty_id: data.faculty_id
+		})
+		// return updated record
+		return updatedUserEducation
+	}
+
+	/**
+	 * Delete user education
+	 */
+	static async deleteEducation(id, user_id) {
+		// get instance by id
+		let userEducation = await models.UserEducation.findOne({ where: { id, user_id } })
+		// check result
+		if (userEducation === null) {
+			throw new Error()
+		}
+		// destroy record
+		return await userEducation.destroy()
+	}
+
+	/**
+	 * get list of user education
+	 */
+	static async readEducation(userId) {
+		// get auth user instance
+		let user = await models.User.findByPk(userId)
+		// fetch and return list of user education
+		return await user.getUserEducations({
+			attributes: ['id', 'started_at', 'finished_at'],
+			include: [models.Degree, models.University, models.Faculty]
+		})
+	}
+
+	/** -------------------------------------------------------------------- */
+
+	/**
+	 * create user certificate
+	 */
+	static async addCertificate(user_id, data) {
+		// create new certificate and attach to user
+		let certificate = await models.UserCertificate.create({
+			user_id: user_id,
+			title: data.title,
+			additional_information: data.additional_information,
+			website: data.website,
+			issue_date: data.issue_date
+		})
+		// responce
+		return certificate
+	}
+
+	/**
+	 * update user certificate
+	 */
+	static async updateCertificate(id, data) {
+		// get working experience by id
+		let userCertificate = await models.UserCertificate.findOne({ where: { id } })
+		// update working experience
+		let updatedUserCertificate = await userCertificate.update({
+			title: data.title,
+			additional_information: data.additional_information,
+			website: data.website,
+			issue_date: data.issue_date
+		})
+		// return updated record
+		return updatedUserCertificate
+	}
+
+	/**
+	 * delete certificate
+	 */
+	static async deleteCertificate(id) {
+		// get instance by id
+		let userCertificate = await models.UserCertificate.findOne({ where: { id } })
+		// destroy record
+		return await userCertificate.destroy()
+	}
+
+	/**
+	 * Get list of user certificates
+	 */
+	static async readCertificate(user_id) {
+		// get user instance
+		let user = await models.User.findByPk(user_id)
+		// return result
+		return await user.getUserCertificates()
 	}
 
 	/** -------------------------------------------------------------------- */

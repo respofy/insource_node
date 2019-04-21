@@ -2,8 +2,9 @@ import Joi from 'joi'
 
 const UserLanguageUpdateSchema = {
 	body: {
+		id: Joi.number(),
 		language_id: Joi.number(),
-		language_knowledge_id: Joi.number(),
+		language_knowledge_id: Joi.number()
 	}
 }
 

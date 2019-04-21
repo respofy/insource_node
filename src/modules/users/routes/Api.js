@@ -4,14 +4,10 @@ import storage from 'helper/uploadStorageHelper'
 import UserSchemas from '../validations'
 import Auth from 'middleware/AuthMiddleware'
 import JoiMiddleware from 'middleware/JoiMiddleware'
-
 import AuthController from '../controllers/AuthController'
 import UserController from '../controllers/UserController'
 import AttributesController from '../controllers/AttributesController'
-
 import InterestController from '../controllers/InterestController'
-import EducationController from '../controllers/EducationController'
-import CertificateController from '../controllers/CertificateController'
 
 const routes = express.Router()
 const upload = multer({ storage })
@@ -47,36 +43,30 @@ routes.get('/working/experience/read', Auth, UserController.listWorkingExperienc
 
 // languages
 routes.post('/language/create', Auth, JoiMiddleware(UserSchemas.UserLanguageCreateSchema), UserController.addLanguage)
-routes.post('/language/update', Auth, JoiMiddleware(UserSchemas.UserLanguageUpdateSchema), UserController.updateLanguage)
-routes.post('/language/delete', Auth, UserController.deleteLanguage)
+routes.post('/language/update/:id', Auth, JoiMiddleware(UserSchemas.UserLanguageUpdateSchema), UserController.updateLanguage)
+routes.post('/language/delete/:id', Auth, UserController.deleteLanguage)
 routes.get('/language/read', Auth, UserController.readLanguages)
 
+// education
+routes.post('/education/create', Auth, JoiMiddleware(UserSchemas.UserEducationCreateSchema), UserController.addEducation)
+routes.post('/education/update/:id', Auth, JoiMiddleware(UserSchemas.UserEducationUpdateSchema), UserController.updateEducation)
+routes.post('/education/delete/:id', Auth, UserController.deleteEducation)
+routes.get('/education/read', Auth, UserController.readEducation)
+
+// certificates
+routes.post('/certificate/create', Auth, JoiMiddleware(UserSchemas.UserCertificateCreateSchema), UserController.addCertificate)
+routes.post('/certificate/update/:id', Auth, JoiMiddleware(UserSchemas.UserCertificateUpdateSchema), UserController.updateCertificate)
+routes.post('/certificate/delete/:id', Auth, UserController.deleteCertificate)
+routes.get('/certificate/read', Auth, UserController.readCertificate)
+
 // routes.post('/add/working-experience', Auth, JoiMiddleware(UserSchemas.UserWorkingExCompanies), WorkingExController.companies)
-
 // routes.post('/cv/working-ex/companies', Auth, JoiMiddleware(UserSchemas.UserWorkingExCompanies), WorkingExController.companies)
-
 // routes.post('/cv/working-ex/skills/by/professions', Auth, JoiMiddleware(UserSchemas.UserWorkingExSkillsByProfessions), WorkingExController.skillsByProfessions)
 // routes.post('/cv/working-ex/skills/by/experience', Auth, WorkingExController.skillsByWorkingExperience)
 
-// CV
-// routes.get('/cv/city/all', Auth, UserController.getCities)
+// TODO: need to finish
 routes.post('/cv/city/set', Auth, JoiMiddleware(UserSchemas.UserCitySchema), UserController.setCity)
-// routes.get('/cv/status/all', Auth, UserController.getStatuses)
 routes.post('/cv/status/set', Auth, JoiMiddleware(UserSchemas.UserStatusSchema), UserController.setStatus)
-
-// universities
-// education
-routes.post('/cv/universities', Auth, EducationController.universities)
-routes.post('/cv/faculties', Auth, EducationController.faculties)
-routes.post('/cv/degrees', Auth, EducationController.degrees)
-routes.post('/cv/education/universities', Auth, EducationController.universities)
-routes.post('/cv/education/faculties', Auth, EducationController.faculties)
-routes.post('/cv/education/degrees', Auth, EducationController.degrees)
-routes.get('/cv/education/list', Auth, EducationController.list)
-routes.post('/cv/education/create', Auth, JoiMiddleware(UserSchemas.UserEducationCreateSchema), EducationController.create)
-routes.post('/cv/education/update', Auth, JoiMiddleware(UserSchemas.UserEducationUpdateSchema), EducationController.update)
-routes.post('/cv/education/delete', Auth, EducationController.delete)
-
 // routes.post('/cv/favorite/company/search', Auth, JoiMiddleware(UserSchemas.UserWorkingExCompanies), WorkingExController.companies)
 routes.post('/cv/favorite/company/add', Auth, JoiMiddleware(UserSchemas.FavoriteCompanyAddSchema), UserController.addCompanyToFavorites)
 routes.post('/cv/favorite/company/remove', Auth, JoiMiddleware(UserSchemas.FavoriteCompanyRemoveSchema), UserController.removeCompanyFromFavorites)
@@ -93,11 +83,5 @@ routes.post('/cv/interests/industry/set', Auth, JoiMiddleware(UserSchemas.Intere
 routes.get('/cv/interests/profession/all', Auth, InterestController.getProfessions)
 routes.post('/cv/interests/profession/set', Auth, JoiMiddleware(UserSchemas.InterestProfessionSetSchema), InterestController.setProfession)
 routes.post('/cv/interests/salary/set', Auth, JoiMiddleware(UserSchemas.InterestSalarySetSchema), InterestController.setSalary)
-
-// certificates
-routes.get('/cv/certificate/all', Auth, CertificateController.list)
-routes.post('/cv/certificate/create', Auth, JoiMiddleware(UserSchemas.UserCertificateCreateSchema), CertificateController.create)
-routes.post('/cv/certificate/update', Auth, JoiMiddleware(UserSchemas.UserCertificateUpdateSchema), CertificateController.update)
-routes.post('/cv/certificate/delete', Auth, CertificateController.delete)
 
 export default routes
