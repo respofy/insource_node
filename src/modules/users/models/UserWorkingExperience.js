@@ -16,7 +16,7 @@ class UserWorkingExperience extends Model {
 				sequelize,
 				singular: 'UserWorkingExperience',
 				plural: 'UserWorkingExperiences',
-				tableName: 'user_working_ex',
+				tableName: 'user_working_ex'
 			}
 		)
 	}
@@ -33,7 +33,8 @@ class UserWorkingExperience extends Model {
 		// Skills Relation
 		this.belongsToMany(models.Skill, {
 			foreignKey: 'user_working_experience_id',
-			through: 'user_working_experience_skills'
+			through: 'user_working_experience_skills',
+			as: 'workingExpSkills'
 		})
 	}
 }

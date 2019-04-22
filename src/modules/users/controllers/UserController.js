@@ -40,7 +40,7 @@ class UserController {
 		try {
 			// create the item
 			let create = await UserService.addWorkingExperience(req.user.id, req.body)
-			// responce
+			// response
 			res.json(response.success(ka.request_success, create))
 		} catch (error) {
 			res.json(response.success(error.message))
@@ -50,7 +50,16 @@ class UserController {
 	/**
 	 * update user working experience
 	 */
-	static async updateWorkingExperience() {}
+	static async updateWorkingExperience(req, res) {
+		try {
+			// create the item
+			await UserService.updateWorkingExperience(req.params.id, req.user.id, req.body)
+			// response
+			res.json(response.success(ka.cv.working_exp_updated))
+		} catch (error) {
+			res.json(response.success(error.message))
+		}
+	}
 
 	/**
 	 * Delete working experience

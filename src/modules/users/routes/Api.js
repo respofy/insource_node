@@ -37,7 +37,7 @@ routes.get('/attributes/language/knowledges', Auth, AttributesController.languag
 
 // working experience
 routes.post('/working/experience/create', Auth, JoiMiddleware(UserSchemas.UserWorkingExCreateSchema), UserController.addWorkingExperience)
-routes.post('/working/experience/update', Auth, UserController.updateWorkingExperience)
+routes.post('/working/experience/update/:id', Auth, JoiMiddleware(UserSchemas.UserWorkingExUpdateSchema), UserController.updateWorkingExperience)
 routes.post('/working/experience/delete/:id', Auth, UserController.deleteWorkingExperience)
 routes.get('/working/experience/read', Auth, UserController.listWorkingExperiences)
 
@@ -59,10 +59,6 @@ routes.post('/certificate/update/:id', Auth, JoiMiddleware(UserSchemas.UserCerti
 routes.post('/certificate/delete/:id', Auth, UserController.deleteCertificate)
 routes.get('/certificate/read', Auth, UserController.readCertificate)
 
-// routes.post('/add/working-experience', Auth, JoiMiddleware(UserSchemas.UserWorkingExCompanies), WorkingExController.companies)
-// routes.post('/cv/working-ex/companies', Auth, JoiMiddleware(UserSchemas.UserWorkingExCompanies), WorkingExController.companies)
-// routes.post('/cv/working-ex/skills/by/professions', Auth, JoiMiddleware(UserSchemas.UserWorkingExSkillsByProfessions), WorkingExController.skillsByProfessions)
-// routes.post('/cv/working-ex/skills/by/experience', Auth, WorkingExController.skillsByWorkingExperience)
 
 // TODO: need to finish
 routes.post('/cv/city/set', Auth, JoiMiddleware(UserSchemas.UserCitySchema), UserController.setCity)
