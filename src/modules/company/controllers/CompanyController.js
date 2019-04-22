@@ -17,6 +17,7 @@ class CompanyController {
 			res.json(response.success(ka.request_error))
 		}
 	}
+
 	/**
 	 *
 	 */
