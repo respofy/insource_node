@@ -21,5 +21,7 @@ export default class LanguageKnowledge extends Model {
 		this.hasMany(models.UserLanguage, {
 			foreignKey: 'language_knowledge_id'
 		})
+		// Job Relation
+		this.hasMany(models.Job)
 	}
 }

@@ -16,5 +16,7 @@ export default class Language extends Model {
 
 	static associate(models) {
 		this.hasMany(models.UserLanguage)
+		// Job Relation
+		this.hasMany(models.Job)
 	}
 }
