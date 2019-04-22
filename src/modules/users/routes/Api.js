@@ -23,6 +23,7 @@ routes.post('/reset/password', JoiMiddleware(UserSchemas.UserResetPasswordSchema
 routes.post('/auth', Auth, AuthController.getAuthUser)
 
 // attributes
+routes.get('/attributes/industries', Auth, AttributesController.industries)
 routes.get('/attributes/roles', Auth, AttributesController.roles)
 routes.get('/attributes/professions', Auth, AttributesController.professions)
 routes.get('/attributes/skills/by/profession/:profession_id', Auth, AttributesController.skillsByProfession)

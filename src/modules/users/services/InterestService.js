@@ -6,11 +6,8 @@ class InterestService {
 	 * Set role interest to user
 	 */
 	static async setRole(user_id, role_id) {
-		// get auth user instance
-		let user = await AuthService.authUser(user_id)
-		console.log(user)
 		// attach role to user result
-		return await user.setRoles(role_id)
+		return await models.UserRole.create({user_id, role_id})
 	}
 
 	/**
