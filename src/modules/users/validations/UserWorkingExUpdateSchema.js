@@ -1,5 +1,4 @@
 import Joi from 'joi'
-import ka from 'lang/ka'
 
 const UserWorkingExUpdateSchema = {
 	body: {

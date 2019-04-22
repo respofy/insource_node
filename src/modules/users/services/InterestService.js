@@ -1,5 +1,5 @@
 import models from 'database/modelBootstrap'
-import UserService from '../services/UserService'
+import AuthService from '../services/AuthService'
 
 class InterestService {
 	/**
@@ -8,6 +8,7 @@ class InterestService {
 	static async setRole(user_id, role_id) {
 		// get auth user instance
 		let user = await AuthService.authUser(user_id)
+		console.log(user)
 		// attach role to user result
 		return await user.setRoles(role_id)
 	}
