@@ -27,6 +27,9 @@ class Company extends Sequelize.Model {
 			as: 'FavouredByUsers'
 		})
 
+		// Job Relation
+		this.hasMany(models.Job)
+
 		// this.belongsTo(models.City)
 
 		this.belongsTo(models.Industry)

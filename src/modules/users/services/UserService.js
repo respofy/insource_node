@@ -7,6 +7,28 @@ import AuthService from '../services/AuthService'
  */
 class UserService {
 	/**
+	 * get description
+	 */
+	static async getDescription(user_id) {
+		// get auth user
+		let user = await AuthService.authUser(user_id)
+		// return description
+		return user.about_me
+	}
+
+	/**
+	 * set description
+	 */
+	static async setDescription(user_id, data) {
+		// get auth user
+		let user = await AuthService.authUser(user_id)
+		// update user's description
+		return await user.update({
+			about_me: data.description
+		})
+	}
+
+	/**
 	 * add user working experience
 	 */
 	static async addWorkingExperience(user_id, params) {
@@ -27,16 +49,16 @@ class UserService {
 				let skill = await models.Skill.create({
 					title: item.title
 				})
-				// after create skill record relate the record to profession
+				// after creating skill record, relate the record to profession
 				// get profession instance
 				let profession = await models.Profession.findByPk(params.profession_id)
 				// attach skill to profession
 				await profession.addSkill(skill.id)
 				// associate new skill with user working experience
-				await newWorkingExp.addSkill(skill.id)
+				await newWorkingExp.addWorkingExpSkill(skill.id)
 			}
 			// associate existing skill with user working experience
-			await newWorkingExp.addSkill(item.id)
+			await newWorkingExp.addWorkingExpSkill(item.id)
 		})
 	}
 
@@ -44,17 +66,46 @@ class UserService {
 	 * update working experience
 	 */
 	// eslint-disable-next-line no-unused-vars
-	static async updateWorkingExperience(id, requestBody) {
-		// // get working experience by id
-		// let workingExp = await models.UserWorkingExperience.findOne({ where: { id } })
-		// // update working experience
-		// let updatedWorkingExp = await workingExp.update(requestBody)
-		// // throw error on negative result
-		// if (updatedWorkingExp === null) {
-		// 	throw new Error()
-		// }
-		// // return updated record
-		// return updatedWorkingExp
+	static async updateWorkingExperience(id, user_id, params) {
+		// get instance of working exp
+		let workingExp = await models.UserWorkingExperience.findByPk(id)
+		// update working exp
+		let updatedWorkingExp = await workingExp.update({
+			started_at: params.started_at,
+			finished_at: params.finished_at,
+			company_name: params.company.name,
+			company_id: params.company.id,
+			user_id: user_id,
+			profession_id: params.profession_id,
+			role_id: params.role_id
+		})
+		// skills[id] that needs to be set (delete others)
+		let currentSkills = []
+		// create skill record if id equals null
+		params.skills.forEach(async item => {
+			// check if item does not have id
+			if (item.id == null) {
+				let skill = await models.Skill.create({
+					title: item.title
+				})
+				// push in new skills in currentSkills
+				currentSkills.push(skill.id)
+				// after creating skill record, relate the record to profession
+				// get profession instance
+				let profession = await models.Profession.findByPk(params.profession_id)
+				// attach skill to profession
+				await profession.addSkill(skill.id)
+				// associate new skill with user working experience
+				await workingExp.addWorkingExpSkill(skill.id)
+			}
+			// push new skill to current skills
+			currentSkills.push(item.id)
+		})
+		// set skills using currentSkills array
+		// associate existing skill with user working experience
+		await workingExp.setWorkingExpSkills(currentSkills)
+
+		return updatedWorkingExp
 	}
 
 	/**
@@ -76,7 +127,7 @@ class UserService {
 		// read user working experiences
 		return await user.getUserWorkingExperiences({
 			attributes: ['id', 'started_at', 'finished_at', 'company_name'],
-			include: [models.Role, models.Company, models.Profession]
+			include: [models.Role, models.Company, models.Profession, 'workingExpSkills']
 		})
 	}
 

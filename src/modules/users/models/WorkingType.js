@@ -22,5 +22,7 @@ export default class WorkingType extends Model {
 			through: 'user_working_types',
 			foreignKey: 'working_type_id'
 		})
+		// Job Relation
+		this.hasMany(models.Job)
 	}
 }

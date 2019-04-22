@@ -27,6 +27,8 @@ class Degree extends Model {
 		this.hasMany(models.UserEducation, {
 			foreignKey: 'degree_id'
 		})
+		// Job Relation
+		this.hasMany(models.Job)
 	}
 }
 

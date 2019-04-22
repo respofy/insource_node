@@ -21,6 +21,13 @@ class AttributesController {
 	}
 
 	/**
+	 * industries
+	 */
+	static async industries(req, res) {
+		res.json(response.success(ka.request_success, await AttributesService.industries()))
+	}
+
+	/**
 	 * skills by profession
 	 */
 	static async skillsByProfession(req, res) {

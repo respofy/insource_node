@@ -6,61 +6,6 @@ import InterestService from '../services/InterestService'
  * Controller for interests
  */
 class InterestController {
-	/**
-	 * Get all roles
-	 */
-	static async getRoles(req, res) {
-		try {
-			// fetch roles
-			let roles = await InterestService.getRoles()
-			// response
-			res.json(response.success(ka.request_success, roles))
-		} catch (error) {
-			res.json(response.error(ka.request_error))
-		}
-	}
-
-	/**
-	 * Get Working Types
-	 */
-	static async getWorkingTypes(req, res) {
-		try {
-			// fetch working types
-			let workingTypes = await InterestService.getWorkingTypes()
-			// response
-			res.json(response.success(ka.request_success, workingTypes))
-		} catch (error) {
-			res.json(response.error(ka.request_error))
-		}
-	}
-
-	/**
-	 * Get industries
-	 */
-	static async getIndustries(req, res) {
-		try {
-			// fetch list of industries from service
-			let industries = await InterestService.getIndustries()
-			// response
-			res.json(response.success(ka.request_success, industries))
-		} catch (error) {
-			res.json(response.error(ka.request_error))
-		}
-	}
-
-	/**
-	 * Get professions
-	 */
-	static async getProfessions(req, res) {
-		try {
-			// fetch list of professions from service
-			let professions = await InterestService.getProfessions()
-			// response
-			res.json(response.success(ka.request_success, professions))
-		} catch (error) {
-			res.json(response.error(ka.request_error))
-		}
-	}
 
 	/**
 	 * Set role to the user
