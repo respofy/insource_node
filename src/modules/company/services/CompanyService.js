@@ -7,7 +7,7 @@ import AuthService from '../../users/services/AuthService'
 const operator = sequelize.Op
 
 /**
- *
+ * company service
  */
 class CompanyService {
 	/**
