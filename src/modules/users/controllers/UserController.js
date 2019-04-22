@@ -7,6 +7,33 @@ import UserService from '../services/UserService'
  */
 class UserController {
 	/**
+	 * Get user description in cv
+	 */
+	static async getDescription(req, res) {
+		try {
+			// get user description
+			let description = await UserService.getDescription(req.user.id)
+			// response
+			res.json(response.success(ka.request_success, description))
+		} catch (error) {
+			res.json(response.success(error.message))
+		}
+	}
+
+	/**
+	 * set user description in cv
+	 */
+	static async setDescription(req, res) {
+		try {
+			await UserService.setDescription(req.user.id, req.body)
+			// response
+			res.json(response.success(ka.request_success))
+		} catch (error) {
+			res.json(response.success(error.message))
+		}
+	}
+
+	/**
 	 * create user working experience
 	 */
 	static async addWorkingExperience(req, res) {

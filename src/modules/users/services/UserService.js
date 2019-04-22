@@ -7,6 +7,28 @@ import AuthService from '../services/AuthService'
  */
 class UserService {
 	/**
+	 * get description
+	 */
+	static async getDescription(user_id) {
+		// get auth user
+		let user = await AuthService.authUser(user_id)
+		// return description
+		return user.about_me
+	}
+
+	/**
+	 * set description
+	 */
+	static async setDescription(user_id, data) {
+		// get auth user
+		let user = await AuthService.authUser(user_id)
+		// update user's description
+		return await user.update({
+			about_me: data.description
+		})
+	}
+
+	/**
 	 * add user working experience
 	 */
 	static async addWorkingExperience(user_id, params) {

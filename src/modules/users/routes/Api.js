@@ -67,6 +67,8 @@ routes.get('/certificate/read', Auth, UserController.readCertificate)
 // TODO: need to finish
 routes.post('/cv/city/set', Auth, JoiMiddleware(UserSchemas.UserCitySchema), UserController.setCity)
 routes.post('/cv/status/set', Auth, JoiMiddleware(UserSchemas.UserStatusSchema), UserController.setStatus)
+routes.post('/cv/description/set', Auth, JoiMiddleware(UserSchemas.UserSetDescriptionSchema), UserController.setDescription)
+routes.get('/cv/description/get', Auth, UserController.getDescription)
 // routes.post('/cv/favorite/company/search', Auth, JoiMiddleware(UserSchemas.UserWorkingExCompanies), WorkingExController.companies)
 routes.post('/cv/favorite/company/add', Auth, JoiMiddleware(UserSchemas.FavoriteCompanyAddSchema), UserController.addCompanyToFavorites)
 routes.post('/cv/favorite/company/remove', Auth, JoiMiddleware(UserSchemas.FavoriteCompanyRemoveSchema), UserController.removeCompanyFromFavorites)
