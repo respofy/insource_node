@@ -82,12 +82,7 @@ class User extends Sequelize.Model {
 			as: 'FavoriteCompanies'
 		})
 		// Role Relation
-		this.belongsToMany(models.Role, {
-			through: 'user_role',
-			foreignKey: 'user_id',
-			unique: false,
-			as: 'userRole'
-		})
+		this.hasMany(models.UserRole)
 		// Industry Relation
 		this.belongsToMany(models.Industry, {
 			through: 'user_industries',
