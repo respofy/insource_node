@@ -62,7 +62,7 @@ class InterestService {
 			where: { user_id },
 			order: [['createdAt', 'DESC']]
 		})
-		let role = await user.getUserRoles({
+		let [{ role }] = await user.getUserRoles({
 			limit: 1,
 			where: { user_id },
 			order: [['createdAt', 'DESC']],
