@@ -7,7 +7,7 @@ class InterestService {
 	 */
 	static async setRole(user_id, role_id) {
 		// attach role to user result
-		return await models.UserRole.create({user_id, role_id})
+		return await models.UserRole.create({ user_id, role_id })
 	}
 
 	/**
@@ -62,7 +62,13 @@ class InterestService {
 			where: { user_id },
 			order: [['createdAt', 'DESC']]
 		})
-		let [role] = await user.getRoles()
+		let role = await user.getUserRoles({
+			limit: 1,
+			where: { user_id },
+			order: [['createdAt', 'DESC']],
+			attributes: [],
+			include: [models.Role]
+		})
 		let [profession] = await user.getProfessions()
 		let [industry] = await user.getIndustries()
 		let [workingTypes] = await user.getWorkingTypes()
