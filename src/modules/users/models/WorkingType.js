@@ -18,8 +18,8 @@ export default class WorkingType extends Model {
 	}
 
 	static associate(models) {
-		this.belongsToMany(models.User, {
-			through: 'user_working_types',
+		// Connect working type to User via UserWorkingType pivot
+		this.hasMany(models.UserWorkingType, {
 			foreignKey: 'working_type_id'
 		})
 		// Job Relation

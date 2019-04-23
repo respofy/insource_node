@@ -1,26 +1,25 @@
 import { Sequelize, Model } from 'sequelize'
 
-export default class UserProfession extends Model {
+export default class UserIndustry extends Model {
 	static init(sequelize) {
 		return super.init(
 			{
 				id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
 				user_id: { type: Sequelize.STRING, allowNull: false, unique: false },
-				profession_id: { type: Sequelize.STRING, allowNull: false, unique: false }
+				industry_id: { type: Sequelize.STRING, allowNull: false, unique: false }
 			},
 			{
 				sequelize,
-				singular: 'UserProfession',
-				plural: 'UserProfessions',
-				tableName: 'user_profession',
-				modelName: 'userProfession'
+				singular: 'UserIndustry',
+				plural: 'UserIndustries',
+				tableName: 'user_industries',
+				modelName: 'userIndustry'
 			}
 		)
 	}
 
 	static associate(models) {
 		this.belongsTo(models.User)
-		this.belongsTo(models.Profession)
-		// this.hasMany(models.UserProfessionSkill)
+		this.belongsTo(models.Industry)
 	}
 }
