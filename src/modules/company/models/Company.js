@@ -7,7 +7,7 @@ class Company extends Sequelize.Model {
 			{
 				name: { type: Sequelize.STRING, allowNull: false },
 				industry_id: { type: Sequelize.INTEGER, allowNull: false },
-				logo: { type: Sequelize.STRING, allowNull: false },
+				logo: { type: Sequelize.STRING, allowNull: true },
 				identification_code: {
 					type: Sequelize.STRING,
 					allowNull: false,

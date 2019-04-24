@@ -17,7 +17,8 @@ export default function verify(req, res, next) {
 			res.json(Response.error(ka.middleware.not_authorize))
 		} else {
 			// If token is valid extend Req object with user data
-			Extend(req, { user: authData })
+			Extend(req, { user: authData.user })
+			Extend(req, { companies: authData.company })
 			next()
 		}
 	})
