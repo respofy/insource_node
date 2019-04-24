@@ -12,5 +12,8 @@ export default class UserRole extends Model {
 		)
 	}
 
-	static associate(models) {}
+	static associate(models) {
+		this.belongsTo(models.User)
+		this.belongsTo(models.Role)
+	}
 }
