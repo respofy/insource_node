@@ -15,11 +15,12 @@ class ResponseHelper {
 	/**
 	 *
 	 */
-	static error(message = [], responseData = {}) {
+	static error(message = [], responseData = {}, system_message = []) {
 		return {
 			status: false,
 			message: [message],
-			responseData
+			responseData,
+			system_message: [system_message]
 		}
 	}
 }

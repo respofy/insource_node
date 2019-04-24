@@ -7,21 +7,7 @@ class CompanyController {
 	/**
 	 *
 	 */
-	static async searchCompaniesByName(req, res) {
-		try {
-			// get the roles form service
-			let companies = await CompanyService.searchCompaniesByName(req.body.criteria)
-			// return the responce
-			res.json(response.success(ka.request_success, companies))
-		} catch (error) {
-			res.json(response.success(ka.request_error))
-		}
-	}
-
-	/**
-	 *
-	 */
-	static async fillData(req, res) {
+	static async registration(req, res) {
 		try {
 			// validate uploaded logo
 			req.body.logo = await CompanyService.validateLogo(req.file)
@@ -30,21 +16,36 @@ class CompanyController {
 			// response
 			res.json(response.success(ka.company.created, createdCompany))
 		} catch (error) {
-			res.json(response.error(ka.company.create_error))
+			// error responce
+			res.json(response.error(ka.company.create_error, {}, error))
+		}
+	}
+
+	/**
+	 * Invite user by active company
+	 */
+	static async inviteUsers(req, res) {
+		try {
+			// invite users
+			await CompanyService.inviteUsers(req.user.id, req.body)
+			// response
+			res.json(response.success(ka.request_success))
+		} catch (error) {
+			res.json(response.error(error.message))
 		}
 	}
 
 	/**
 	 *
 	 */
-	static async invite(req, res) {
+	static async searchCompaniesByName(req, res) {
 		try {
-			// invite users
-			await CompanyService.invite(req.user.id, req.body)
-			// response
-			res.json(response.success(ka.request_success))
+			// get the roles form service
+			let companies = await CompanyService.searchCompaniesByName(req.body.criteria)
+			// return the responce
+			res.json(response.success(ka.request_success, companies))
 		} catch (error) {
-			res.json(response.error(error.message))
+			res.json(response.success(ka.request_error))
 		}
 	}
 

@@ -1,9 +1,11 @@
 import CompanyFillDataSchema from './CompanyFillDataSchema'
 import ActiveCompanySwitchSchema from './ActiveCompanySwitchSchema'
-import createJobSchema from './CreateJobSchema'
+import CreateJobSchema from './CreateJobSchema'
+import InviteSchema from './InviteSchema'
 
 export default {
 	CompanyFillDataSchema,
 	ActiveCompanySwitchSchema,
-	createJobSchema
+	CreateJobSchema,
+	InviteSchema
 }

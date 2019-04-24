@@ -4,7 +4,11 @@ class JobRequirement extends Model {
 	static init(sequelize) {
 		return super.init(
 			{
-				job_id: { type: Sequelize.INTEGER, allowNull: false },
+				job_id: { type: Sequelize.INTEGER, unique: true },
+				city: { type: Sequelize.BOOLEAN, allowNull: false },
+				working_type: { type: Sequelize.BOOLEAN, allowNull: false },
+				role: { type: Sequelize.BOOLEAN, allowNull: false },
+				profession: { type: Sequelize.BOOLEAN, allowNull: false, defaultValue: true },
 				skills: { type: Sequelize.BOOLEAN, allowNull: false },
 				salary: { type: Sequelize.BOOLEAN, allowNull: false },
 				experience: { type: Sequelize.BOOLEAN, allowNull: false },
@@ -15,17 +19,13 @@ class JobRequirement extends Model {
 				sequelize,
 				singular: 'JobRequirement',
 				plural: 'JobRequirements',
-				tableName: 'job_requirements'
+				tableName: 'job_requirements',
+				modelName: 'jobRequirement'
 			}
 		)
 	}
 
-	// eslint-disable-next-line no-unused-vars
-	static associate(models) {
-		// this.hasMany(models.User, {
-		// 	foreignKey: "city_id"
-		// });
-	}
+	// static associate(models) {}
 }
 
 export default JobRequirement

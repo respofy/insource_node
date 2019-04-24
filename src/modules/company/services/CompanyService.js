@@ -25,41 +25,45 @@ class CompanyService {
 	/**
 	 * Invite user in company
 	 */
-	static async invite(user_id, invited_users) {
-		// TODO: services needs to be adjusted
+	static async inviteUsers(user_id, invited_users) {
 		let activeUser = await AuthService.authUser(user_id)
-		let activeCompany = await models.Company.findByPk(activeUser.active_company_id)
+		let activeCompany = await models.Company.findByPk(activeUser)
+		await activeCompany.addOwners([1, 3, 1000])
 
-		/**
-		 * check users in db
-		 */
-		async function validateAndInvite() {
-			// prepare array for candidates
-			let candidates = []
-			// loop provided phones
-			let promises = await invited_users.map(async phone => {
-				// validate in db
-				let invitedUser = await models.User.findOne({ where: { phone } })
-				// if doest exists return rejected promise
-				if (invitedUser === null) {
-					throw new Error('მომხმარებელი ნომრით ' + phone + ' არ იქნა ნამოვნი')
-				}
-				// if exists push in candidates
-				candidates.push(invitedUser.id)
-			})
+		// // TODO: services needs to be adjusted
+		// let activeUser = await AuthService.authUser(user_id)
+		// let activeCompany = await models.Company.findByPk(activeUser.active_company_id)
 
-			// return resolved promise
-			return await Promise.all(promises).then(() => {
-				// add users after all promise resolves
-				activeCompany.addOwners(candidates)
-			})
-		}
+		// /**
+		//  * check users in db
+		//  */
+		// async function validateAndInvite() {
+		// 	// prepare array for candidates
+		// 	let candidates = []
+		// 	// loop provided phones
+		// 	let promises = await invited_users.map(async phone => {
+		// 		// validate in db
+		// 		let invitedUser = await models.User.findOne({ where: { phone } })
+		// 		// if doest exists return rejected promise
+		// 		if (invitedUser === null) {
+		// 			throw new Error('მომხმარებელი ნომრით ' + phone + ' არ იქნა ნამოვნი')
+		// 		}
+		// 		// if exists push in candidates
+		// 		candidates.push(invitedUser.id)
+		// 	})
 
-		try {
-			await validateAndInvite()
-		} catch (error) {
-			throw new Error(error.message)
-		}
+		// 	// return resolved promise
+		// 	return await Promise.all(promises).then(() => {
+		// 		// add users after all promise resolves
+		// 		activeCompany.addOwners(candidates)
+		// 	})
+		// }
+
+		// try {
+		// 	await validateAndInvite()
+		// } catch (error) {
+		// 	throw new Error(error.message)
+		// }
 	}
 
 	/**

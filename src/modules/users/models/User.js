@@ -29,7 +29,6 @@ class User extends Sequelize.Model {
 					type: Sequelize.INTEGER,
 					defaultValue: 0
 				},
-				active_company_id: { type: Sequelize.INTEGER, allowNull: true, defaultValue: null },
 				sleep: {
 					type: Sequelize.INTEGER,
 					defaultValue: 0
@@ -51,8 +50,6 @@ class User extends Sequelize.Model {
 	}
 
 	static associate(models) {
-		// Active Company Relation
-		this.belongsTo(models.Company, { as: 'activeCompany' })
 		// City Relation
 		this.belongsTo(models.City)
 		// Status Relation
@@ -63,12 +60,18 @@ class User extends Sequelize.Model {
 		this.hasMany(models.UserEducation)
 		// Working Experience Relation
 		this.hasMany(models.UserWorkingExperience)
-		// User Profession Relation
+		// User Role Pivot Relation
+		this.hasMany(models.UserRole)
+		// User Profession Pivot Relation
 		this.hasMany(models.UserProfession)
+		// User Industry Pivot Relation
+		this.hasMany(models.UserIndustry)
 		// Salary Relation
 		this.hasMany(models.Salary)
 		// Certificate Relation
 		this.hasMany(models.UserCertificate)
+		// Working Type pivot relation
+		this.hasMany(models.UserWorkingType)
 		// Company Relation
 		this.belongsToMany(models.Company, {
 			through: 'company_owners',
@@ -80,23 +83,6 @@ class User extends Sequelize.Model {
 			through: 'user_companies',
 			foreignKey: 'user_id',
 			as: 'FavoriteCompanies'
-		})
-		// Role Relation
-		this.hasMany(models.UserRole)
-		// Industry Relation
-		this.belongsToMany(models.Industry, {
-			through: 'user_industries',
-			unique: 'false'
-		})
-		// Working Type
-		this.belongsToMany(models.WorkingType, {
-			through: 'user_working_types',
-			foreignKey: 'user_id'
-		})
-		// Profession Relation
-		this.belongsToMany(models.Profession, {
-			through: 'user_profession',
-			foreignKey: 'user_id'
 		})
 	}
 }

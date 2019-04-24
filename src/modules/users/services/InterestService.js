@@ -14,30 +14,24 @@ class InterestService {
 	 * Set Working Type interest to user
 	 */
 	static async setWorkingType(user_id, working_type_id) {
-		// get auth user instance
-		let user = await AuthService.authUser(user_id)
 		// attach role to user result
-		return await user.setWorkingTypes(working_type_id)
+		return await models.UserWorkingType.create({ user_id, working_type_id })
 	}
 
 	/**
 	 * Set industry interest to user
 	 */
 	static async setIndustry(user_id, industry_id) {
-		// get auth user instance
-		let user = await AuthService.authUser(user_id)
 		// attach role to user result
-		return await user.setIndustries(industry_id)
+		return await models.UserIndustry.create({ user_id, industry_id })
 	}
 
 	/**
 	 * Set profession interest to user
 	 */
 	static async setProfession(user_id, profession_id) {
-		// get auth user instance
-		let user = await AuthService.authUser(user_id)
 		// attach role to user result
-		return await user.setProfessions(profession_id)
+		return await models.UserProfession.create({ user_id, profession_id })
 	}
 
 	/**
@@ -57,28 +51,54 @@ class InterestService {
 		// get auth user instance
 		let user = await AuthService.authUser(user_id)
 		// fetch interests
+		// get latest salary
 		let salary = await models.Salary.findOne({
 			limit: 1,
 			where: { user_id },
 			order: [['createdAt', 'DESC']]
 		})
-		let [{ role }] = await user.getUserRoles({
+		// get latest role
+		let [role] = await user.getUserRoles({
 			limit: 1,
 			where: { user_id },
 			order: [['createdAt', 'DESC']],
 			attributes: [],
 			include: [models.Role]
 		})
-		let [profession] = await user.getProfessions()
-		let [industry] = await user.getIndustries()
-		let [workingTypes] = await user.getWorkingTypes()
+		// get latest profession
+		let [profession] = await user.getUserProfessions({
+			limit: 1,
+			where: { user_id },
+			order: [['createdAt', 'DESC']],
+			attributes: [],
+			include: [models.Profession]
+		})
+		// get latest industry
+		let [industry] = await user.getUserIndustries({
+			limit: 1,
+			where: { user_id },
+			order: [['createdAt', 'DESC']],
+			attributes: [],
+			include: [models.Industry]
+		})
+		// get latest working type
+		let [workingType] = await user.getUserWorkingTypes({
+			limit: 1,
+			where: { user_id },
+			order: [['createdAt', 'DESC']],
+			attributes: [],
+			include: [models.WorkingType]
+		})
+
 		// construct interest object
+		// if  any interest does not exist return null
+		// TODO: may need refactor
 		let interests = {
-			salary,
-			role,
-			profession,
-			industry,
-			workingTypes
+			salary: salary ? salary : null,
+			role: role ? role.role : null,
+			profession: profession ? profession.profession : null,
+			industry: industry ? industry.industry : null,
+			workingType: workingType ? workingType.workingType : null
 		}
 		// return object
 		return interests

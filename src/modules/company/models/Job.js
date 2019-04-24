@@ -29,6 +29,11 @@ class Job extends Sequelize.Model {
 
 	// eslint-disable-next-line no-unused-vars
 	static associate(models) {
+		// Job Requirements
+		this.hasOne(models.JobRequirement, {
+			foreignKey: 'job_id',
+			uniqueKey: 'job_id'
+		})
 		// Attributes Relation
 		this.belongsTo(models.Company)
 		this.belongsTo(models.WorkingType)

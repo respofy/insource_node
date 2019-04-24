@@ -18,7 +18,7 @@ export default {
 	},
 	company: {
 		created: 'კომპანია შეიქმნა',
-		create_error: 'კომპანია არ შეიქმნა',
+		create_error: 'კომპანიის შექმნისას დაფიქსირდა შეცდომა',
 		logo_required: 'ლოგოს ატვირთვა სავალედბულოა',
 		logo_size_error: 'ლოგოს ზომა აჭარბებს ლიმიტს'
 	},
@@ -59,13 +59,17 @@ export default {
 		certificate_delete_error: 'სერტიფიკატის წაშლისას დაფიქსირდა შეცდომა'
 	},
 	model: {
-		unique_phone_error: 'ანგარიში მსგავსი ტელეფონით უკვე არსებობს'
+		unique_phone_error: 'ანგარიში მსგავსი ტელეფონით უკვე არსებობს',
+		company: {
+			identification_code_unique_error: 'საუიდენთიფიკაციო კოდი არ არის უნიკალური'
+		}
 	},
 	job: {
 		created: 'ვაკანსია შეიქმნა',
 		create_error: 'ვაკანსიის შექმნისას დაფიქსირდა შეცდომა',
 		deleted: 'ვაკანსია წაიშალა',
-		delete_error: 'ვაკანსიის წაშლისას დაფიქსირდა შეცდომა'
+		delete_error: 'ვაკანსიის წაშლისას დაფიქსირდა შეცდომა',
+		set_requirement_error: 'კრიტერიუმები უკვე დამატებულია'
 	},
 	joi: {
 		phone_required: 'ტელეფონის ნომრის შეყვანა აუცილებელია',

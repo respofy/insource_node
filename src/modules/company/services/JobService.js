@@ -50,6 +50,24 @@ class JobService {
 		// delete job
 		return await job.destroy()
 	}
+
+	/**
+	 * Set job requirements
+	 */
+	static async setJobRequirements(params) {
+		return await models.JobRequirement.create({
+			job_id: params.job_id,
+			city: params.city,
+			working_type: params.working_type,
+			role: params.role,
+			profession: params.profession,
+			skills: params.skills,
+			salary: params.salary,
+			experience: params.experience,
+			education: params.education,
+			languages: params.languages
+		})
+	}
 }
 
 export default JobService

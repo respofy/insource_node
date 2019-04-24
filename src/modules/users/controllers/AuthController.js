@@ -7,6 +7,7 @@ import models from 'database/modelBootstrap'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 import {} from 'dotenv/config'
+import moment from 'moment'
 
 /**
  * @description class to make user registration and authorization
@@ -97,15 +98,24 @@ class AuthController {
 				phone: req.body.phone
 			}
 		})
+		// get user companies
+		const userCompanies = await user.getOwnedCompanies({ attributes: ['id'], raw: true })
 		//user instance
 		let userInstance = await AuthService.authUser(user.dataValues.id)
+		// object for token
+		let tokenInfo = {
+			user: user.dataValues,
+			companies: userCompanies
+		}
 		// compare password
 		if (user && bcrypt.compareSync(req.body.password, user.password)) {
 			// generate token and save the user
-			jwt.sign(user.dataValues, process.env.JWT_SECRET, (error, token) => {
+			jwt.sign(tokenInfo, process.env.JWT_SECRET, (error, token) => {
 				// generate response
-				res.json(response.success(ka.tokenGenerated, { token, user: userInstance }))
+				res.json(response.success(ka.tokenGenerated, { token, user: userInstance, companies: userCompanies }))
 			})
+			// set last login
+			await user.update({ last_login: moment.now() })
 		} else {
 			// not found response
 			res.json(response.error(ka.tokenNotGenerated))

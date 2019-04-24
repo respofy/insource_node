@@ -189,7 +189,7 @@ class UserController {
 	static async deleteEducation(req, res) {
 		try {
 			// delete user education from service
-			await UserService.deleteEducation(req.query.id, req.user.id)
+			await UserService.deleteEducation(req.params.id, req.user.id)
 			// response
 			res.json(response.success(ka.cv.user_education_deleted))
 		} catch (error) {
