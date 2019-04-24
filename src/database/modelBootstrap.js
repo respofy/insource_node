@@ -16,6 +16,7 @@ import User from 'modules/users/models/User'
 import Activation from 'modules/users/models/Activation'
 import City from 'modules/users/models/City'
 import Job from 'modules/company/models/Job'
+import JobRequirement from 'modules/company/models/JobRequirement'
 // education
 import University from 'modules/users/models/University'
 import UserEducation from 'modules/users/models/UserEducation'
@@ -48,6 +49,7 @@ const models = {
 	City: City.init(sequelize, Sequelize),
 	Status: Status.init(sequelize, Sequelize),
 	Job: Job.init(sequelize, Sequelize),
+	JobRequirement: JobRequirement.init(sequelize, Sequelize),
 	University: University.init(sequelize, Sequelize),
 	UserEducation: UserEducation.init(sequelize, Sequelize),
 	Degree: Degree.init(sequelize, Sequelize),

@@ -34,7 +34,7 @@ class CompanyController {
 	}
 
 	/**
-	 *
+	 * Invite user by active company
 	 */
 	static async invite(req, res) {
 		try {

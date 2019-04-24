@@ -29,7 +29,7 @@ class CompanyService {
 		// TODO: services needs to be adjusted
 		let activeUser = await AuthService.authUser(user_id)
 		let activeCompany = await models.Company.findByPk(activeUser.active_company_id)
-
+	
 		/**
 		 * check users in db
 		 */

@@ -44,6 +44,20 @@ class JobController {
 			res.json(response.error(ka.job.delete_error))
 		}
 	}
+
+	/**
+	 * Set job requirements
+	 */
+	static async setJobRequirements(req, res) {
+		try {
+			// set requirements from service
+			let requirements = await JobService.setJobRequirements(req.body)
+			// response
+			res.json(response.success(ka.request_success, requirements))
+		} catch (error) {
+			res.json(response.error(ka.job.set_requirement_error))
+		}
+	}
 }
 
 export default JobController

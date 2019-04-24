@@ -13,14 +13,16 @@ const upload = multer({ storage })
 // company
 // TODO: need review company routes and functionality
 routes.post('/fill/data', Auth, upload.single('logo'), JoiMiddleware(JoiMiddleware.CompanyFillDataSchema), CompanyController.fillData)
-routes.post('/invite', Auth, CompanyController.invite)
+routes.post('/invite', Auth, JoiMiddleware(CompanySchemas.InviteSchema), CompanyController.invite)
 routes.get('/owned/list', Auth, CompanyController.getUserOwnedCompanies)
 routes.get('/active', Auth, CompanyController.getActiveCompany)
 routes.post('/switch', Auth, JoiMiddleware(CompanySchemas.ActiveCompanySwitchSchema), CompanyController.switchActiveCompany)
 routes.post('/search/companies/by/name', Auth, CompanyController.searchCompaniesByName)
 // Jobs
 routes.get('/job/read', Auth, JobController.read)
-routes.post('/job/create', Auth, JoiMiddleware(CompanySchemas.createJobSchema), JobController.create)
+routes.post('/job/create', Auth, JoiMiddleware(CompanySchemas.CreateJobSchema), JobController.create)
 routes.post('/job/delete/:id', Auth, JobController.delete)
+
+routes.post('/job/set/requirements', Auth, JobController.setJobRequirements)
 
 export default routes
