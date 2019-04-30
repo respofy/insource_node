@@ -9,10 +9,8 @@ class CompanyController {
 	 */
 	static async registration(req, res) {
 		try {
-			// validate uploaded logo
-			req.body.logo = await CompanyService.validateLogo(req.file)
 			// create company from service
-			let createdCompany = await CompanyService.register(req.user.id, req.body)
+			let createdCompany = await CompanyService.register(req.user.id, req.body, req.file.path)
 			// response
 			res.json(response.success(ka.company.created, createdCompany))
 		} catch (error) {

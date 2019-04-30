@@ -8,7 +8,7 @@ import Auth from 'middleware/AuthMiddleware'
 import JobController from '../controllers/JobController'
 
 const routes = express.Router()
-const upload = multer({ storage })
+const upload = multer({ storage: storage('uploads/company_logos', 'public/') })
 
 // company
 // TODO: need review company routes and functionality

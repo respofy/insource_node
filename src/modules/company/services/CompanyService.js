@@ -13,9 +13,14 @@ class CompanyService {
 	/**
 	 * Fill company data
 	 */
-	static async register(user_id, data) {
+	static async register(user_id, data, image_path) {
 		// create company from service
-		let createdCompany = await models.Company.create(data)
+		let createdCompany = await models.Company.create({
+			name: data.name,
+			industry_id: data.industry_id,
+			identification_code: data.identification_code,
+			logo: image_path
+		})
 		// attach user to owners
 		await createdCompany.addOwner(user_id)
 		// return result
@@ -64,16 +69,6 @@ class CompanyService {
 		// } catch (error) {
 		// 	throw new Error(error.message)
 		// }
-	}
-
-	/**
-	 * Validate logo
-	 */
-	static async validateLogo(logo) {
-		if (!logo) {
-			throw new Error(ka.auth.logo_required)
-		}
-		return logo.path
 	}
 
 	/**

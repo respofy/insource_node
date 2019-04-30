@@ -20,6 +20,8 @@ import company from './modules/company/routes/Api'
 app.use('/users', users)
 app.use('/company', company)
 
+app.use(express.static('public'))
+
 /*
  * Error handler for Joi validations
  */
