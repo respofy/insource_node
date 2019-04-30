@@ -6,17 +6,6 @@ import response from 'helper/Response'
  *
  */
 class JobController {
-	static async read(req, res) {
-		try {
-			// fetch all jobs
-			let jobs = await JobService.read()
-			// response
-			res.json(response.success(ka.request_success, jobs))
-		} catch (error) {
-			res.json(response.error(ka.request_error))
-		}
-	}
-
 	/**
 	 * create job from company
 	 */
@@ -27,7 +16,21 @@ class JobController {
 			// response
 			res.json(response.success(ka.job.created, job))
 		} catch (error) {
-			res.json(response.error(ka.job.create_error))
+			res.json(response.error(ka.job.create_error, {}, error))
+		}
+	}
+
+	/**
+	 * read job
+	 */
+	static async read(req, res) {
+		try {
+			// fetch all jobs
+			let jobs = await JobService.read()
+			// response
+			res.json(response.success(ka.request_success, jobs))
+		} catch (error) {
+			res.json(response.error(ka.request_error))
 		}
 	}
 

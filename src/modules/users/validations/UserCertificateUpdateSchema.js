@@ -1,4 +1,4 @@
-import Joi from 'joi'
+import Joi from '@hapi/joi'
 
 const UserEducationUpdateSchema = {
 	body: {
@@ -10,6 +10,7 @@ const UserEducationUpdateSchema = {
 			.trim()
 			.max(255),
 		website: Joi.string()
+			// eslint-disable-next-line no-useless-escape
 			.regex(/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/, 'website')
 			.trim(),
 		issue_date: Joi.date()

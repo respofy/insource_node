@@ -1,8 +1,10 @@
-import Joi from 'joi'
+import Joi from '@hapi/joi'
 
 const ActiveCompanySwitchSchema = {
 	body: {
-		company_id: Joi.number().integer().required(),
+		company_id: Joi.number()
+			.integer()
+			.required()
 	}
 }
 

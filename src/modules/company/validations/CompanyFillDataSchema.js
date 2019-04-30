@@ -1,4 +1,4 @@
-import Joi from 'joi'
+import Joi from '@hapi/joi'
 
 const CompanyFillDataSchema = {
 	body: {
@@ -6,9 +6,9 @@ const CompanyFillDataSchema = {
 			.min(2)
 			.required(),
 		industry_id: Joi.number().integer(),
-		identification_code: Joi.string()
+		identification_code: Joi.number()
 			.min(2)
-			.required(),
+			.required()
 		// logo: Joi.string().required()
 	}
 }

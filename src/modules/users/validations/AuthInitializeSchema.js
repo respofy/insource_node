@@ -1,4 +1,4 @@
-import Joi from 'joi'
+import Joi from '@hapi/joi'
 // import ka from 'lang/ka'
 
 const AuthInitializeSchema = {
@@ -6,7 +6,7 @@ const AuthInitializeSchema = {
 		// phone
 		phone: Joi.string()
 			.regex(/^[0-9]+$/, 'phone')
-			.length(9) 
+			.length(9)
 			.required()
 	}
 }
