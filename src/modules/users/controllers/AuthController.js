@@ -89,7 +89,6 @@ class AuthController {
 	 * user authorization request handler
 	 */
 	static async authorization(req, res) {
-		// TODO: set last login
 		// TODO: change user find to service
 
 		// get data from database

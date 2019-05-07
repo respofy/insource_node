@@ -38,8 +38,6 @@ app.use(function(err, req, res, next) {
 		// get data from Error object
 		let errors = err.data
 
-		// eslint-disable-next-line
-		console.log(errors)
 		// iterate over message objects and push into errorMessages array
 		errors.forEach(error => {
 			errorMessages.push(error.message)

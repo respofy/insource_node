@@ -1,6 +1,9 @@
 export default {
 	request_success: 'მოთხოვნა შესრულდა წარმატებით',
 	request_error: 'მოთხოვნა არ შესრულდა',
+	phone_not_found: phone => {
+		return `მომხმარებელი ნომრით ${phone} არ იქნა ნაპოვნი`
+	},
 	auth: {
 		user_found: 'მომხმარებელი უკვე არსებობს ბაზაში',
 		user_not_found: 'მომხმარებელი არ მოიძებნა',

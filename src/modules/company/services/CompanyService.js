@@ -1,8 +1,7 @@
 import models from 'database/modelBootstrap'
 import ka from 'lang/ka'
+import jwt from 'jsonwebtoken'
 import sequelize from 'sequelize'
-// import UserService from '../../users/services/UserService'
-import AuthService from '../../users/services/AuthService'
 
 const operator = sequelize.Op
 
@@ -28,52 +27,47 @@ class CompanyService {
 	}
 
 	/**
-	 * Invite user in company
+	 * Generate new token after company registration
 	 */
-	static async inviteUsers(user_id) {
-		/** invited_users */
-		let activeUser = await AuthService.authUser(user_id)
-		let activeCompany = await models.Company.findByPk(activeUser)
-		await activeCompany.addOwners([1, 3, 1000])
-
-		// // TODO: services needs to be adjusted
-		// let activeUser = await AuthService.authUser(user_id)
-		// let activeCompany = await models.Company.findByPk(activeUser.active_company_id)
-
-		// /**
-		//  * check users in db
-		//  */
-		// async function validateAndInvite() {
-		// 	// prepare array for candidates
-		// 	let candidates = []
-		// 	// loop provided phones
-		// 	let promises = await invited_users.map(async phone => {
-		// 		// validate in db
-		// 		let invitedUser = await models.User.findOne({ where: { phone } })
-		// 		// if doest exists return rejected promise
-		// 		if (invitedUser === null) {
-		// 			throw new Error('მომხმარებელი ნომრით ' + phone + ' არ იქნა ნამოვნი')
-		// 		}
-		// 		// if exists push in candidates
-		// 		candidates.push(invitedUser.id)
-		// 	})
-
-		// 	// return resolved promise
-		// 	return await Promise.all(promises).then(() => {
-		// 		// add users after all promise resolves
-		// 		activeCompany.addOwners(candidates)
-		// 	})
-		// }
-
-		// try {
-		// 	await validateAndInvite()
-		// } catch (error) {
-		// 	throw new Error(error.message)
-		// }
+	static async newCompanyToken(req, created_company) {
+		// push new company inside request.companies
+		req.companies.push({ id: created_company.id })
+		// new object for token
+		let newToken = {
+			user: req.user,
+			companies: req.companies
+		}
+		// sign and return new token
+		return jwt.sign(newToken, process.env.JWT_SECRET)
 	}
 
 	/**
-	 *
+	 * Invite user in company by active company id
+	 */
+	static async inviteUsers(company_id, user_phones) {
+		// get active company instance
+		let activeCompany = await models.Company.findByPk(company_id)
+		// loop through phones, returns array of promises
+		let mapPromises = user_phones.map(async phone => {
+			// find user
+			let invitedUser = await models.User.findOne({
+				where: { phone }
+			})
+			// if doest exists throw error
+			if (invitedUser === null) {
+				throw new Error(ka.phone_not_found(phone))
+			}
+			// return invited user id as promise
+			return invitedUser.id
+		})
+		// await all promise returned by map
+		let candidates = await Promise.all(mapPromises)
+		// invite users on positive result
+		return await activeCompany.addOwners(candidates)
+	}
+
+	/**
+	 * Search companies by name (criteria)
 	 */
 	static async searchCompaniesByName(criteria) {
 		// get list of companies
@@ -86,22 +80,6 @@ class CompanyService {
 		})
 		// response
 		return companies
-	}
-
-	/**
-	 * Switch active company
-	 */
-	static async switchActiveCompany(user_id, company_id) {
-		// get user instance
-		let user = await models.User.findByPk(user_id)
-		// validate ownership
-		let ownership = await user.hasOwnedCompany(company_id)
-		// throw error if validation fails
-		if (ownership === false) {
-			throw new Error()
-		}
-		// update user record in db
-		return await user.update({ active_company_id: company_id })
 	}
 
 	/**

@@ -1,6 +1,7 @@
 import express from 'express'
 import CompanySchemas from '../validations'
 import JoiMiddleware from 'middleware/JoiMiddleware'
+import Owner from 'middleware/OwnerMiddleware'
 import multer from 'multer'
 import storage from 'helper/UploadHelper'
 import CompanyController from '../controllers/CompanyController'
@@ -14,16 +15,14 @@ const upload = multer({ storage: storage(`${process.env.PUBLIC_PATH}/${process.e
 // company
 // TODO: need review company routes and functionality
 routes.post('/registration', Auth, upload.single('logo'), JoiMiddleware(CompanySchemas.CompanyFillDataSchema), CompanyController.registration)
-routes.post('/invite/users', Auth, JoiMiddleware(CompanySchemas.InviteSchema), CompanyController.inviteUsers)
+routes.post('/:company_id/invite/users', Auth, Owner, JoiMiddleware(CompanySchemas.InviteSchema), CompanyController.inviteUsers)
 
 routes.get('/owned/list', Auth, CompanyController.getUserOwnedCompanies)
-routes.get('/active', Auth, CompanyController.getActiveCompany)
-routes.post('/switch', Auth, JoiMiddleware(CompanySchemas.ActiveCompanySwitchSchema), CompanyController.switchActiveCompany)
 routes.post('/search/companies/by/name', Auth, CompanyController.searchCompaniesByName)
 
 // Jobs
-routes.get('/job/read', Auth, JobController.read)
-routes.post('/job/create', Auth, JoiMiddleware(CompanySchemas.CreateJobSchema), JobController.create)
+routes.get('/:company_id/job/read', Auth, Owner, JobController.read)
+routes.post('/:company_id/job/create', Auth, Owner, JoiMiddleware(CompanySchemas.CreateJobSchema), JobController.create)
 routes.post('/job/set/requirements', Auth, JobController.setJobRequirements)
 routes.post('/job/delete/:id', Auth, JobController.delete)
 

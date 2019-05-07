@@ -1,21 +1,22 @@
 import response from 'helper/Response'
 import ka from 'lang/ka'
-import UserService from '../../users/services/UserService'
 import CompanyService from '../services/CompanyService'
 
 class CompanyController {
 	/**
-	 *
+	 * Register new company, generates new token after registration
 	 */
 	static async registration(req, res) {
 		try {
 			// create company from service
 			let createdCompany = await CompanyService.register(req.user.id, req.body, `${process.env.COMPANY_LOGO_PATH}/${req.file.filename}`)
+			// get new token after creating company
+			let newToken = await CompanyService.newCompanyToken(req, createdCompany)
 			// response
-			res.json(response.success(ka.company.created, createdCompany))
+			res.json(response.success(ka.company.created, { token: newToken, company: createdCompany }))
 		} catch (error) {
-			// error responce
-			res.json(response.error(ka.company.create_error, {}, error))
+			// error response
+			res.json(response.error(ka.company.create_error, {}, error.message))
 		}
 	}
 
@@ -25,7 +26,7 @@ class CompanyController {
 	static async inviteUsers(req, res) {
 		try {
 			// invite users
-			await CompanyService.inviteUsers(req.user.id, req.body)
+			await CompanyService.inviteUsers(req.params.company_id, req.body)
 			// response
 			res.json(response.success(ka.request_success))
 		} catch (error) {
@@ -34,13 +35,13 @@ class CompanyController {
 	}
 
 	/**
-	 *
+	 * Search companies by name (criteria)
 	 */
 	static async searchCompaniesByName(req, res) {
 		try {
 			// get the roles form service
 			let companies = await CompanyService.searchCompaniesByName(req.body.criteria)
-			// return the responce
+			// return the response
 			res.json(response.success(ka.request_success, companies))
 		} catch (error) {
 			res.json(response.success(ka.request_error))
@@ -56,33 +57,6 @@ class CompanyController {
 			let companies = await CompanyService.getUserOwnedCompanies(req.user.id)
 			// response
 			res.json(response.success(ka.request_success, companies))
-		} catch (error) {
-			res.json(response.error(ka.request_error))
-		}
-	}
-
-	/**
-	 * Get active company
-	 */
-	static async getActiveCompany(req, res) {
-		try {
-			let activeCompany = await UserService.getActiveCompany(req.user.id)
-			// response
-			res.json(response.success(ka.request_success, activeCompany))
-		} catch (error) {
-			res.json(response.error(ka.request_error))
-		}
-	}
-
-	/**
-	 * Switch active company
-	 */
-	static async switchActiveCompany(req, res) {
-		try {
-			// switch user from service
-			let switched = await CompanyService.switchActiveCompany(req.user.id, req.body.company_id)
-			// return response
-			res.json(response.success(ka.request_success, switched))
 		} catch (error) {
 			res.json(response.error(ka.request_error))
 		}

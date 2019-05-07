@@ -6,25 +6,33 @@ import models from 'database/modelBootstrap'
  */
 class JobService {
 	/**
-	 * get list of jobs
+	 * get list of jobs, filtered by company_id
 	 */
-	static async read() {
+	static async read(company_id) {
 		// fetch all jobs
 		return await models.Job.findAll({
+			where: { company_id },
 			attributes: ['title', 'salary_from', 'salary_to', 'experience_from', 'experience_to', 'description'],
-			include: [models.Company, models.WorkingType, models.City, models.Role, models.Profession, models.Degree, models.Language, models.LanguageKnowledge]
+			include: [
+				{ model: models.Company, attributes: ['id', 'name', 'logo'] },
+				{ model: models.WorkingType, attributes: ['id', 'title'] },
+				{ model: models.City, attributes: ['id', 'name'] },
+				{ model: models.Role, attributes: ['id', 'title'] },
+				{ model: models.Profession, attributes: ['id', 'title'] },
+				{ model: models.Degree, attributes: ['id', 'title'] },
+				{ model: models.Language, attributes: ['id', 'title'] },
+				{ model: models.LanguageKnowledge, attributes: ['id', 'title', 'weight'] }
+			]
 		})
 	}
 
 	/**
-	 * create job from company
+	 * create job from active company
 	 */
-	static async create(user_id, data) {
-		// get auth user
-		// let user = await AuthService.authUser(user_id)
+	static async create(user_id, company_id, data) {
 		// create job by user active company
 		return await models.Job.create({
-			company_id: 1,
+			company_id: company_id,
 			working_type_id: data.working_type_id,
 			city_id: data.city_id,
 			role_id: data.role_id,
@@ -42,7 +50,7 @@ class JobService {
 	}
 
 	/**
-	 * Delete job
+	 * Delete job by id
 	 */
 	static async delete(id) {
 		// get job by id
@@ -52,7 +60,7 @@ class JobService {
 	}
 
 	/**
-	 * Set job requirements
+	 * Set job requirements by id
 	 */
 	static async setJobRequirements(params) {
 		return await models.JobRequirement.create({

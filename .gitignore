@@ -4,3 +4,4 @@ dist/
 .env
 uploads/*
 !uploads/.gitkeep
+yarn-error.log*
