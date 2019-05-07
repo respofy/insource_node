@@ -1,4 +1,6 @@
+/* eslint-disable no-console */
 import express from 'express'
+import http from 'http'
 import bodyParser from 'body-parser'
 import {} from 'dotenv/config'
 import cors from 'cors'
@@ -17,8 +19,11 @@ app.use(bodyParser.json())
 // import module routes
 import users from './modules/users/routes/Api'
 import company from './modules/company/routes/Api'
+import message from './modules/message/routes/Api'
+
 app.use('/users', users)
 app.use('/company', company)
+app.use('/message', message)
 
 app.use(express.static('public'))
 
@@ -44,5 +49,6 @@ app.use(function(err, req, res, next) {
 })
 
 let port = process.env.APP_PORT
+var server = http.createServer(app)
 // eslint-disable-next-line no-console
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+server.listen(port, () => console.log(`Example app listening on port ${port}!`))

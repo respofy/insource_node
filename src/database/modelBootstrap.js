@@ -40,6 +40,7 @@ import Salary from 'modules/users/models/Salary'
 import UserRole from 'modules/users/models/UserRole'
 import UserIndustry from 'modules/users/models/UserIndustry'
 import UserWorkingType from 'modules/users/models/UserWorkingType'
+import Message from 'modules/message/models/Message'
 
 const models = {
 	User: User.init(sequelize, Sequelize),
@@ -67,7 +68,8 @@ const models = {
 	Salary: Salary.init(sequelize, Sequelize),
 	UserRole: UserRole.init(sequelize, Sequelize),
 	UserIndustry: UserIndustry.init(sequelize, Sequelize),
-	UserWorkingType: UserWorkingType.init(sequelize, Sequelize)
+	UserWorkingType: UserWorkingType.init(sequelize, Sequelize),
+	Message: Message.init(sequelize, Sequelize),
 }
 
 // Run `.associate` if it exists,
