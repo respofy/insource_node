@@ -10,7 +10,7 @@ class CompanyController {
 	static async registration(req, res) {
 		try {
 			// create company from service
-			let createdCompany = await CompanyService.register(req.user.id, req.body, req.file.path)
+			let createdCompany = await CompanyService.register(req.user.id, req.body, `${process.env.COMPANY_LOGO_PATH}/${req.file.filename}`)
 			// response
 			res.json(response.success(ka.company.created, createdCompany))
 		} catch (error) {

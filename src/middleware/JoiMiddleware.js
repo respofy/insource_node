@@ -1,5 +1,5 @@
-import Joi from 'joi'
-import Boom from 'boom'
+import Joi from '@hapi/joi'
+import Boom from '@hapi/boom'
 import Extend from 'extend'
 
 module.exports = function validate(schema) {

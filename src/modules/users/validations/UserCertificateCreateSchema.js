@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-escape */
-import Joi from 'joi'
+import Joi from '@hapi/joi'
 
 const UserEducationCreateSchema = {
 	body: {

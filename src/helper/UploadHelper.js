@@ -2,16 +2,16 @@ import path from 'path'
 import multer from 'multer'
 import fs from 'fs'
 
-export default (destination, public_path) => {
+export default destination => {
 	// intialize storage
 	let storage = multer.diskStorage({
 		destination: function(req, file, callback) {
 			// create directory if not exsist
-			if (!fs.existsSync(public_path + destination)) {
-				fs.mkdirSync(public_path + destination)
+			if (!fs.existsSync(destination)) {
+				fs.mkdirSync(destination)
 			}
 			// upload directory
-			callback(null, public_path + destination)
+			callback(null, destination)
 		},
 		filename: function(req, file, callback) {
 			// generate unique name with date

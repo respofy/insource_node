@@ -1,4 +1,4 @@
-import Joi from 'joi'
+import Joi from '@hapi/joi'
 
 const UserResetPasswordSchema = {
 	body: {
@@ -13,7 +13,7 @@ const UserResetPasswordSchema = {
 			.regex(/^[0-9]+$/, 'phone')
 			.length(4)
 			.required()
-	} 
+	}
 }
 
 export default UserResetPasswordSchema

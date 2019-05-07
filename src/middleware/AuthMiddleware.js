@@ -14,7 +14,7 @@ export default function verify(req, res, next) {
 	// Verify if token is valid
 	Jwt.verify(token, process.env.JWT_SECRET, (error, authData) => {
 		if (error) {
-			res.json(Response.error(ka.middleware.not_authorize))
+			res.json(Response.error(ka.middleware.not_authorize, {}, error))
 		} else {
 			// If token is valid extend Req object with user data
 			Extend(req, { user: authData.user })

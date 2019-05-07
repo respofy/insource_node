@@ -1,6 +1,6 @@
 import express from 'express'
 import multer from 'multer'
-import storage from 'helper/uploadStorageHelper'
+import storage from 'helper/UploadHelper'
 import UserSchemas from '../validations'
 import Auth from 'middleware/AuthMiddleware'
 import JoiMiddleware from 'middleware/JoiMiddleware'
@@ -59,7 +59,6 @@ routes.post('/certificate/create', Auth, JoiMiddleware(UserSchemas.UserCertifica
 routes.post('/certificate/update/:id', Auth, JoiMiddleware(UserSchemas.UserCertificateUpdateSchema), UserController.updateCertificate)
 routes.post('/certificate/delete/:id', Auth, UserController.deleteCertificate)
 routes.get('/certificate/read', Auth, UserController.readCertificate)
-
 
 // TODO: need to finish
 routes.post('/cv/city/set', Auth, JoiMiddleware(UserSchemas.UserCitySchema), UserController.setCity)

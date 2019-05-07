@@ -30,7 +30,8 @@ class CompanyService {
 	/**
 	 * Invite user in company
 	 */
-	static async inviteUsers(user_id, invited_users) {
+	static async inviteUsers(user_id) {
+		/** invited_users */
 		let activeUser = await AuthService.authUser(user_id)
 		let activeCompany = await models.Company.findByPk(activeUser)
 		await activeCompany.addOwners([1, 3, 1000])

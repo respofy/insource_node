@@ -1,4 +1,4 @@
-import AuthService from '../../users/services/AuthService'
+// import AuthService from '../../users/services/AuthService'
 import models from 'database/modelBootstrap'
 
 /**
@@ -21,10 +21,10 @@ class JobService {
 	 */
 	static async create(user_id, data) {
 		// get auth user
-		let user = await AuthService.authUser(user_id)
+		// let user = await AuthService.authUser(user_id)
 		// create job by user active company
 		return await models.Job.create({
-			company_id: user.activeCompany.id,
+			company_id: 1,
 			working_type_id: data.working_type_id,
 			city_id: data.city_id,
 			role_id: data.role_id,
