@@ -17,7 +17,7 @@ class Job extends Sequelize.Model {
 				salary_to: { type: Sequelize.DOUBLE, allowNull: false },
 				experience_from: { type: Sequelize.INTEGER, allowNull: false },
 				experience_to: { type: Sequelize.INTEGER, allowNull: false },
-				description: { type: Sequelize.TEXT, allowNull: false }
+				description: { type: Sequelize.TEXT, allowNull: true }
 			},
 			{
 				sequelize,
@@ -47,6 +47,12 @@ class Job extends Sequelize.Model {
 		this.belongsToMany(models.User, {
 			foreignKey: 'job_id',
 			through: 'job_users'
+		})
+		// Skills related to job
+		this.belongsToMany(models.Skill, {
+			as: 'jobSkill',
+			through: 'jobs_skills',
+			foreignKey: 'job_id'
 		})
 	}
 }

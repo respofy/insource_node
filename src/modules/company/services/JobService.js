@@ -12,12 +12,13 @@ class JobService {
 		// fetch all jobs
 		return await models.Job.findAll({
 			where: { company_id },
-			attributes: ['title', 'salary_from', 'salary_to', 'experience_from', 'experience_to', 'description'],
+			attributes: ['id', 'title', 'salary_from', 'salary_to', 'experience_from', 'experience_to', 'description'],
 			include: [
 				{ model: models.Company, attributes: ['id', 'name', 'logo'] },
 				{ model: models.WorkingType, attributes: ['id', 'title'] },
 				{ model: models.City, attributes: ['id', 'name'] },
 				{ model: models.Role, attributes: ['id', 'title'] },
+				{ association: 'jobSkill', through: { attributes: [] } },
 				{ model: models.Profession, attributes: ['id', 'title'] },
 				{ model: models.Degree, attributes: ['id', 'title'] },
 				{ model: models.Language, attributes: ['id', 'title'] },
@@ -31,7 +32,7 @@ class JobService {
 	 */
 	static async create(user_id, company_id, data) {
 		// create job by user active company
-		return await models.Job.create({
+		let newJob = await models.Job.create({
 			company_id: company_id,
 			working_type_id: data.working_type_id,
 			city_id: data.city_id,
@@ -47,6 +48,27 @@ class JobService {
 			experience_to: data.experience_to,
 			description: data.description
 		})
+		// loop through skills
+		data.skills.forEach(async skill => {
+			// if skill does not exist in db, create new one and associate with profession & job
+			if (skill.id == null) {
+				// create new skill
+				let newSkill = await models.Skill.create({
+					title: skill.title
+				})
+				// get profession instance
+				let profession = await models.Profession.findByPk(data.profession_id)
+				// attach new skill to profession
+				await profession.addSkill(newSkill.id)
+				// attach skills to job
+				await newJob.addJobSkill(newSkill.id)
+			}
+			// if exists, attach skills to job
+			await newJob.addJobSkill(skill.id)
+		})
+
+		// return new instance
+		return newJob
 	}
 
 	/**
