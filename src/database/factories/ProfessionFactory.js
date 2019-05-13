@@ -2,7 +2,7 @@ import faker from 'faker'
 
 class ProfessionFactory {
 	constructor() {
-		this.title = faker.fake('{{name.jobArea}}')
+		this.title = 'Profession of ' + faker.fake('{{name.jobArea}}')
 	}
 }
 

@@ -1,5 +1,5 @@
 /**
- * Function for seeding db with Factory objects
+ * Class for seeding db with Factory objects
  */
 class Seeder {
 	/**
@@ -18,7 +18,11 @@ class Seeder {
 
 	// Bulk insert prepared js objects
 	static generateByCollection(model, collection) {
-		model.bulkCreate(collection)
+		model.findByPk(1).then(result => {
+			if (!result) {
+				model.bulkCreate(collection)
+			}
+		})
 	}
 }
 export default Seeder
