@@ -7,27 +7,28 @@ import UserService from '../services/UserService'
  */
 class UserController {
 	/**
-	 * Get user description in cv
+	 * Set profile information
 	 */
-	static async getDescription(req, res) {
+	static async setProfileInfo(req, res) {
 		try {
-			// get user description
-			let description = await UserService.getDescription(req.user.id)
+			// set profile info from service
+			await UserService.setProfileInfo(req.user.id, req.body)
 			// response
-			res.json(response.success(ka.request_success, description))
+			res.json(response.success(ka.request_success))
 		} catch (error) {
 			res.json(response.success(error.message))
 		}
 	}
 
 	/**
-	 * set user description in cv
+	 * Get profile information
 	 */
-	static async setDescription(req, res) {
+	static async getProfileInfo(req, res) {
 		try {
-			await UserService.setDescription(req.user.id, req.body)
+			// get profile info from service
+			let profileInfo = await UserService.getProfileInfo(req.user.id)
 			// response
-			res.json(response.success(ka.request_success))
+			res.json(response.success(ka.request_success, profileInfo))
 		} catch (error) {
 			res.json(response.success(error.message))
 		}
@@ -129,7 +130,7 @@ class UserController {
 		try {
 			// delete user language from service
 			await UserService.deleteLanguage(req.params.id)
-			// make responce
+			// make response
 			res.json(response.success(ka.request_success))
 		} catch (error) {
 			return res.json(response.error(error.message))
@@ -327,34 +328,6 @@ class UserController {
 		}
 	}
 	/** -------------------------------------------------------------------- */
-
-	/**
-	 * Set city in CV by id
-	 */
-	static async setCity(req, res) {
-		try {
-			// set city from user service
-			await UserService.setCity(req.user.id, req.body.id)
-			// response
-			res.json(response.success(ka.cv.city_updated))
-		} catch (error) {
-			return res.json(response.error(ka.cv.city_not_updated))
-		}
-	}
-
-	/**
-	 * Set status in CV by id
-	 */
-	static async setStatus(req, res) {
-		try {
-			// set status from user service
-			await UserService.setStatus(req.user.id, req.body.id)
-			// response
-			res.json(response.success(ka.cv.status_updated))
-		} catch (error) {
-			return res.json(response.error(ka.cv.status_not_updated))
-		}
-	}
 
 	/**
 	 * List of favorite companies

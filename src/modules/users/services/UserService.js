@@ -7,26 +7,29 @@ import AuthService from '../services/AuthService'
  */
 class UserService {
 	/**
-	 * get description
+	 * Set profile info
 	 */
-	static async getDescription(user_id) {
-		// get auth user
+	static async setProfileInfo(user_id, data) {
+		// get user
 		let user = await AuthService.authUser(user_id)
-		// return description
-		return user.about_me
-	}
-
-	/**
-	 * set description
-	 */
-	static async setDescription(user_id, data) {
-		// get auth user
-		let user = await AuthService.authUser(user_id)
-		// update user's description
-		return await user.update({
-			about_me: data.description
+		// update user
+		return user.update({
+			city_id: data.city_id,
+			status_id: data.status_id,
+			incognito: data.incognito,
+			about_me: data.about_me
 		})
 	}
+
+	static async getProfileInfo(user_id) {
+		// get user
+		return await models.User.findOne({
+			where: { id: user_id },
+			attributes: ['incognito', 'about_me'],
+			include: [{ model: models.Status, attributes: ['id', 'title'] }, { model: models.City, attributes: ['id', 'name'] }]
+		})
+	}
+
 
 	/**
 	 * add user working experience
@@ -261,7 +264,7 @@ class UserService {
 			website: data.website,
 			issue_date: data.issue_date
 		})
-		// responce
+		// response
 		return certificate
 	}
 
@@ -377,26 +380,6 @@ class UserService {
 			throw new Error(ka.auth.user_not_updated)
 		}
 		return updatedUser
-	}
-
-	/**
-	 * Set city in CV
-	 */
-	static async setCity(user_id, city_id) {
-		// get auth user
-		let user = await AuthService.authUser(user_id)
-		// set city to the user
-		return await user.setCity(city_id)
-	}
-
-	/**
-	 * Set status in CV
-	 */
-	static async setStatus(user_id, status_id) {
-		// get auth user
-		let user = await AuthService.authUser(user_id)
-		// set status
-		return await user.setStatus(status_id)
 	}
 
 	/**

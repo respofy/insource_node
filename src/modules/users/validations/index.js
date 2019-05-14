@@ -1,8 +1,6 @@
 import AuthFillDataSchema from './AuthFillDataSchema'
 import AuthInitializeSchema from './AuthInitializeSchema'
 import AuthResendSMSSchema from './AuthResendSMSSchema'
-import UserCitySchema from './UserCitySchema'
-import UserStatusSchema from './UserStatusSchema'
 import UserLoginSchema from './UserLoginSchema'
 import UserRegistrationSchema from './UserRegistrationSchema'
 import UserResetPasswordSchema from './UserResetPasswordSchema'
@@ -22,7 +20,7 @@ import InterestWorkingTypeSetSchema from './InterestWorkingTypeSetSchema'
 import InterestSalarySetSchema from './InterestSalarySetSchema'
 import UserCertificateCreateSchema from './UserCertificateCreateSchema'
 import UserCertificateUpdateSchema from './UserCertificateUpdateSchema'
-import UserSetDescriptionSchema from './UserSetDescriptionSchema'
+import UserSetProfileInfoSchema from './UserSetProfileInfoSchema'
 import UserQualificationCreateSchema from './UserQualificationCreateSchema'
 import UserQualificationUpdateSchema from './UserQualificationUpdateSchema'
 
@@ -33,8 +31,6 @@ export default {
 	UserLoginSchema,
 	UserRegistrationSchema,
 	UserResetPasswordSchema,
-	UserCitySchema,
-	UserStatusSchema,
 	UserWorkingExCreateSchema,
 	UserWorkingExUpdateSchema,
 	UserEducationCreateSchema,
@@ -51,7 +47,7 @@ export default {
 	InterestSalarySetSchema,
 	UserCertificateCreateSchema,
 	UserCertificateUpdateSchema,
-	UserSetDescriptionSchema,
+	UserSetProfileInfoSchema,
 	UserQualificationCreateSchema,
 	UserQualificationUpdateSchema
 }
