@@ -23,6 +23,8 @@ import InterestSalarySetSchema from './InterestSalarySetSchema'
 import UserCertificateCreateSchema from './UserCertificateCreateSchema'
 import UserCertificateUpdateSchema from './UserCertificateUpdateSchema'
 import UserSetDescriptionSchema from './UserSetDescriptionSchema'
+import UserQualificationCreateSchema from './UserQualificationCreateSchema'
+import UserQualificationUpdateSchema from './UserQualificationUpdateSchema'
 
 export default {
 	AuthFillDataSchema,
@@ -49,5 +51,7 @@ export default {
 	InterestSalarySetSchema,
 	UserCertificateCreateSchema,
 	UserCertificateUpdateSchema,
-	UserSetDescriptionSchema
+	UserSetDescriptionSchema,
+	UserQualificationCreateSchema,
+	UserQualificationUpdateSchema
 }

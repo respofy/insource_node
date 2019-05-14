@@ -108,6 +108,16 @@ class AttributesService {
 			order: [['weight', 'ASC']]
 		})
 	}
+
+	/**
+	 * Qualifications
+	 */
+	static async qualifications() {
+		// get language knowledges
+		return await models.Qualification.findAll({
+			order: [['title', 'ASC']]
+		})
+	}
 }
 
 export default AttributesService

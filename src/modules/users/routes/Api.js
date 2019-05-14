@@ -35,6 +35,7 @@ routes.get('/attributes/degrees', Auth, AttributesController.degrees)
 routes.get('/attributes/statuses', Auth, AttributesController.statuses)
 routes.get('/attributes/languages', Auth, AttributesController.languages)
 routes.get('/attributes/language/knowledges', Auth, AttributesController.languageKnowledges)
+routes.get('/attributes/qualifications', Auth, AttributesController.qualifications)
 
 // working experience
 routes.post('/working/experience/create', Auth, JoiMiddleware(UserSchemas.UserWorkingExCreateSchema), UserController.addWorkingExperience)
@@ -59,6 +60,12 @@ routes.post('/certificate/create', Auth, JoiMiddleware(UserSchemas.UserCertifica
 routes.post('/certificate/update/:id', Auth, JoiMiddleware(UserSchemas.UserCertificateUpdateSchema), UserController.updateCertificate)
 routes.post('/certificate/delete/:id', Auth, UserController.deleteCertificate)
 routes.get('/certificate/read', Auth, UserController.readCertificate)
+
+//qualifications
+routes.post('/qualification/create', Auth, JoiMiddleware(UserSchemas.UserQualificationCreateSchema), UserController.createQualification)
+routes.get('/qualification/read', Auth, UserController.readQualification)
+routes.post('/qualification/update/:id', Auth, JoiMiddleware(UserSchemas.UserQualificationUpdateSchema), UserController.updateQualification)
+routes.post('/qualification/delete/:id', Auth, UserController.deleteQualification)
 
 // TODO: need to finish
 routes.post('/cv/city/set', Auth, JoiMiddleware(UserSchemas.UserCitySchema), UserController.setCity)

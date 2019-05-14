@@ -305,6 +305,59 @@ class UserService {
 	/** -------------------------------------------------------------------- */
 
 	/**
+	 * Create qualification
+	 */
+	static async createQualification(user_id, data) {
+		return await models.UserQualification.create({
+			user_id: user_id,
+			qualification_id: data.qualification_id,
+			started_at: data.started_at,
+			finished_at: data.finished_at
+		})
+	}
+
+	/**
+	 * Read auth user qualifications
+	 */
+	static async readQualifications(user_id) {
+		// get auth user
+		let user = await AuthService.authUser(user_id)
+		// get qualifications
+		return await user.getUserQualifications({
+			attributes: ['id', 'user_id', 'qualification_id', 'started_at', 'finished_at'],
+			include: { model: models.Qualification }
+		})
+	}
+
+	/**
+	 * Update qualifications
+	 */
+	static async updateQualification(id, data) {
+		// fetch record by id
+		let qualification = await models.UserQualification.findByPk(id)
+		// update record
+		let updatedQualification = await qualification.update({
+			qualification_id: data.qualification_id,
+			started_at: data.started_at,
+			finished_at: data.finished_at
+		})
+		// return result
+		return updatedQualification
+	}
+
+	/**
+	 * Delete qualification
+	 */
+	static async deleteQualification(id) {
+		// fetch record by id
+		let qualification = await models.UserQualification.findByPk(id)
+		// delete
+		return await qualification.destroy()
+	}
+
+	/** -------------------------------------------------------------------- */
+
+	/**
 	 * check the user by different criteria
 	 */
 	static async create(data) {

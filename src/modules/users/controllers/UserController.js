@@ -272,6 +272,63 @@ class UserController {
 	/** -------------------------------------------------------------------- */
 
 	/**
+	 * Create user qualification
+	 */
+	static async createQualification(req, res) {
+		try {
+			// create qualification from service
+			let userQualification = await UserService.CreateQualification(req.user.id, req.body)
+			// response
+			res.json(response.success(ka.request_success, userQualification))
+		} catch (error) {
+			res.json(response.error(error.message))
+		}
+	}
+
+	/**
+	 * Read qualifications
+	 */
+	static async readQualification(req, res) {
+		try {
+			// get qualifications from service
+			let qualifications = await UserService.readQualifications(req.user.id)
+			// response
+			res.json(response.success(ka.request_success, qualifications))
+		} catch (error) {
+			res.json(response.error(error.message))
+		}
+	}
+
+	/**
+	 * Update qualifications
+	 */
+	static async updateQualification(req, res) {
+		try {
+			// update record from service
+			let updatedQualification = await UserService.updateQualification(req.params.id, req.body)
+			// response
+			res.json(response.success(ka.request_success, updatedQualification))
+		} catch (error) {
+			res.json(response.error(error.message))
+		}
+	}
+
+	/**
+	 * Delete qualification
+	 */
+	static async deleteQualification(req, res) {
+		try {
+			// delete record from service
+			await UserService.deleteQualification(req.params.id)
+			// response
+			res.json(response.success(ka.request_success))
+		} catch (error) {
+			res.json(response.error(error.message))
+		}
+	}
+	/** -------------------------------------------------------------------- */
+
+	/**
 	 * Set city in CV by id
 	 */
 	static async setCity(req, res) {
