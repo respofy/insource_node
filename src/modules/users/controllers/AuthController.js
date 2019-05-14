@@ -73,15 +73,15 @@ class AuthController {
 		try {
 			// check if user is activated
 			await AuthService.isActivated(req.body.phone)
-			// validate image and return path
-			req.body.avatar = await AuthService.validateImage(req.file)
+			// // validate image and return path
+			// req.body.avatar = await AuthService.validateImage(req.file)
 			// create the user
-			await UserService.create(req.body)
+			await UserService.create(req.body, `${process.env.USER_AVATAR_PATH}/${req.file.filename}`)
 			// response
 			res.json(response.success(ka.auth.user_was_registered))
 		} catch (err) {
 			// response when error happens
-			return res.json(response.error(err.message))
+			return res.json(response.error(err.message, {}, err))
 		}
 	}
 

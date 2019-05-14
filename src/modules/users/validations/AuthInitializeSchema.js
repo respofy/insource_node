@@ -7,6 +7,10 @@ const AuthInitializeSchema = {
 		phone: Joi.string()
 			.regex(/^[0-9]+$/, 'phone')
 			.length(9)
+			.required(),
+		// password
+		password: Joi.string()
+			.min(3)
 			.required()
 	}
 }

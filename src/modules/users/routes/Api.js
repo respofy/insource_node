@@ -10,7 +10,7 @@ import AttributesController from '../controllers/AttributesController'
 import InterestController from '../controllers/InterestController'
 
 const routes = express.Router()
-const upload = multer({ storage })
+const upload = multer({ storage: storage(`${process.env.PUBLIC_PATH}/${process.env.USER_AVATAR_PATH}`) })
 
 // auth requests
 routes.post('/initialize', JoiMiddleware(UserSchemas.AuthInitializeSchema), AuthController.initialize)

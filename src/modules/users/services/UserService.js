@@ -307,8 +307,17 @@ class UserService {
 	/**
 	 * check the user by different criteria
 	 */
-	static async create(data) {
-		return await models.User.create(data)
+	static async create(data, avatar) {
+		return await models.User.create({
+			password: data.password,
+			phone: data.phone,
+			name: data.name,
+			surname: data.surname,
+			gender: data.gender,
+			avatar: avatar,
+			birthday: data.birthday,
+			city_id: data.city_id
+		})
 	}
 
 	/**

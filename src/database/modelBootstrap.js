@@ -69,7 +69,7 @@ const models = {
 	UserRole: UserRole.init(sequelize, Sequelize),
 	UserIndustry: UserIndustry.init(sequelize, Sequelize),
 	UserWorkingType: UserWorkingType.init(sequelize, Sequelize),
-	Message: Message.init(sequelize, Sequelize),
+	Message: Message.init(sequelize, Sequelize)
 }
 
 // Run `.associate` if it exists,
@@ -78,6 +78,7 @@ Object.values(models)
 	.filter(model => typeof model.associate === 'function')
 	.forEach(model => model.associate(models))
 
+// TODO: add new seeder
 if (process.env.DB_MIGRATION == 'true') sequelize.sync()
 
 const db = {
