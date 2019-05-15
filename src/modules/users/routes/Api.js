@@ -69,7 +69,7 @@ routes.post('/qualification/delete/:id', Auth, UserController.deleteQualificatio
 
 // TODO: need to finish
 routes.get('/profile/info/get', Auth, UserController.getProfileInfo)
-routes.post('/profile/info/setiu', Auth, UserController.setProfileInfo)
+routes.post('/profile/info/set', Auth, upload.single('avatar'), JoiMiddleware(UserSchemas.UserSetProfileInfoSchema), UserController.setProfileInfo)
 
 // routes.post('/cv/favorite/company/search', Auth, JoiMiddleware(UserSchemas.UserWorkingExCompanies), WorkingExController.companies)
 routes.post('/cv/favorite/company/add', Auth, JoiMiddleware(UserSchemas.FavoriteCompanyAddSchema), UserController.addCompanyToFavorites)
@@ -79,7 +79,7 @@ routes.get('/cv/favorite/company/all', Auth, UserController.favoriteCompanies)
 // interests
 routes.get('/cv/interests/all', Auth, InterestController.getInterests)
 routes.post('/cv/interests/role/set', Auth, JoiMiddleware(UserSchemas.InterestRoleSetSchema), InterestController.setRole)
-routes.post('/cv/interests/working-type/sSeret', Auth, JoiMiddleware(UserSchemas.InterestWorkingTypeSetSchema), InterestController.setWorkingType)
+routes.post('/cv/interests/working-type/set', Auth, JoiMiddleware(UserSchemas.InterestWorkingTypeSetSchema), InterestController.setWorkingType)
 routes.post('/cv/interests/industry/set', Auth, JoiMiddleware(UserSchemas.InterestIndustrySetSchema), InterestController.setIndustry)
 routes.post('/cv/interests/profession/set', Auth, JoiMiddleware(UserSchemas.InterestProfessionSetSchema), InterestController.setProfession)
 routes.post('/cv/interests/salary/set', Auth, JoiMiddleware(UserSchemas.InterestSalarySetSchema), InterestController.setSalary)
