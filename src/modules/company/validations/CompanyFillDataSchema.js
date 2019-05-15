@@ -1,15 +1,20 @@
 import Joi from '@hapi/joi'
+import ka from 'lang/ka'
 
 const CompanyFillDataSchema = {
 	body: {
 		name: Joi.string()
 			.min(2)
-			.required(),
-		industry_id: Joi.number().integer(),
-		identification_code: Joi.number()
-			.min(2)
+			.trim()
+			.error(() => ka.joi.company_name),
+		industry_id: Joi.number()
+			.integer()
 			.required()
-		// logo: Joi.string().required()
+			.error(() => ka.joi.industry_required),
+		identification_code: Joi.string()
+			.regex(/[0-9]{9}/)
+			.required()
+			.error(() => ka.joi.identification_code)
 	}
 }
 

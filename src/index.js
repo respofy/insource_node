@@ -42,7 +42,11 @@ app.use(function(err, req, res, next) {
 		errors.forEach(error => {
 			errorMessages.push(error.message)
 		})
-		return res.json(response.error(errorMessages))
+
+		// remove duplicated error messages created by joi
+		let filteredMessages = [...new Set(errorMessages)]
+
+		return res.json(response.error(filteredMessages))
 	}
 })
 
