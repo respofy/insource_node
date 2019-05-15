@@ -9,11 +9,17 @@ class UserService {
 	/**
 	 * Set profile info
 	 */
-	static async setProfileInfo(user_id, data) {
+	static async setProfileInfo(user_id, data, avatar) {
 		// get user
 		let user = await AuthService.authUser(user_id)
-		// update user
-		return user.update({
+        // update user
+        console.log(data)
+		return await user.update({
+			name: data.name,
+			surname: data.surname,
+			birthday: data.birthday,
+			avatar: avatar,
+			gender: data.gender,
 			city_id: data.city_id,
 			status_id: data.status_id,
 			incognito: data.incognito,
@@ -25,11 +31,10 @@ class UserService {
 		// get user
 		return await models.User.findOne({
 			where: { id: user_id },
-			attributes: ['name', 'surname', 'gender', 'avatar', 'birthday', 'about_me', 'incognito' ],
+			attributes: ['name', 'surname', 'gender', 'avatar', 'birthday', 'about_me', 'incognito'],
 			include: [{ model: models.Status, attributes: ['id', 'title'] }, { model: models.City, attributes: ['id', 'name'] }]
 		})
 	}
-
 
 	/**
 	 * add user working experience

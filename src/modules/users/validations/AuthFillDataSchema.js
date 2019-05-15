@@ -20,11 +20,11 @@ const UserFillDataSchema = {
 			.min(2)
 			.required(),
 		// gender
-		gender: Joi.string().required(),
+		gender: Joi.string().valid('male', 'female').required(),
 		// birth day
 		birthday: Joi.date(),
 		// about me
-		city_id: Joi.number()
+		city_id: Joi.number().integer()
 	}
 }
 

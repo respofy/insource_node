@@ -69,7 +69,7 @@ routes.post('/qualification/delete/:id', Auth, UserController.deleteQualificatio
 
 // TODO: need to finish
 routes.get('/profile/info/get', Auth, UserController.getProfileInfo)
-routes.post('/profile/info/set', Auth, JoiMiddleware(UserSchemas.UserSetProfileInfoSchema), UserController.setProfileInfo)
+routes.post('/profile/info/setiu', Auth, UserController.setProfileInfo)
 
 // routes.post('/cv/favorite/company/search', Auth, JoiMiddleware(UserSchemas.UserWorkingExCompanies), WorkingExController.companies)
 routes.post('/cv/favorite/company/add', Auth, JoiMiddleware(UserSchemas.FavoriteCompanyAddSchema), UserController.addCompanyToFavorites)

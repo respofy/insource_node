@@ -8,6 +8,7 @@ class CompanyController {
 	 */
 	static async registration(req, res) {
 		try {
+            console.log(req.body)
 			// create company from service
 			let createdCompany = await CompanyService.register(req.user.id, req.body, `${process.env.COMPANY_LOGO_PATH}/${req.file.filename}`)
 			// get new token after creating company

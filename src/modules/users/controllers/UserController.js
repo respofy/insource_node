@@ -12,6 +12,7 @@ class UserController {
 	static async setProfileInfo(req, res) {
 		try {
 			// set profile info from service
+			console.log(req.body)
 			await UserService.setProfileInfo(req.user.id, req.body)
 			// response
 			res.json(response.success(ka.request_success))
