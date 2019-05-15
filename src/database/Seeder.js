@@ -9,16 +9,19 @@ class Seeder {
 	 *
 	 * Loop as many times as count and create record in db
 	 */
-	static generateMany(Model, Factory, Count) {
+	static async generateMany(Model, Factory, Count) {
 		for (let iteration = 0; iteration < Count; iteration++) {
 			// create new Factory instances
 			Model.create(new Factory())
 		}
+
+		return true
 	}
 
 	// Bulk insert prepared js objects
-	static generateByCollection(model, collection) {
-		model.findByPk(1).then(result => {
+	static async generateByCollection(model, collection) {
+		return await model.findByPk(1).then(result => {
+			// check records in db to avoid useless duplications
 			if (!result) {
 				model.bulkCreate(collection)
 			}

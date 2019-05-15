@@ -85,24 +85,28 @@ Object.values(models)
 	.filter(model => typeof model.associate === 'function')
 	.forEach(model => model.associate(models))
 
-// TODO: add new seeder
 if (process.env.DB_MIGRATION == 'true')
 	sequelize.sync().then(() => {
 		if (process.env.DB_SEED == 'true') {
-			seeder.generateMany(db.Industry, factories.industry, 5)
-			seeder.generateMany(db.City, factories.city, 5)
-			seeder.generateMany(db.Company, factories.company, 2)
-			seeder.generateMany(db.Faculty, factories.faculty, 2)
-			seeder.generateByCollection(db.Degree, factories.degrees)
-			seeder.generateMany(db.Language, factories.language, 2)
-			seeder.generateByCollection(db.LanguageKnowledge, factories.languageKnowledges)
-			seeder.generateMany(db.Profession, factories.profession, 2)
-			seeder.generateMany(db.Skill, factories.skill, 2)
-			seeder.generateMany(db.Role, factories.role, 2)
-			seeder.generateByCollection(db.WorkingType, factories.workingTypes, 2)
-			seeder.generateMany(db.University, factories.university, 2)
-			seeder.generateByCollection(db.Status, factories.statuses)
-			seeder.generateMany(db.User, factories.user, 2)
+			// generate records that has no relations
+			Promise.all([
+				seeder.generateByCollection(db.Degree, factories.degrees),
+				seeder.generateByCollection(db.WorkingType, factories.workingTypes, 2),
+				seeder.generateByCollection(db.LanguageKnowledge, factories.languageKnowledges),
+				seeder.generateByCollection(db.Status, factories.statuses)
+			]).then(() => {
+				// after generating records with no relations, generate records with relations
+				seeder.generateMany(db.Industry, factories.industry, 5)
+				seeder.generateMany(db.City, factories.city, 5)
+				seeder.generateMany(db.Company, factories.company, 2)
+				seeder.generateMany(db.Faculty, factories.faculty, 2)
+				seeder.generateMany(db.Language, factories.language, 2)
+				seeder.generateMany(db.Profession, factories.profession, 2)
+				seeder.generateMany(db.Skill, factories.skill, 2)
+				seeder.generateMany(db.Role, factories.role, 2)
+				seeder.generateMany(db.University, factories.university, 2)
+				seeder.generateMany(db.User, factories.user, 2)
+			})
 		}
 	})
 
