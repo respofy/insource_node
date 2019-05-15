@@ -14,7 +14,7 @@ class UserFactory {
 		this.avatar = faker.fake('{{image.avatar}}')
 		this.birthday = faker.fake('{{date.past}}')
 		this.city_id = generator.getRandomInteger(1, 5)
-		this.status_id = generator.getRandomInteger(1, 3)
+		this.status_id = generator.getRandomInteger(1, 2)
 		this.about_me = faker.fake('{{lorem.text}}')
 		this.incognito = generator.getRandomInteger(2)
 	}

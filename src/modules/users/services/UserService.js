@@ -25,7 +25,7 @@ class UserService {
 		// get user
 		return await models.User.findOne({
 			where: { id: user_id },
-			attributes: ['incognito', 'about_me'],
+			attributes: ['name', 'surname', 'gender', 'avatar', 'birthday', 'about_me', 'incognito' ],
 			include: [{ model: models.Status, attributes: ['id', 'title'] }, { model: models.City, attributes: ['id', 'name'] }]
 		})
 	}
