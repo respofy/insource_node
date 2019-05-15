@@ -89,6 +89,13 @@ class AttributesController {
 	static async languageKnowledges(req, res) {
 		res.json(response.success(ka.request_success, await AttributesService.languageKnowledges()))
 	}
+
+	/**
+	 * Qualifications
+	 */
+	static async qualifications(req, res) {
+		res.json(response.success(ka.request_success, await AttributesService.qualifications()))
+	}
 }
 
 export default AttributesController

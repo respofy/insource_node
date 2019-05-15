@@ -35,6 +35,7 @@ routes.get('/attributes/degrees', Auth, AttributesController.degrees)
 routes.get('/attributes/statuses', Auth, AttributesController.statuses)
 routes.get('/attributes/languages', Auth, AttributesController.languages)
 routes.get('/attributes/language/knowledges', Auth, AttributesController.languageKnowledges)
+routes.get('/attributes/qualifications', Auth, AttributesController.qualifications)
 
 // working experience
 routes.post('/working/experience/create', Auth, JoiMiddleware(UserSchemas.UserWorkingExCreateSchema), UserController.addWorkingExperience)
@@ -60,11 +61,16 @@ routes.post('/certificate/update/:id', Auth, JoiMiddleware(UserSchemas.UserCerti
 routes.post('/certificate/delete/:id', Auth, UserController.deleteCertificate)
 routes.get('/certificate/read', Auth, UserController.readCertificate)
 
+//qualifications
+routes.post('/qualification/create', Auth, JoiMiddleware(UserSchemas.UserQualificationCreateSchema), UserController.createQualification)
+routes.get('/qualification/read', Auth, UserController.readQualification)
+routes.post('/qualification/update/:id', Auth, JoiMiddleware(UserSchemas.UserQualificationUpdateSchema), UserController.updateQualification)
+routes.post('/qualification/delete/:id', Auth, UserController.deleteQualification)
+
 // TODO: need to finish
-routes.post('/cv/city/set', Auth, JoiMiddleware(UserSchemas.UserCitySchema), UserController.setCity)
-routes.post('/cv/status/set', Auth, JoiMiddleware(UserSchemas.UserStatusSchema), UserController.setStatus)
-routes.post('/cv/description/set', Auth, JoiMiddleware(UserSchemas.UserSetDescriptionSchema), UserController.setDescription)
-routes.get('/cv/description/get', Auth, UserController.getDescription)
+routes.get('/profile/info/get', Auth, UserController.getProfileInfo)
+routes.post('/profile/info/set', Auth, JoiMiddleware(UserSchemas.UserSetProfileInfoSchema), UserController.setProfileInfo)
+
 // routes.post('/cv/favorite/company/search', Auth, JoiMiddleware(UserSchemas.UserWorkingExCompanies), WorkingExController.companies)
 routes.post('/cv/favorite/company/add', Auth, JoiMiddleware(UserSchemas.FavoriteCompanyAddSchema), UserController.addCompanyToFavorites)
 routes.post('/cv/favorite/company/remove', Auth, JoiMiddleware(UserSchemas.FavoriteCompanyRemoveSchema), UserController.removeCompanyFromFavorites)
@@ -73,7 +79,7 @@ routes.get('/cv/favorite/company/all', Auth, UserController.favoriteCompanies)
 // interests
 routes.get('/cv/interests/all', Auth, InterestController.getInterests)
 routes.post('/cv/interests/role/set', Auth, JoiMiddleware(UserSchemas.InterestRoleSetSchema), InterestController.setRole)
-routes.post('/cv/interests/working-type/set', Auth, JoiMiddleware(UserSchemas.InterestWorkingTypeSetSchema), InterestController.setWorkingType)
+routes.post('/cv/interests/working-type/sSeret', Auth, JoiMiddleware(UserSchemas.InterestWorkingTypeSetSchema), InterestController.setWorkingType)
 routes.post('/cv/interests/industry/set', Auth, JoiMiddleware(UserSchemas.InterestIndustrySetSchema), InterestController.setIndustry)
 routes.post('/cv/interests/profession/set', Auth, JoiMiddleware(UserSchemas.InterestProfessionSetSchema), InterestController.setProfession)
 routes.post('/cv/interests/salary/set', Auth, JoiMiddleware(UserSchemas.InterestSalarySetSchema), InterestController.setSalary)
