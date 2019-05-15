@@ -86,28 +86,29 @@ Object.values(models)
 	.forEach(model => model.associate(models))
 
 // TODO: add new seeder
-if (process.env.DB_MIGRATION == 'true') sequelize.sync()
+if (process.env.DB_MIGRATION == 'true')
+	sequelize.sync().then(() => {
+		if (process.env.DB_SEED == 'true') {
+			seeder.generateMany(db.Industry, factories.industry, 5)
+			seeder.generateMany(db.City, factories.city, 2)
+			seeder.generateMany(db.Company, factories.company, 2)
+			seeder.generateMany(db.Faculty, factories.faculty, 2)
+			seeder.generateByCollection(db.Degree, factories.degrees)
+			seeder.generateMany(db.Language, factories.language, 2)
+			seeder.generateByCollection(db.LanguageKnowledge, factories.languageKnowledges)
+			seeder.generateMany(db.Profession, factories.profession, 2)
+			seeder.generateMany(db.Skill, factories.skill, 2)
+			seeder.generateMany(db.Role, factories.role, 2)
+			seeder.generateByCollection(db.WorkingType, factories.workingTypes, 2)
+			seeder.generateMany(db.University, factories.university, 2)
+			seeder.generateByCollection(db.Status, factories.statuses)
+			seeder.generateMany(db.User, factories.user, 2)
+		}
+	})
 
 const db = {
 	...models,
 	sequelize
-}
-
-if (process.env.DB_SEED == 'true') {
-	seeder.generateMany(db.Industry, factories.industry, 5)
-	seeder.generateMany(db.City, factories.city, 2)
-	seeder.generateMany(db.Company, factories.company, 2)
-	seeder.generateMany(db.Faculty, factories.faculty, 2)
-	seeder.generateByCollection(db.Degree, factories.degrees)
-	seeder.generateMany(db.Language, factories.language, 2)
-	seeder.generateByCollection(db.LanguageKnowledge, factories.languageKnowledges)
-	seeder.generateMany(db.Profession, factories.profession, 2)
-	seeder.generateMany(db.Skill, factories.skill, 2)
-	seeder.generateMany(db.Role, factories.role, 2)
-	seeder.generateByCollection(db.WorkingType, factories.workingTypes, 2)
-	seeder.generateMany(db.University, factories.university, 2)
-	seeder.generateByCollection(db.Status, factories.statuses)
-	seeder.generateMany(db.User, factories.user, 2)
 }
 
 export default db
