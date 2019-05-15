@@ -90,7 +90,7 @@ if (process.env.DB_MIGRATION == 'true')
 	sequelize.sync().then(() => {
 		if (process.env.DB_SEED == 'true') {
 			seeder.generateMany(db.Industry, factories.industry, 5)
-			seeder.generateMany(db.City, factories.city, 2)
+			seeder.generateMany(db.City, factories.city, 5)
 			seeder.generateMany(db.Company, factories.company, 2)
 			seeder.generateMany(db.Faculty, factories.faculty, 2)
 			seeder.generateByCollection(db.Degree, factories.degrees)
