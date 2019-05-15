@@ -12,8 +12,7 @@ class UserService {
 	static async setProfileInfo(user_id, data, avatar) {
 		// get user
 		let user = await AuthService.authUser(user_id)
-        // update user
-        console.log(data)
+		// update user
 		return await user.update({
 			name: data.name,
 			surname: data.surname,

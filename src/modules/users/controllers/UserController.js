@@ -11,9 +11,11 @@ class UserController {
 	 */
 	static async setProfileInfo(req, res) {
 		try {
+			let filePath
+			// check file upload existence
+			if (req.file) filePath = `${process.env.USER_AVATAR_PATH}/${req.file.filename}`
 			// set profile info from service
-			console.log(req.body)
-			await UserService.setProfileInfo(req.user.id, req.body)
+			await UserService.setProfileInfo(req.user.id, req.body, filePath)
 			// response
 			res.json(response.success(ka.request_success))
 		} catch (error) {
