@@ -17,6 +17,7 @@ import Activation from 'modules/users/models/Activation'
 import City from 'modules/users/models/City'
 import Job from 'modules/company/models/Job'
 import JobRequirement from 'modules/company/models/JobRequirement'
+import InviteHash from 'modules/company/models/InviteHash'
 // education
 import University from 'modules/users/models/University'
 import UserEducation from 'modules/users/models/UserEducation'
@@ -76,7 +77,8 @@ const models = {
 	UserWorkingType: UserWorkingType.init(sequelize, Sequelize),
 	Message: Message.init(sequelize, Sequelize),
 	Qualification: Qualification.init(sequelize, Sequelize),
-	UserQualification: UserQualification.init(sequelize, Sequelize)
+	UserQualification: UserQualification.init(sequelize, Sequelize),
+	InviteHash: InviteHash.init(sequelize, Sequelize)
 }
 
 // Run `.associate` if it exists,

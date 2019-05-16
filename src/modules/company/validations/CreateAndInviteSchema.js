@@ -1,6 +1,6 @@
 import Joi from '@hapi/joi'
 
-const UserFillDataSchema = {
+const CreateAndInviteSchema = {
 	body: {
 		// phone
 		phone: Joi.string()
@@ -28,8 +28,11 @@ const UserFillDataSchema = {
 		// about me
 		city_id: Joi.number()
 			.integer()
+			.required(),
+		hash: Joi.string()
+			.length(40)
 			.required()
 	}
 }
 
-export default UserFillDataSchema
+export default CreateAndInviteSchema

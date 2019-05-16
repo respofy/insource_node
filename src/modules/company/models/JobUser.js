@@ -1,6 +1,6 @@
 import { Sequelize, Model } from 'sequelize'
 
-export default class City extends Model {
+export default class JobUser extends Model {
 	static init(sequelize) {
 		return super.init(
 			{
@@ -19,7 +19,7 @@ export default class City extends Model {
 
 	static associate(models) {
 		this.hasMany(models.User, {
-			foreignKey: 'city_id'
+			foreignKey: 'JobUser_id'
 		})
 	}
 }

@@ -5,8 +5,8 @@ const InviteSchema = {
 	body: Joi.array()
 		.items(
 			Joi.string()
-				.length(9)
-				.error(() => ka.joi.phone_min_length)
+				.email()
+				.error(() => 'მეილი არ არის ვალიდური')
 		)
 		.min(1)
 		.required()
