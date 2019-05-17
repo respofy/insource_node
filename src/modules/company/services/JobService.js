@@ -51,25 +51,31 @@ class JobService {
 			started_at: moment(),
 			finished_at: moment().add(1, 'months')
 		})
-		// loop through skills
-		data.skills.forEach(async skill => {
-			// if skill does not exist in db, create new one and associate with profession & job
-			if (skill.id == null) {
-				// create new skill
-				let newSkill = await models.Skill.create({
-					title: skill.title
-				})
-				// get profession instance
-				let profession = await models.Profession.findByPk(data.profession_id)
-				// attach new skill to profession
-				await profession.addSkill(newSkill.id)
-				// attach skills to job
-				await newJob.addJobSkill(newSkill.id)
-			}
-			// if exists, attach skills to job
-			await newJob.addJobSkill(skill.id)
-		})
 
+		/* ---- Creates skill if not exist ( old code) -- */
+		// loop through skills
+		// data.skills.forEach(async skill => {
+		// if skill does not exist in db, create new one and associate with profession & job
+		// if (skill.id == null) {
+		// 	// create new skill
+		// 	let newSkill = await models.Skill.create({
+		// 		title: skill.title
+		// 	})
+		// 	// get profession instance
+		// 	let profession = await models.Profession.findByPk(data.profession_id)
+		// 	// attach new skill to profession
+		// 	await profession.addSkill(newSkill.id)
+		// 	// attach skills to job
+		// 	await newJob.addJobSkill(newSkill.id)
+		// }
+
+		// if exists, attach skills to job
+		// await newJob.addJobSkill(skill.id)
+		// })
+		/* ------------------------------------------------ */
+
+		// attach skills to job
+		await newJob.addJobSkill(data.skills)
 		// return new instance
 		return newJob
 	}
@@ -84,6 +90,9 @@ class JobService {
 		return await job.destroy()
 	}
 
+	/**
+	 * Archive job by id
+	 */
 	static async archive(id) {
 		// get job by id
 		let job = await models.Job.findByPk(id)

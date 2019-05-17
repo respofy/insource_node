@@ -1,8 +1,9 @@
-// import response from 'helper/Response'
-// import ka from 'lang/ka'
+import MessageService from '../services/MessageService'
+import ka from 'lang/ka'
+import response from 'helper/Response'
 
 /**
- * Message Controller
+ * TODO: Message Controller
  */
 class MessageController {
 	/**
@@ -13,7 +14,16 @@ class MessageController {
 	/**
 	 * Send message
 	 */
-	static async sendMessage(req, res) {}
+	static async saveMessage(req, res) {
+		try {
+			// save message from service
+			await MessageService.saveMessage(req.body)
+			// response
+			res.json(response.success(ka.request_success))
+		} catch (error) {
+			res.json(response.error(ka.request_error, {}, error.message))
+		}
+	}
 }
 
 export default MessageController

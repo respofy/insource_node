@@ -40,6 +40,7 @@ class User extends Sequelize.Model {
 			{
 				sequelize,
 				tableName: 'users',
+				modelName: 'user',
 				hooks: {
 					beforeCreate: User => {
 						User.password = bcrypt.hashSync(User.password, 10)
@@ -65,9 +66,9 @@ class User extends Sequelize.Model {
 		// User Profession Pivot Relation
 		this.hasMany(models.UserProfession)
 		// User Industry Pivot Relation
-        this.hasMany(models.UserIndustry)
-        // Qualification Relation
-        this.hasMany(models.UserQualification)
+		this.hasMany(models.UserIndustry)
+		// Qualification Relation
+		this.hasMany(models.UserQualification)
 		// Salary Relation
 		this.hasMany(models.Salary)
 		// Certificate Relation
@@ -76,9 +77,9 @@ class User extends Sequelize.Model {
 		this.hasMany(models.UserWorkingType)
 		// Message Relations
 		this.hasMany(models.Message, { as: 'sender', foreignKey: 'sender_id' })
-        this.hasMany(models.Message, { as: 'receiver', foreignKey: 'receiver_id' })
-        // Meeting Relation
-        this.hasMany(models.Meeting)
+		this.hasMany(models.Message, { as: 'receiver', foreignKey: 'receiver_id' })
+		// Meeting Relation
+		this.hasMany(models.Meeting)
 		// Company Relation
 		this.belongsToMany(models.Company, {
 			through: 'company_owners',

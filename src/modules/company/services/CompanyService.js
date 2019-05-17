@@ -71,9 +71,9 @@ class CompanyService {
 		let info = await transporter.sendMail({
 			from: '"Fred Foo 👻" <foo@example.com>', // sender address
 			to: user_emails, // list of receivers
-			subject: 'Hello ✔', // Subject line
+			subject: `Invitation from ${company.name}`, // Subject line
 			text: `Dear  user you have been invited in ${company.name}`, // plain text body
-			html: `<a href="http://localhost:3000/company/join/${hash}/">Join</a>` // html body
+			html: `<a href="http://localhost:3000/company/join/${hash}/">Join company by hash: ${hash}</a>` // html body
 		})
 
 		return nodemailer.getTestMessageUrl(info)

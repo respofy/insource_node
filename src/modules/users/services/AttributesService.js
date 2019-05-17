@@ -29,7 +29,9 @@ class AttributesService {
 		//profession_id
 		let profession = await models.Profession.findByPk(profession_id)
 		// return the skills by profession
-		return profession.getSkills()
+		return await profession.getSkills({
+			attributes: ['id', 'title']
+		})
 	}
 
 	/**
