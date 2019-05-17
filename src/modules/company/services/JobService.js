@@ -1,17 +1,18 @@
 // import AuthService from '../../users/services/AuthService'
 import models from 'database/modelBootstrap'
+import moment from 'moment'
 
 /**
  * job service
  */
 class JobService {
 	/**
-	 * get list of jobs, filtered by company_id
+	 * get list of jobs, filtered by company_id and active_status
 	 */
-	static async read(company_id) {
+	static async read(company_id, active_status = 1) {
 		// fetch all jobs
 		return await models.Job.findAll({
-			where: { company_id },
+			where: { company_id, active: active_status },
 			attributes: ['id', 'title', 'salary_from', 'salary_to', 'experience_from', 'experience_to', 'description'],
 			include: [
 				{ model: models.Company, attributes: ['id', 'name', 'logo'] },
@@ -46,7 +47,9 @@ class JobService {
 			salary_to: data.salary_to,
 			experience_from: data.experience_from,
 			experience_to: data.experience_to,
-			description: data.description
+			description: data.description,
+			started_at: moment(),
+			finished_at: moment().add(1, 'months')
 		})
 		// loop through skills
 		data.skills.forEach(async skill => {
@@ -79,6 +82,15 @@ class JobService {
 		let job = await models.Job.findByPk(id)
 		// delete job
 		return await job.destroy()
+	}
+
+	static async archive(id) {
+		// get job by id
+		let job = await models.Job.findByPk(id)
+		// archive
+		return await job.update({
+			active: 0
+		})
 	}
 
 	/**

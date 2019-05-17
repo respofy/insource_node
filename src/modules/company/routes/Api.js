@@ -17,7 +17,7 @@ const upload = multer({ storage: storage(`${process.env.PUBLIC_PATH}/${process.e
 // TODO: need review company routes and functionality
 routes.post('/registration', Auth, upload.single('logo'), JoiMiddleware(CompanySchemas.CompanyFillDataSchema), CompanyController.registration)
 routes.post('/:company_id/invite/users', Auth, Owner, JoiMiddleware(CompanySchemas.InviteSchema), CompanyController.inviteUsers)
-// TODO: hash middleware to validate lifetime
+
 routes.post('/join/check', CompanyController.checkInviteHash)
 routes.post('/join/init', Invite, JoiMiddleware(CompanySchemas.JoinInitSchema), CompanyController.initCompanyJoin)
 routes.post('/join/verify', Invite, JoiMiddleware(CompanySchemas.JoinVerifySchema), CompanyController.verifyCompanyJoin)
@@ -28,8 +28,10 @@ routes.post('/search/companies/by/name', Auth, JoiMiddleware(CompanySchemas.Sear
 
 // Jobs
 routes.get('/:company_id/job/read', Auth, Owner, JobController.read)
+routes.get('/:company_id/job/archived/read', Auth, Owner, JobController.readArchived)
 routes.post('/:company_id/job/create', Auth, Owner, JoiMiddleware(CompanySchemas.CreateJobSchema), JobController.create)
 routes.post('/job/set/requirements', Auth, JoiMiddleware(CompanySchemas.JobRequirementSchema), JobController.setJobRequirements)
 routes.post('/job/delete/:id', Auth, JobController.delete)
+routes.post('/job/archive/:id', Auth, JobController.archive)
 
 export default routes

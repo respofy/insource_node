@@ -21,7 +21,7 @@ class JobController {
 	}
 
 	/**
-	 * read job
+	 * read active job
 	 */
 	static async read(req, res) {
 		try {
@@ -30,7 +30,21 @@ class JobController {
 			// response
 			res.json(response.success(ka.request_success, jobs))
 		} catch (error) {
-			res.json(response.error(ka.request_error , {}, error.message))
+			res.json(response.error(ka.request_error, {}, error.message))
+		}
+	}
+
+	/**
+	 * Read archived jobs
+	 */
+	static async readArchived(req, res) {
+		try {
+			// get archived jobs from service
+			let jobs = await JobService.read(req.params.company_id, 0)
+			// response
+			res.json(response.success(ka.request_success, jobs))
+		} catch (error) {
+			res.json(response.error(ka.request_error, {}, error.message))
 		}
 	}
 
@@ -45,6 +59,20 @@ class JobController {
 			res.json(response.success(ka.job.deleted))
 		} catch (error) {
 			res.json(response.error(ka.job.delete_error, {}, error.message))
+		}
+	}
+
+	/**
+	 * Archive job
+	 */
+	static async archive(req, res) {
+		try {
+			// archive job from service
+			await JobService.archive(req.params.id)
+			// response
+			res.json(response.success(ka.job.archived))
+		} catch (error) {
+			res.json(response.error(ka.job.archived_error, {}, error.message))
 		}
 	}
 

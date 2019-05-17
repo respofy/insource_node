@@ -76,7 +76,9 @@ class User extends Sequelize.Model {
 		this.hasMany(models.UserWorkingType)
 		// Message Relations
 		this.hasMany(models.Message, { as: 'sender', foreignKey: 'sender_id' })
-		this.hasMany(models.Message, { as: 'receiver', foreignKey: 'receiver_id' })
+        this.hasMany(models.Message, { as: 'receiver', foreignKey: 'receiver_id' })
+        // Meeting Relation
+        this.hasMany(models.Meeting)
 		// Company Relation
 		this.belongsToMany(models.Company, {
 			through: 'company_owners',

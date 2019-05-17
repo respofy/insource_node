@@ -15,22 +15,18 @@ const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USERNAME
 import User from 'modules/users/models/User'
 import Activation from 'modules/users/models/Activation'
 import City from 'modules/users/models/City'
-import Job from 'modules/company/models/Job'
-import JobRequirement from 'modules/company/models/JobRequirement'
-import InviteHash from 'modules/company/models/InviteHash'
+
 // education
 import University from 'modules/users/models/University'
 import UserEducation from 'modules/users/models/UserEducation'
 import Degree from 'modules/users/models/Degree'
 import Faculty from 'modules/users/models/Faculty'
-//
 import Language from 'modules/users/models/Language'
 import LanguageKnowledge from 'modules/users/models/LanguageKnowledge'
 import UserLanguage from 'modules/users/models/UserLanguage'
 import UserProfession from 'modules/users/models/UserProfession'
 import UserWorkingExperience from 'modules/users/models/UserWorkingExperience'
 import UserCertificate from 'modules/users/models/UserCertificate'
-import Company from 'modules/company/models/Company'
 import Industry from 'modules/users/models/Industry'
 import Status from 'modules/users/models/Status'
 import Profession from 'modules/users/models/Profession'
@@ -41,9 +37,17 @@ import Salary from 'modules/users/models/Salary'
 import UserRole from 'modules/users/models/UserRole'
 import UserIndustry from 'modules/users/models/UserIndustry'
 import UserWorkingType from 'modules/users/models/UserWorkingType'
-import Message from 'modules/message/models/Message'
 import Qualification from 'modules/users/models/Qualification'
 import UserQualification from 'modules/users/models/UserQualification'
+
+// Company
+import Company from 'modules/company/models/Company'
+import Job from 'modules/company/models/Job'
+import JobRequirement from 'modules/company/models/JobRequirement'
+import InviteHash from 'modules/company/models/InviteHash'
+// Message
+import Message from 'modules/message/models/Message'
+import Meeting from 'modules/message/models/Meeting'
 
 import seeder from './Seeder'
 import factories from './factories'
@@ -78,7 +82,8 @@ const models = {
 	Message: Message.init(sequelize, Sequelize),
 	Qualification: Qualification.init(sequelize, Sequelize),
 	UserQualification: UserQualification.init(sequelize, Sequelize),
-	InviteHash: InviteHash.init(sequelize, Sequelize)
+	InviteHash: InviteHash.init(sequelize, Sequelize),
+	Meeting: Meeting.init(sequelize, Sequelize)
 }
 
 // Run `.associate` if it exists,

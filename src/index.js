@@ -6,16 +6,13 @@ import {} from 'dotenv/config'
 import cors from 'cors'
 import response from 'helper/Response'
 
-// import VerifyJwtHelper from 'helper/VerifyJwtHelper'
-
 const app = express()
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 
-// TODO filter /api
-// app.use('/api/', VerifyJwtHelper)
+// TODO: filter /api
 
 // import module routes
 import users from './modules/users/routes/Api'
