@@ -59,6 +59,12 @@ class Job extends Sequelize.Model {
 			through: 'jobs_skills',
 			foreignKey: 'job_id'
 		})
+		// Qualifications related to job
+		this.belongsToMany(models.Qualification, {
+			as: 'jobQualification',
+			through: 'jobs_qualifications',
+			foreignKey: 'job_id'
+		})
 	}
 }
 

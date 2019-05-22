@@ -12,6 +12,7 @@ import workingTypes from './WorkingTypes'
 import university from './UniversityFactory'
 import statuses from './Statuses'
 import user from './UserFactory'
+import qualification from './QualificationFactory'
 
 export default {
 	industry,
@@ -27,5 +28,6 @@ export default {
 	workingTypes,
 	university,
 	statuses,
-	user
+	user,
+	qualification
 }

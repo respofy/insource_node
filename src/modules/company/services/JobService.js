@@ -20,6 +20,7 @@ class JobService {
 				{ model: models.City, attributes: ['id', 'name'] },
 				{ model: models.Role, attributes: ['id', 'title'] },
 				{ association: 'jobSkill', through: { attributes: [] } },
+				{ association: 'jobQualification', through: { attributes: [] } },
 				{ model: models.Profession, attributes: ['id', 'title'] },
 				{ model: models.Degree, attributes: ['id', 'title'] },
 				{ model: models.Language, attributes: ['id', 'title'] },
@@ -74,6 +75,8 @@ class JobService {
 		// })
 		/* ------------------------------------------------ */
 
+		// attach qualification demands to job
+		await newJob.addJobQualification(data.qualifications)
 		// attach skills to job
 		await newJob.addJobSkill(data.skills)
 		// return new instance
