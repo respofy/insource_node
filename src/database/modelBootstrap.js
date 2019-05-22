@@ -17,12 +17,10 @@ import Activation from 'modules/users/models/Activation'
 import City from 'modules/users/models/City'
 import Job from 'modules/company/models/Job'
 import JobRequirement from 'modules/company/models/JobRequirement'
-// education
 import University from 'modules/users/models/University'
 import UserEducation from 'modules/users/models/UserEducation'
 import Degree from 'modules/users/models/Degree'
 import Faculty from 'modules/users/models/Faculty'
-//
 import Language from 'modules/users/models/Language'
 import LanguageKnowledge from 'modules/users/models/LanguageKnowledge'
 import UserLanguage from 'modules/users/models/UserLanguage'
@@ -38,6 +36,7 @@ import Role from 'modules/users/models/Role'
 import WorkingType from 'modules/users/models/WorkingType'
 import Salary from 'modules/users/models/Salary'
 import UserRole from 'modules/users/models/UserRole'
+import UserSkill from 'modules/users/models/UserSkill'
 import UserIndustry from 'modules/users/models/UserIndustry'
 import UserWorkingType from 'modules/users/models/UserWorkingType'
 import Message from 'modules/message/models/Message'
@@ -62,6 +61,7 @@ const models = {
 	UserProfession: UserProfession.init(sequelize, Sequelize),
 	UserWorkingExperience: UserWorkingExperience.init(sequelize, Sequelize),
 	UserCertificate: UserCertificate.init(sequelize, Sequelize),
+	UserSkill: UserSkill.init(sequelize, Sequelize),
 	Language: Language.init(sequelize, Sequelize),
 	LanguageKnowledge: LanguageKnowledge.init(sequelize, Sequelize),
 	Profession: Profession.init(sequelize, Sequelize),
@@ -101,8 +101,8 @@ if (process.env.DB_SEED_AND_MIGRATION == 'true')
 			seeder.generateMany(db.Faculty, factories.faculty, 2)
 			seeder.generateMany(db.Language, factories.language, 2)
 			seeder.generateMany(db.Profession, factories.profession, 2)
-			seeder.generateMany(db.Skill, factories.skill, 2)
-			seeder.generateMany(db.Role, factories.role, 2)
+			seeder.generateMany(db.Skill, factories.skill, 12)
+			seeder.generateMany(db.Role, factories.role, 10)
 			seeder.generateMany(db.University, factories.university, 2)
 			seeder.generateMany(db.User, factories.user, 2)
 		})

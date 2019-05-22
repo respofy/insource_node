@@ -6,6 +6,15 @@ import InterestService from '../services/InterestService'
  * Controller for interests
  */
 class InterestController {
+	/**
+	 *
+	 */
+	static async setInterest(req, res) {
+		// set multiple industries for user
+		await InterestService.setInterest(req.user.id, req.body)
+		// responce
+		res.json(req.body)
+	}
 
 	/**
 	 * Set role to the user

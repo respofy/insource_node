@@ -1,12 +1,15 @@
 import { Sequelize, Model } from 'sequelize'
 
-export default class Salary extends Model {
+class Salary extends Model {
 	static init(sequelize) {
 		return super.init(
 			{
 				id: { type: Sequelize.INTEGER, primaryKey: true, allowNull: false, autoIncrement: true },
 				salary_amount: { type: Sequelize.DOUBLE, allowNull: false },
-				user_id: { type: Sequelize.INTEGER, allowNull: false }
+				user_id: { type: Sequelize.INTEGER, allowNull: false },
+				started_at: { type: Sequelize.DATE, allowNull: false },
+				finished_at: { type: Sequelize.DATE, allowNull: true },
+				active: { type: Sequelize.BOOLEAN, allowNull: false }
 			},
 			{
 				sequelize,
@@ -23,3 +26,6 @@ export default class Salary extends Model {
 		this.belongsTo(models.User)
 	}
 }
+
+// export
+export default Salary

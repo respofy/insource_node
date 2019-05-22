@@ -1,12 +1,15 @@
 import { Sequelize, Model } from 'sequelize'
 
-export default class UserIndustry extends Model {
+class UserIndustry extends Model {
 	static init(sequelize) {
 		return super.init(
 			{
 				id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
-				user_id: { type: Sequelize.STRING, allowNull: false, unique: false },
-				industry_id: { type: Sequelize.STRING, allowNull: false, unique: false }
+				user_id: { type: Sequelize.STRING, allowNull: false },
+				industry_id: { type: Sequelize.STRING, allowNull: false },
+				started_at: { type: Sequelize.DATE, allowNull: false },
+				finished_at: { type: Sequelize.DATE, allowNull: true },
+				active: { type: Sequelize.BOOLEAN, allowNull: false }
 			},
 			{
 				sequelize,
@@ -23,3 +26,5 @@ export default class UserIndustry extends Model {
 		this.belongsTo(models.Industry)
 	}
 }
+// export
+export default UserIndustry

@@ -77,6 +77,7 @@ routes.post('/cv/favorite/company/remove', Auth, JoiMiddleware(UserSchemas.Favor
 routes.get('/cv/favorite/company/all', Auth, UserController.favoriteCompanies)
 
 // interests
+routes.post('/cv/interests/set', Auth, InterestController.setInterest)
 routes.get('/cv/interests/all', Auth, InterestController.getInterests)
 routes.post('/cv/interests/role/set', Auth, JoiMiddleware(UserSchemas.InterestRoleSetSchema), InterestController.setRole)
 routes.post('/cv/interests/working-type/set', Auth, JoiMiddleware(UserSchemas.InterestWorkingTypeSetSchema), InterestController.setWorkingType)
