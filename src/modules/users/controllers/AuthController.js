@@ -73,8 +73,6 @@ class AuthController {
 		try {
 			// check if user is activated
 			await AuthService.isActivated(req.body.phone)
-			// // validate image and return path
-			// req.body.avatar = await AuthService.validateImage(req.file)
 			// create the user
 			await UserService.create(req.body, `${process.env.USER_AVATAR_PATH}/${req.file.filename}`)
 			// response
@@ -97,24 +95,35 @@ class AuthController {
 				phone: req.body.phone
 			}
 		})
-		// get user companies
-		const userCompanies = await user.getOwnedCompanies({ attributes: ['id'], raw: true })
-		//user instance
-		let userInstance = await AuthService.authUser(user.dataValues.id)
-		// object for token
-		let tokenInfo = {
-			user: user.dataValues,
-			companies: userCompanies
-		}
 		// compare password
 		if (user && bcrypt.compareSync(req.body.password, user.password)) {
+			// get user companies
+			const userCompanies = await user.getOwnedCompanies({
+				attributes: ['id'],
+				raw: true
+			})
+			//user instance
+			let userInstance = await AuthService.authUser(user.dataValues.id)
+			// object for token
+			let tokenInfo = {
+				user: user.dataValues,
+				companies: userCompanies
+			}
 			// generate token and save the user
 			jwt.sign(tokenInfo, process.env.JWT_SECRET, (error, token) => {
 				// generate response
-				res.json(response.success(ka.tokenGenerated, { token, user: userInstance, companies: userCompanies }))
+				res.json(
+					response.success(ka.tokenGenerated, {
+						token,
+						user: userInstance,
+						companies: userCompanies
+					})
+				)
 			})
 			// set last login
-			await user.update({ last_login: moment.now() })
+			await user.update({
+				last_login: moment.now()
+			})
 		} else {
 			// not found response
 			res.json(response.error(ka.tokenNotGenerated))
@@ -131,8 +140,6 @@ class AuthController {
 			let code = await AuthService.generateUserActivationCode(req.body.phone)
 			// send code to user
 			await sms.send(req.body.phone, code)
-			// send sms
-			await sms.send()
 			// response
 			res.json(response.success(ka.auth.user_password_reset_initialized))
 		} catch (error) {

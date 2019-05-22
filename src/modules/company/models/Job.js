@@ -17,7 +17,10 @@ class Job extends Sequelize.Model {
 				salary_to: { type: Sequelize.DOUBLE, allowNull: false },
 				experience_from: { type: Sequelize.INTEGER, allowNull: false },
 				experience_to: { type: Sequelize.INTEGER, allowNull: false },
-				description: { type: Sequelize.TEXT, allowNull: true }
+				description: { type: Sequelize.TEXT, allowNull: true },
+				active: { type: Sequelize.INTEGER, allowNull: false, defaultValue: 1 },
+				started_at: { type: Sequelize.DATE, allowNull: false },
+				finished_at: { type: Sequelize.DATE, allowNull: false }
 			},
 			{
 				sequelize,
@@ -34,6 +37,8 @@ class Job extends Sequelize.Model {
 			foreignKey: 'job_id',
 			uniqueKey: 'job_id'
 		})
+		// meeting
+		this.hasMany(models.Meeting)
 		// Attributes Relation
 		this.belongsTo(models.Company)
 		this.belongsTo(models.WorkingType)

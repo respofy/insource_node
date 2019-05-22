@@ -67,17 +67,7 @@ class AuthService {
 		// check if record does not exist throw new exception
 		if (activationRecord === null) throw new Error(ka.auth.verify_code_not_correct)
 		// update the record
-		await activationRecord.update({ activated: 1 })
-	}
-
-	/**
-	 * Validate image upload
-	 */
-	static async validateImage(image) {
-		if (!image) {
-			throw new Error(ka.auth.avatar_required)
-		}
-		return image.path
+		return await activationRecord.update({ activated: 1 })
 	}
 
 	/**
@@ -93,6 +83,16 @@ class AuthService {
 		if (activatedRow === null || activatedRow.activated == 0) {
 			throw new Error(ka.auth.user_not_activated)
 		}
+	}
+
+	/**
+	 * Deactivate user phone (on activation table)
+	 */
+	static async deactivateUserPhone(phone) {
+		// fetch record
+		let activeRecord = await models.Activation.findOne({ where: { phone } })
+		// update to 0
+		return await activeRecord.update({ activated: 0 })
 	}
 
 	/**

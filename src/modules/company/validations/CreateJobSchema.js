@@ -17,12 +17,17 @@ const CreateJobSchema = {
 			.error(() => ka.joi.role_required),
 		skills: Joi.array()
 			.items(
-				Joi.object().keys({
-					id: Joi.any(),
-					title: Joi.string().min(3).error(() => ka.joi.skill_valid)
-				})
+				Joi.number()
+					.integer()
+					.error(() => ka.joi.skill_valid)
+
+				// Joi.object().keys({
+				// 	id: Joi.any(),
+				// 	title: Joi.string().min(3).error(() => ka.joi.skill_valid)
+				// })
 			)
-			.required().min(1)
+			.required()
+			.min(1)
 			.error(() => ka.joi.skills_required),
 		profession_id: Joi.number()
 			.integer()

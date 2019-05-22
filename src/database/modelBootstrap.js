@@ -27,7 +27,6 @@ import UserLanguage from 'modules/users/models/UserLanguage'
 import UserProfession from 'modules/users/models/UserProfession'
 import UserWorkingExperience from 'modules/users/models/UserWorkingExperience'
 import UserCertificate from 'modules/users/models/UserCertificate'
-import Company from 'modules/company/models/Company'
 import Industry from 'modules/users/models/Industry'
 import Status from 'modules/users/models/Status'
 import Profession from 'modules/users/models/Profession'
@@ -39,9 +38,17 @@ import UserRole from 'modules/users/models/UserRole'
 import UserSkill from 'modules/users/models/UserSkill'
 import UserIndustry from 'modules/users/models/UserIndustry'
 import UserWorkingType from 'modules/users/models/UserWorkingType'
-import Message from 'modules/message/models/Message'
 import Qualification from 'modules/users/models/Qualification'
 import UserQualification from 'modules/users/models/UserQualification'
+
+// Company
+import Company from 'modules/company/models/Company'
+import Job from 'modules/company/models/Job'
+import JobRequirement from 'modules/company/models/JobRequirement'
+import InviteHash from 'modules/company/models/InviteHash'
+// Message
+import Message from 'modules/message/models/Message'
+import Meeting from 'modules/message/models/Meeting'
 
 import seeder from './Seeder'
 import factories from './factories'
@@ -76,7 +83,9 @@ const models = {
 	UserWorkingType: UserWorkingType.init(sequelize, Sequelize),
 	Message: Message.init(sequelize, Sequelize),
 	Qualification: Qualification.init(sequelize, Sequelize),
-	UserQualification: UserQualification.init(sequelize, Sequelize)
+	UserQualification: UserQualification.init(sequelize, Sequelize),
+	InviteHash: InviteHash.init(sequelize, Sequelize),
+	Meeting: Meeting.init(sequelize, Sequelize)
 }
 
 // Run `.associate` if it exists,
