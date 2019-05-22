@@ -43,8 +43,6 @@ import UserQualification from 'modules/users/models/UserQualification'
 
 // Company
 import Company from 'modules/company/models/Company'
-import Job from 'modules/company/models/Job'
-import JobRequirement from 'modules/company/models/JobRequirement'
 import InviteHash from 'modules/company/models/InviteHash'
 // Message
 import Message from 'modules/message/models/Message'
