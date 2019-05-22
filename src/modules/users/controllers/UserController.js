@@ -15,7 +15,11 @@ class UserController {
 			// check file upload existence
 			if (req.file) filePath = `${process.env.USER_AVATAR_PATH}/${req.file.filename}`
 			// set profile info from service
+<<<<<<< HEAD
+			await UserService.setProfileInfo(req.user.id, req.body)
+=======
 			await UserService.setProfileInfo(req.user.id, req.body, filePath)
+>>>>>>> eb1c072d8a9af30f05a8a2ea9af03f9a5d0d6d1c
 			// response
 			res.json(response.success(ka.request_success))
 		} catch (error) {
