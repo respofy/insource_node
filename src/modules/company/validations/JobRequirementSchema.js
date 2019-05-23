@@ -13,7 +13,8 @@ const JobRequirementSchema = {
 		salary: Joi.boolean(),
 		education: Joi.boolean(),
 		experience: Joi.boolean(),
-		languages: Joi.boolean()
+		languages: Joi.boolean(),
+		qualification: Joi.boolean()
 	}
 }
 

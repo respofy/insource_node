@@ -34,6 +34,7 @@ class Skill extends Model {
 			through: 'jobs_skills',
 			foreignKey: 'skill_id'
 		})
+		
 		// Profession Relation
 		// this.belongsToMany(models.Profession, {
 		// 	through: 'user_profession',

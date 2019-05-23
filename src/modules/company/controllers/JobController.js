@@ -16,7 +16,7 @@ class JobController {
 			// response
 			res.json(response.success(ka.job.created, job))
 		} catch (error) {
-			res.json(response.error(ka.job.create_error, {}, error.message))
+			res.json(response.error(ka.job.create_error, {}, error))
 		}
 	}
 

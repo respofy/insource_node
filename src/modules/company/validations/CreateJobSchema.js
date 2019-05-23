@@ -69,6 +69,15 @@ const CreateJobSchema = {
 			.greater(Joi.ref('experience_from'))
 			.required()
 			.error(() => ka.joi.experience_required),
+		qualifications: Joi.array()
+			.items(
+				Joi.number()
+					.integer()
+					.error(() => ka.joi.qualification_valid)
+			)
+			.required()
+			.min(1)
+			.error(() => ka.joi.qualification_required),
 		description: Joi.string()
 			.max(400)
 			.trim()

@@ -13,7 +13,8 @@ class JobRequirement extends Model {
 				salary: { type: Sequelize.BOOLEAN, allowNull: false },
 				experience: { type: Sequelize.BOOLEAN, allowNull: false },
 				education: { type: Sequelize.BOOLEAN, allowNull: false },
-				languages: { type: Sequelize.BOOLEAN, allowNull: false }
+				languages: { type: Sequelize.BOOLEAN, allowNull: false },
+				qualification: { type: Sequelize.BOOLEAN, allowNull: false }
 			},
 			{
 				sequelize,

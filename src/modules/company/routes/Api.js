@@ -8,6 +8,7 @@ import storage from 'helper/UploadHelper'
 import CompanyController from '../controllers/CompanyController'
 import Auth from 'middleware/AuthMiddleware'
 import JobController from '../controllers/JobController'
+import MatchController from '../controllers/MatchController'
 import {} from 'dotenv/config'
 
 const routes = express.Router()
@@ -33,5 +34,7 @@ routes.post('/:company_id/job/create', Auth, Owner, JoiMiddleware(CompanySchemas
 routes.post('/job/set/requirements', Auth, JoiMiddleware(CompanySchemas.JobRequirementSchema), JobController.setJobRequirements)
 routes.post('/job/delete/:id', Auth, JobController.delete)
 routes.post('/job/archive/:id', Auth, JobController.archive)
+
+routes.post('/job/match', Auth, MatchController.match)
 
 export default routes

@@ -4,7 +4,7 @@ export default class Qualification extends Model {
 	static init(sequelize) {
 		return super.init(
 			{
-				title: { type: Sequelize.STRING, allowNull: false },
+				title: { type: Sequelize.STRING, allowNull: false }
 			},
 			{
 				sequelize,
@@ -17,7 +17,15 @@ export default class Qualification extends Model {
 	}
 
 	static associate(models) {
+		// User relation
 		this.hasMany(models.UserQualification, {
+			foreignKey: 'qualification_id'
+		})
+
+		// Job relations
+		this.belongsToMany(models.Job, {
+			as: 'jobQualification',
+			through: 'jobs_qualifications',
 			foreignKey: 'qualification_id'
 		})
 	}

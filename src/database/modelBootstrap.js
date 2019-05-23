@@ -104,6 +104,7 @@ if (process.env.DB_SEED_AND_MIGRATION == 'true')
 			seeder.generateByCollection(db.Status, factories.statuses)
 		]).then(() => {
 			// after generating records with no relations, generate records with relations
+			seeder.generateMany(db.Qualification, factories.qualification, 5)
 			seeder.generateMany(db.Industry, factories.industry, 5)
 			seeder.generateMany(db.City, factories.city, 5)
 			seeder.generateMany(db.Company, factories.company, 2)

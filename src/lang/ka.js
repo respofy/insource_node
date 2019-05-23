@@ -1,3 +1,5 @@
+import Qualification from '../modules/users/models/Qualification'
+
 export default {
 	request_success: 'მოთხოვნა შესრულდა წარმატებით',
 	request_error: 'მოთხოვნა არ შესრულდა',
@@ -103,7 +105,9 @@ export default {
 		experience_required: 'გამოცდილების მითითება აუცილებელია',
 		skills_required: 'მიმართულებ(ებ)ის არჩევა სავალდებულოა',
 		description_valid: 'აღწერა არ უნდა აღემატებოდეს 400 სიმბოლოს',
-		skill_valid: 'მიმართულება არ არის ვალიდური, უნდა შეიცავდეს მინიმუმ 3 სიმბოლოს'
+		skill_valid: 'მიმართულება არ არის ვალიდური',
+		qualification_valid: 'კვალიფიკაცია არ არის ვალიდური',
+		qualification_required: 'საჭიროა მინიმუმ 1 კვალიფიკაციის არჩევა'
 	},
 	middleware: {
 		not_authorize: 'მომხმარებელი არ არის ავტორიზებული სისტემაში'
