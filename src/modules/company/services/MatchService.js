@@ -1,5 +1,5 @@
-import models from 'database/modelBootstrap'
-import sequelize from 'sequelize'
+// import models from 'database/modelBootstrap'
+// import sequelize from 'sequelize'
 /**
  * job service
  */
