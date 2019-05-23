@@ -49,10 +49,7 @@ class Job extends Sequelize.Model {
 		this.belongsTo(models.Language)
 		this.belongsTo(models.LanguageKnowledge)
 		// User Relation
-		this.belongsToMany(models.User, {
-			foreignKey: 'job_id',
-			through: 'job_users'
-		})
+		this.hasMany(models.User)
 		// Skills related to job
 		this.belongsToMany(models.Skill, {
 			as: 'jobSkill',

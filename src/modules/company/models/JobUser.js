@@ -1,12 +1,13 @@
 import { Sequelize, Model } from 'sequelize'
 
-export default class JobUser extends Model {
+class JobUser extends Model {
 	static init(sequelize) {
 		return super.init(
 			{
 				job_id: { type: Sequelize.INTEGER, allowNull: false },
 				user_id: { type: Sequelize.INTEGER, allowNull: false },
-				status: { type: Sequelize.BOOLEAN, allowNull: false }
+				percentage: { type: Sequelize.DOUBLE(4, 2), allowNull: false },
+				approved_by_user: { type: Sequelize.BOOLEAN, allowNull: false }
 			},
 			{
 				sequelize,
@@ -18,8 +19,9 @@ export default class JobUser extends Model {
 	}
 
 	static associate(models) {
-		this.hasMany(models.User, {
-			foreignKey: 'JobUser_id'
-		})
+		this.belongsTo(models.User)
+		this.belongsTo(models.Job)
 	}
 }
+// export
+export default JobUser
