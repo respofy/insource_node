@@ -171,9 +171,17 @@ class AuthController {
 	 */
 	static async getAuthUser(req, res) {
 		// get instance
-		let user = await AuthService.authUser(req.user.id)
+		let user = await models.User.findOne({
+			where: {
+				id: req.user.id
+			}
+		})
+
+		let companies = await user.getOwnedCompanies({
+			raw: true
+		})
 		// return response
-		return res.json(response.success(ka.request_success, user))
+		return res.json(response.success(ka.request_success, { user, companies }))
 	}
 }
 
