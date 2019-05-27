@@ -281,7 +281,7 @@ class UserController {
 	static async createQualification(req, res) {
 		try {
 			// create qualification from service
-			let userQualification = await UserService.CreateQualification(req.user.id, req.body)
+			let userQualification = await UserService.createQualification(req.user.id, req.body)
 			// response
 			res.json(response.success(ka.request_success, userQualification))
 		} catch (error) {
