@@ -99,7 +99,7 @@ class AuthController {
 		if (user && bcrypt.compareSync(req.body.password, user.password)) {
 			// get user companies
 			const userCompanies = await user.getOwnedCompanies({
-				attributes: ['id'],
+				// attributes: ['id'],
 				raw: true
 			})
 			//user instance
