@@ -18,6 +18,8 @@ class MatchService {
 		// create the requirements
 		await JobService.setJobRequirements(job.id, request.requrements)
 
+		// ADITIONAL MATERIALS
+
 		// get he users by required paramters
 		let users = await models.User.findAll({
 			where: request.requrements.city ? { city_id: request.job.city_id } : {},
@@ -54,12 +56,15 @@ class MatchService {
 							}
 						  }
 						: {}
+				},
+				{
+					model: models.UserEducation
 				}
 				// {
 				// 	// degree of user
 				// 	// degrees should have a weight
 				// 	model: models.UserEducation,
-				// 	where: request.requrements.degree ? { degree_id: request.job.degree_id } : {}
+				// 	where: request.requrements.degree ? { degree_id: this.educationWeight(request.job.degree_id) } : {}
 				// }
 				// {
 				// 	model: models.UserWorkingExperience,
@@ -89,6 +94,7 @@ class MatchService {
 
 		// loop the required users to determine percentage and save into databse
 		users.forEach(user => {
+			// filter the users
 			// save the user into database
 			JobService.setJobUsers(job.id, user.id, 75.5)
 		})
@@ -112,6 +118,19 @@ class MatchService {
 		)
 
 		return fullExperienceByProfession.ex_dayes
+	}
+
+	/**
+	 * get the education weigt
+	 */
+	static async educationWeight(education_id) {
+		let degree = await models.Degree.findOne({
+			where: {
+				id: education_id
+			}
+		})
+
+		return degree.lft
 	}
 }
 

@@ -11,10 +11,10 @@ class Degree extends Model {
 		return super.init(
 			{
 				title: { type: Sequelize.STRING, allowNull: false },
-				parent_id: { type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 },
-				depth: { type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 },
-				lft: { type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 },
-				rgt: { type: Sequelize.INTEGER, allowNull: false, defaultValue: 0 }
+				parent_id: { type: Sequelize.INTEGER, allowNull: true, defaultValue: 0 },
+				depth: { type: Sequelize.INTEGER, allowNull: true, defaultValue: 0 },
+				lft: { type: Sequelize.INTEGER, allowNull: true, defaultValue: 0 },
+				rgt: { type: Sequelize.INTEGER, allowNull: true, defaultValue: 0 }
 			},
 			{
 				sequelize,

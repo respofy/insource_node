@@ -11,9 +11,14 @@ class InterestController {
 	 */
 	static async setInterest(req, res) {
 		// set multiple industries for user
-		await InterestService.setInterest(req.user.id, req.body)
-		// responce
-		res.json(req.body)
+		try {
+			// set role to user from service
+			await InterestService.setInterest(req.user.id, req.body)
+			// response
+			res.json(response.success(ka.request_success))
+		} catch (error) {
+			return res.json(response.error(error.message))
+		}
 	}
 
 	/**
