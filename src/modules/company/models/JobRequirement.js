@@ -11,8 +11,8 @@ class JobRequirement extends Model {
 				profession: { type: Sequelize.BOOLEAN, allowNull: false, defaultValue: true },
 				skills: { type: Sequelize.BOOLEAN, allowNull: false },
 				salary: { type: Sequelize.BOOLEAN, allowNull: false },
+				degree: { type: Sequelize.BOOLEAN, allowNull: false },
 				experience: { type: Sequelize.BOOLEAN, allowNull: false },
-				education: { type: Sequelize.BOOLEAN, allowNull: false },
 				languages: { type: Sequelize.BOOLEAN, allowNull: false },
 				qualification: { type: Sequelize.BOOLEAN, allowNull: false }
 			},

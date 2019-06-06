@@ -7,26 +7,26 @@ import response from 'helper/Response'
  */
 class JobController {
 	/**
-	 * create job from company
+	 * read active job
 	 */
-	static async create(req, res) {
+	static async list(req, res) {
 		try {
-			// create job from service
-			let job = await JobService.create(req.user.id, req.params.company_id, req.body)
+			// fetch all jobs
+			let jobs = await JobService.list(req.body.params.company_id)
 			// response
-			res.json(response.success(ka.job.created, job))
+			res.json(response.success(ka.request_success, jobs))
 		} catch (error) {
-			res.json(response.error(ka.job.create_error, {}, error))
+			res.json(response.error(ka.request_error, {}, error.message))
 		}
 	}
 
 	/**
 	 * read active job
 	 */
-	static async read(req, res) {
+	static async detail(req, res) {
 		try {
 			// fetch all jobs
-			let jobs = await JobService.read(req.params.company_id)
+			let jobs = await JobService.detail(req.body.params.job_id)
 			// response
 			res.json(response.success(ka.request_success, jobs))
 		} catch (error) {
@@ -40,25 +40,11 @@ class JobController {
 	static async readArchived(req, res) {
 		try {
 			// get archived jobs from service
-			let jobs = await JobService.read(req.params.company_id, 0)
+			let jobs = await JobService.read(req.body.params.company_id, 0)
 			// response
 			res.json(response.success(ka.request_success, jobs))
 		} catch (error) {
 			res.json(response.error(ka.request_error, {}, error.message))
-		}
-	}
-
-	/**
-	 * Delete job
-	 */
-	static async delete(req, res) {
-		try {
-			// delete job from service
-			await JobService.delete(req.params.id)
-			// response
-			res.json(response.success(ka.job.deleted))
-		} catch (error) {
-			res.json(response.error(ka.job.delete_error, {}, error.message))
 		}
 	}
 
@@ -73,20 +59,6 @@ class JobController {
 			res.json(response.success(ka.job.archived))
 		} catch (error) {
 			res.json(response.error(ka.job.archived_error, {}, error.message))
-		}
-	}
-
-	/**
-	 * Set job requirements
-	 */
-	static async setJobRequirements(req, res) {
-		try {
-			// set requirements from service
-			let requirements = await JobService.setJobRequirements(req.body)
-			// response
-			res.json(response.success(ka.request_success, requirements))
-		} catch (error) {
-			res.json(response.error(ka.job.set_requirement_error, {}, error.message))
 		}
 	}
 }

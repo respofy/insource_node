@@ -5,6 +5,7 @@ class Job extends Sequelize.Model {
 		return super.init(
 			{
 				company_id: { type: Sequelize.INTEGER, allowNull: false },
+				user_id: { type: Sequelize.INTEGER, allowNull: false },
 				working_type_id: { type: Sequelize.INTEGER, allowNull: false },
 				city_id: { type: Sequelize.INTEGER, allowNull: false },
 				role_id: { type: Sequelize.INTEGER, allowNull: false },
@@ -19,8 +20,8 @@ class Job extends Sequelize.Model {
 				experience_to: { type: Sequelize.INTEGER, allowNull: false },
 				description: { type: Sequelize.TEXT, allowNull: true },
 				active: { type: Sequelize.INTEGER, allowNull: false, defaultValue: 1 },
-				started_at: { type: Sequelize.DATE, allowNull: false },
-				finished_at: { type: Sequelize.DATE, allowNull: false }
+				started_at: { type: Sequelize.DATEONLY, allowNull: false },
+				finished_at: { type: Sequelize.DATEONLY, allowNull: false }
 			},
 			{
 				sequelize,
@@ -39,6 +40,7 @@ class Job extends Sequelize.Model {
 		})
 		// meeting
 		this.hasMany(models.Meeting)
+		this.hasMany(models.JobUser)
 		// Attributes Relation
 		this.belongsTo(models.Company)
 		this.belongsTo(models.WorkingType)
@@ -49,7 +51,7 @@ class Job extends Sequelize.Model {
 		this.belongsTo(models.Language)
 		this.belongsTo(models.LanguageKnowledge)
 		// User Relation
-		this.hasMany(models.User)
+		this.belongsToMany(models.User, { through: 'job_users' })
 		// Skills related to job
 		this.belongsToMany(models.Skill, {
 			as: 'jobSkill',

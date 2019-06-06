@@ -15,7 +15,7 @@ export default (req, res, next) => {
 	let decryptedToken = Jwt.decode(encryptedToken)
 
 	// filter companies by id
-	let result = decryptedToken.companies.filter(company => company.id == req.params.company_id)
+	let result = decryptedToken.companies.filter(company => company.id == req.body.params.company_id)
 
 	// send error response if user does not belong requested company
 	if (result.length === 0) {

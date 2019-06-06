@@ -27,14 +27,11 @@ routes.post('/join/new/user', upload.single('avatar'), Invite, JoiMiddleware(Com
 routes.get('/owned/list', Auth, CompanyController.getUserOwnedCompanies)
 routes.post('/search/companies/by/name', Auth, JoiMiddleware(CompanySchemas.SearchCompanySchema), CompanyController.searchCompaniesByName)
 
-// Jobs
-routes.get('/:company_id/job/read', Auth, Owner, JobController.read)
-routes.get('/:company_id/job/archived/read', Auth, Owner, JobController.readArchived)
-routes.post('/:company_id/job/create', Auth, Owner, JoiMiddleware(CompanySchemas.CreateJobSchema), JobController.create)
-routes.post('/job/set/requirements', Auth, JoiMiddleware(CompanySchemas.JobRequirementSchema), JobController.setJobRequirements)
-routes.post('/job/delete/:id', Auth, JobController.delete)
+// match algorithm and jobs
+routes.post('/job/create', Auth, MatchController.matchAndCreate)
+routes.get('/job/list', Auth, Owner, JobController.list)
+routes.get('/job/detail', Auth, Owner, JobController.detail)
+routes.get('/job/archived/read', Auth, Owner, JobController.readArchived)
 routes.post('/job/archive/:id', Auth, JobController.archive)
-
-routes.post('/job/match', Auth, MatchController.match)
 
 export default routes

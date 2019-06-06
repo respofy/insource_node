@@ -1,21 +1,44 @@
 // import AuthService from '../../users/services/AuthService'
 import models from 'database/modelBootstrap'
 import moment from 'moment'
-
+import sequelize from 'sequelize'
+// const operator = sequelize.Op
 /**
  * job service
  */
 class JobService {
 	/**
+	 * list of jobs
+	 */
+	static async list(company_id) {
+		return await models.sequelize.query(
+			`SELECT id, title, finished_at,
+			(SELECT COUNT(*) FROM job_users WHERE job_id=jobs.id) as total_users,
+			(SELECT COUNT(*) FROM job_users WHERE job_id=jobs.id AND approved_by_user=1) as approved_users
+			FROM jobs where company_id = ${company_id} AND active = 1 AND started_at <= '${moment().format('YYYY-MM-DD')}' AND finished_at >= '${moment().format('YYYY-MM-DD')}'`,
+			{
+				type: sequelize.QueryTypes.SELECT
+			}
+		)
+	}
+
+	/**
 	 * get list of jobs, filtered by company_id and active_status
 	 */
-	static async read(company_id, active_status = 1) {
+	static async detail(job_id) {
 		// fetch all jobs
-		return await models.Job.findAll({
-			where: { company_id, active: active_status },
-			attributes: ['id', 'title', 'salary_from', 'salary_to', 'experience_from', 'experience_to', 'description'],
+		return await models.Job.findOne({
+			where: { id: job_id },
+			attributes: ['id', 'started_at', 'finished_at', 'title', 'salary_from', 'salary_to', 'experience_from', 'experience_to', 'description'],
 			include: [
-				{ model: models.Company, attributes: ['id', 'name', 'logo'] },
+				{
+					model: models.Company,
+					attributes: ['id', 'name', 'logo'],
+					include: {
+						model: models.Industry,
+						attributes: ['id', 'title']
+					}
+				},
 				{ model: models.WorkingType, attributes: ['id', 'title'] },
 				{ model: models.City, attributes: ['id', 'name'] },
 				{ model: models.Role, attributes: ['id', 'title'] },
@@ -36,6 +59,7 @@ class JobService {
 		// create job by user active company
 		let newJob = await models.Job.create({
 			company_id: company_id,
+			user_id: user_id,
 			working_type_id: data.working_type_id,
 			city_id: data.city_id,
 			role_id: data.role_id,
@@ -52,28 +76,6 @@ class JobService {
 			started_at: moment(),
 			finished_at: moment().add(1, 'months')
 		})
-
-		/* ---- Creates skill if not exist ( old code) -- */
-		// loop through skills
-		// data.skills.forEach(async skill => {
-		// if skill does not exist in db, create new one and associate with profession & job
-		// if (skill.id == null) {
-		// 	// create new skill
-		// 	let newSkill = await models.Skill.create({
-		// 		title: skill.title
-		// 	})
-		// 	// get profession instance
-		// 	let profession = await models.Profession.findByPk(data.profession_id)
-		// 	// attach new skill to profession
-		// 	await profession.addSkill(newSkill.id)
-		// 	// attach skills to job
-		// 	await newJob.addJobSkill(newSkill.id)
-		// }
-
-		// if exists, attach skills to job
-		// await newJob.addJobSkill(skill.id)
-		// })
-		/* ------------------------------------------------ */
 
 		// attach qualification demands to job
 		await newJob.addJobQualification(data.qualifications)
@@ -108,19 +110,31 @@ class JobService {
 	/**
 	 * Set job requirements by id
 	 */
-	static async setJobRequirements(params) {
+	static async setJobRequirements(job_id, params) {
 		return await models.JobRequirement.create({
-			job_id: params.job_id,
+			job_id: job_id,
 			city: params.city,
 			working_type: params.working_type,
 			role: params.role,
 			profession: params.profession,
 			skills: params.skills,
 			salary: params.salary,
+			degree: params.degree,
 			experience: params.experience,
-			education: params.education,
 			languages: params.languages,
 			qualification: params.qualification
+		})
+	}
+
+	/**
+	 * Set job requirements by id
+	 */
+	static setJobUsers(job_id, user_id, percentage) {
+		return models.JobUser.create({
+			job_id: job_id,
+			user_id: user_id,
+			percentage: percentage,
+			approved_by_user: false
 		})
 	}
 }

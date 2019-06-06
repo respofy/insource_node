@@ -9,12 +9,12 @@ class MatchController {
 	/**
 	 * Set job requirements
 	 */
-	static async match(req, res) {
+	static async matchAndCreate(req, res) {
 		try {
 			// set requirements from service
-			let requirements = await MatchService.match(req.body)
+			let match = await MatchService.matchAndCreate(req.user.id, req.body.params.company_id, req.body)
 			// response
-			res.json(response.success(ka.request_success, requirements))
+			res.json(response.success(ka.request_success, match))
 		} catch (error) {
 			res.json(response.error('match error', {}, error.message))
 		}
