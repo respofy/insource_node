@@ -107,7 +107,7 @@ class CompanyController {
 	static async searchCompaniesByName(req, res) {
 		try {
 			// get the roles form service
-			let companies = await CompanyService.searchCompaniesByName(req.body.criteria)
+			let companies = await CompanyService.searchCompaniesByName(req.body.criteria, req.user.id)
 			// return the response
 			res.json(response.success(ka.request_success, companies))
 		} catch (error) {

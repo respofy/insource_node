@@ -131,14 +131,27 @@ class CompanyService {
 	/**
 	 * Search companies by name (criteria)
 	 */
-	static async searchCompaniesByName(criteria) {
+	static async searchCompaniesByName(criteria, user_id) {
 		// get list of companies
 		let companies = await models.Company.findAll({
 			where: {
 				name: {
 					[operator.like]: `%${criteria}%`
 				}
-			}
+			},
+			include: [
+				{
+					model: models.User,
+					as: 'FavouredByUsers',
+					where: {
+						id: user_id
+					},
+					required: false
+				},
+				{
+					model: models.Industry
+				}
+			]
 		})
 		// response
 		return companies

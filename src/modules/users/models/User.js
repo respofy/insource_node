@@ -65,6 +65,10 @@ class User extends Sequelize.Model {
 		this.hasMany(models.UserRole)
 		// User Profession Pivot Relation
 		this.hasMany(models.UserProfession)
+		// User Profession
+		this.belongsToMany(models.Profession, {
+			through: 'user_profession'
+		})
 		// User Industry Pivot Relation
 		this.hasMany(models.UserIndustry)
 		// User Skills Pivot Relation

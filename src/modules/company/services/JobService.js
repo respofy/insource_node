@@ -53,6 +53,68 @@ class JobService {
 	}
 
 	/**
+	 * get list of jobs, filtered by company_id and active_status
+	 */
+	static async detailUsers(job_id) {
+		// fetch all jobs
+		return await models.JobUser.findAll({
+			where: { job_id: job_id },
+			attributes: ['id', 'percentage', 'approved_by_user'],
+			include: [
+				{
+					model: models.User,
+					attributes: ['id', 'name', 'surname', 'avatar', 'incognito'],
+					include: [
+						{
+							model: models.UserProfession,
+							attributes: ['id'],
+							where: {
+								active: true
+							},
+							include: {
+								model: models.Profession,
+								attributes: ['title']
+							}
+						},
+						{
+							model: models.Salary,
+							attributes: ['id', 'salary_amount'],
+							where: {
+								active: true
+							}
+						},
+						{
+							model: models.UserWorkingType,
+							attributes: ['id'],
+							where: {
+								active: true
+							},
+							include: {
+								model: models.WorkingType,
+								attributes: ['title']
+							}
+						},
+						{
+							model: models.UserEducation,
+							attributes: ['id'],
+							include: {
+								model: models.Degree,
+								order: [['id', 'ASC']]
+								// where: {
+								// 	lft: {
+								// 		[operator.gte]: educationLFT
+								// 	}
+								// }
+							}
+							// order: ['degree.id', 'ASC']
+						}
+					]
+				}
+			]
+		})
+	}
+
+	/**
 	 * create job from active company
 	 */
 	static async create(user_id, company_id, data) {

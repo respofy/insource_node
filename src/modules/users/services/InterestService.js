@@ -244,17 +244,86 @@ class InterestService {
 	 * Get all user interest
 	 */
 	static async getInterests(user_id) {
+		// sallary (single)
+		let salary = await models.Salary.findAll({
+			attributes: ['id', 'salary_amount'],
+			where: {
+				user_id: user_id,
+				active: true
+			}
+		})
+
+		// role (multiple)
+		let role = await models.UserRole.findAll({
+			where: {
+				user_id: user_id,
+				active: true
+			},
+			include: {
+				model: models.Role,
+				required: true,
+				attributes: ['id', 'title']
+			},
+			attributes: ['role_id']
+		})
+
+		// profession (single)
+		let profession = await models.UserProfession.findAll({
+			where: {
+				user_id: user_id,
+				active: true
+			},
+			include: {
+				model: models.Profession,
+				required: true,
+				attributes: ['id', 'title']
+			},
+			attributes: ['profession_id']
+		})
+
+		// skills (multiple)
+		let skills = await models.UserSkill.findAll({
+			where: {
+				user_id: user_id,
+				active: true
+			},
+			include: {
+				model: models.Skill,
+				required: true,
+				attributes: ['id', 'title']
+			},
+			attributes: ['skill_id']
+		})
+
+		// Industry (multiple)
+		let industry = await models.UserIndustry.findAll({
+			where: {
+				user_id: user_id,
+				active: true
+			},
+			include: {
+				model: models.Industry,
+				required: true,
+				attributes: ['id', 'title']
+			},
+			attributes: ['industry_id']
+		})
+
 		// working type
 		let working_type = await models.UserWorkingType.findAll({
 			where: {
 				user_id: user_id,
 				active: true
 			},
-			include: { model: models.WorkingType, required: true },
-			attributes: ['user_id', 'working_type_id', 'started_at', 'finished_at']
+			include: {
+				model: models.WorkingType,
+				required: true,
+				attributes: ['id', 'title']
+			},
+			attributes: ['working_type_id']
 		})
 
-		return working_type
+		return { working_type, salary, role, profession, skills, industry }
 	}
 }
 

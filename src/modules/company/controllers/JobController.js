@@ -35,6 +35,20 @@ class JobController {
 	}
 
 	/**
+	 * read active job uers
+	 */
+	static async detailUsers(req, res) {
+		try {
+			// fetch all jobs
+			let jobs = await JobService.detailUsers(req.body.params.job_id)
+			// response
+			res.json(response.success(ka.request_success, jobs))
+		} catch (error) {
+			res.json(response.error(ka.request_error, {}, error.message))
+		}
+	}
+
+	/**
 	 * Read archived jobs
 	 */
 	static async readArchived(req, res) {
