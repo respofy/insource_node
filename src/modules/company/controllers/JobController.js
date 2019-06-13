@@ -40,7 +40,7 @@ class JobController {
 	static async detailUsers(req, res) {
 		try {
 			// fetch all jobs
-			let jobs = await JobService.detailUsers(req.body.params.job_id)
+			let jobs = await JobService.detailUsers(req.body.params.job_id, req.body.params.filter)
 			// response
 			res.json(response.success(ka.request_success, jobs))
 		} catch (error) {
@@ -54,7 +54,7 @@ class JobController {
 	static async readArchived(req, res) {
 		try {
 			// get archived jobs from service
-			let jobs = await JobService.read(req.body.params.company_id, 0)
+			let jobs = await JobService.archiveList(req.body.params.company_id, 0)
 			// response
 			res.json(response.success(ka.request_success, jobs))
 		} catch (error) {

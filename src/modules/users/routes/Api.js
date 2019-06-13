@@ -80,4 +80,7 @@ routes.get('/cv/favorite/company/all', Auth, UserController.favoriteCompanies)
 routes.post('/cv/interests/set', Auth, InterestController.setInterest)
 routes.get('/cv/interests/all', Auth, InterestController.getInterests)
 
+// dashboard
+routes.post('/jobs', Auth, UserController.jobs)
+
 export default routes

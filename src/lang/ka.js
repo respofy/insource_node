@@ -65,7 +65,8 @@ export default {
 		certificate_updated: 'სერტიფიკატი განახლდა',
 		certificate_update_error: 'სერტიფიკატი არ განახლდა',
 		certificate_deleted: 'სერტიფიკატი წაიშალა',
-		certificate_delete_error: 'სერტიფიკატის წაშლისას დაფიქსირდა შეცდომა'
+		certificate_delete_error: 'სერტიფიკატის წაშლისას დაფიქსირდა შეცდომა',
+		success_job_list: 'შემოთავაზებული სამუშაოების სია'
 	},
 	model: {
 		unique_phone_error: 'ანგარიში მსგავსი ტელეფონით უკვე არსებობს',

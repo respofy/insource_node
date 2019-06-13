@@ -373,6 +373,20 @@ class UserController {
 			res.json(response.error(ka.request_error))
 		}
 	}
+
+	/**
+	 *
+	 */
+	static async jobs(req, res) {
+		try {
+			// remove company from favorites using user service
+			let jobs = await UserService.jobs(req.user.id)
+			// response
+			res.json(response.success(ka.cv.success_job_list, jobs))
+		} catch (error) {
+			res.json(response.error(ka.request_error, {}, error.message))
+		}
+	}
 }
 
 export default UserController

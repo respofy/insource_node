@@ -29,10 +29,10 @@ routes.post('/search/companies/by/name', Auth, JoiMiddleware(CompanySchemas.Sear
 
 // match algorithm and jobs
 routes.post('/job/create', Auth, MatchController.matchAndCreate)
-routes.get('/job/list', Auth, Owner, JobController.list)
-routes.get('/job/detail', Auth, Owner, JobController.detail)
-routes.get('/job/detail/users', Auth, Owner, JobController.detailUsers)
-routes.get('/job/archived/read', Auth, Owner, JobController.readArchived)
+routes.post('/job/list', Auth, Owner, JobController.list)
+routes.post('/job/detail', Auth, Owner, JobController.detail)
+routes.post('/job/detail/users', Auth, Owner, JobController.detailUsers)
+routes.post('/job/archived/read', Auth, Owner, JobController.readArchived)
 routes.post('/job/archive/:id', Auth, JobController.archive)
 
 export default routes

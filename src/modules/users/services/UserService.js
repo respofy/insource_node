@@ -437,6 +437,42 @@ class UserService {
 		// get active company id
 		return await models.Company.findByPk(user.active_company_id)
 	}
+	/**
+	 * Get active company
+	 */
+	static async jobs(user_id) {
+		// return jobs for user
+		return await models.JobUser.findAll({
+			where: {
+				user_id
+			},
+			include: [
+				{
+					model: models.Job,
+					attributes: ['id', 'started_at', 'finished_at', 'title', 'salary_from', 'salary_to', 'experience_from', 'experience_to', 'description'],
+					include: [
+						{
+							model: models.Company,
+							attributes: ['id', 'name', 'logo'],
+							include: {
+								model: models.Industry,
+								attributes: ['id', 'title']
+							}
+						},
+						{ model: models.WorkingType, attributes: ['id', 'title'] },
+						{ model: models.City, attributes: ['id', 'name'] },
+						{ model: models.Role, attributes: ['id', 'title'] },
+						{ association: 'jobSkill', through: { attributes: [] } },
+						{ association: 'jobQualification', through: { attributes: [] } },
+						{ model: models.Profession, attributes: ['id', 'title'] },
+						{ model: models.Degree, attributes: ['id', 'title'] },
+						{ model: models.Language, attributes: ['id', 'title'] },
+						{ model: models.LanguageKnowledge, attributes: ['id', 'title', 'weight'] }
+					]
+				}
+			]
+		})
+	}
 }
 
 export default UserService

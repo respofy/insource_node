@@ -2,7 +2,8 @@
 import models from 'database/modelBootstrap'
 import moment from 'moment'
 import sequelize from 'sequelize'
-// const operator = sequelize.Op
+const operator = sequelize.Op
+
 /**
  * job service
  */
@@ -16,6 +17,20 @@ class JobService {
 			(SELECT COUNT(*) FROM job_users WHERE job_id=jobs.id) as total_users,
 			(SELECT COUNT(*) FROM job_users WHERE job_id=jobs.id AND approved_by_user=1) as approved_users
 			FROM jobs where company_id = ${company_id} AND active = 1 AND started_at <= '${moment().format('YYYY-MM-DD')}' AND finished_at >= '${moment().format('YYYY-MM-DD')}'`,
+			{
+				type: sequelize.QueryTypes.SELECT
+			}
+		)
+	}
+	/**
+	 * list of jobs
+	 */
+	static async archiveList(company_id) {
+		return await models.sequelize.query(
+			`SELECT id, title, finished_at,
+			(SELECT COUNT(*) FROM job_users WHERE job_id=jobs.id) as total_users,
+			(SELECT COUNT(*) FROM job_users WHERE job_id=jobs.id AND approved_by_user=1) as approved_users
+			FROM jobs where company_id = ${company_id} AND active = 0 OR finished_at <= '${moment().format('YYYY-MM-DD')}'`,
 			{
 				type: sequelize.QueryTypes.SELECT
 			}
@@ -55,11 +70,39 @@ class JobService {
 	/**
 	 * get list of jobs, filtered by company_id and active_status
 	 */
-	static async detailUsers(job_id) {
+	static async detailUsers(job_id, filter) {
+		// descripbe the criteria of query
+		let criteria = {
+			job_id
+		}
+		switch (filter) {
+		case 'all':
+			break
+		case 'new':
+			criteria = {
+				...criteria,
+				created_at: {
+					[operator.gte]: moment().subtract(5, 'days')
+				}
+			}
+			break
+		case 'approved':
+			criteria = { ...criteria, approved_by_user: true }
+			break
+		case 'best':
+			criteria = {
+				...criteria,
+				percentage: {
+					[operator.gte]: 80
+				}
+			}
+			break
+		}
+
 		// fetch all jobs
 		return await models.JobUser.findAll({
-			where: { job_id: job_id },
-			attributes: ['id', 'percentage', 'approved_by_user'],
+			where: criteria,
+			attributes: ['id', 'percentage', 'approved_by_user', 'created_at'],
 			include: [
 				{
 					model: models.User,
@@ -99,18 +142,13 @@ class JobService {
 							attributes: ['id'],
 							include: {
 								model: models.Degree,
-								order: [['id', 'ASC']]
-								// where: {
-								// 	lft: {
-								// 		[operator.gte]: educationLFT
-								// 	}
-								// }
+								attributes: ['title', 'lft']
 							}
-							// order: ['degree.id', 'ASC']
 						}
 					]
 				}
-			]
+			],
+			order: [[models.User, models.UserEducation, models.Degree, 'lft', 'desc']]
 		})
 	}
 
