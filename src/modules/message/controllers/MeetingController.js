@@ -1,6 +1,7 @@
 import ka from 'lang/ka'
 import response from 'helper/Response'
 import MeetingService from '../services/MeetingService'
+import models from 'database/modelBootstrap'
 
 /**
  * Meeting Controller
@@ -11,6 +12,28 @@ class MeetingController {
 	 */
 	static async create(req, res) {
 		try {
+			// check if company can create event
+			let jobCount = await models.Job.findAndCountAll({
+				where: {
+					id: req.body.job_id,
+					company_id: req.body.params.company_id
+				}
+			})
+			if (jobCount.count == 0) {
+				return res.json(response.error(ka.user_not_in_job_list))
+			}
+
+			// check if user is inside the job
+			let jobUserCount = await models.JobUser.findAndCountAll({
+				where: {
+					user_id: req.body.user_id,
+					job_id: req.body.job_id
+				}
+			})
+			if (jobUserCount.count == 0) {
+				return res.json(response.error(ka.user_not_in_job_list))
+			}
+
 			// create meeting from service
 			let meeting = await MeetingService.createMeeting(req.body)
 			// response

@@ -380,7 +380,35 @@ class UserController {
 	static async jobs(req, res) {
 		try {
 			// remove company from favorites using user service
-			let jobs = await UserService.jobs(req.user.id)
+			let jobs = await UserService.jobs(req.user.id, req.body.params.filter)
+			// response
+			res.json(response.success(ka.cv.success_job_list, jobs))
+		} catch (error) {
+			res.json(response.error(ka.request_error, {}, error.message))
+		}
+	}
+
+	/**
+	 *
+	 */
+	static async jobsDetail(req, res) {
+		try {
+			// remove company from favorites using user service
+			let jobs = await UserService.jobsDetail(req.body.params.job_id, req.user.id)
+			// response
+			res.json(response.success(ka.cv.success_job_list, jobs))
+		} catch (error) {
+			res.json(response.error(ka.request_error, {}, error.message))
+		}
+	}
+
+	/**
+	 *
+	 */
+	static async approveJob(req, res) {
+		try {
+			// remove company from favorites using user service
+			let jobs = await UserService.jobsApprove(req.body.params.job_id, req.user.id)
 			// response
 			res.json(response.success(ka.cv.success_job_list, jobs))
 		} catch (error) {

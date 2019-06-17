@@ -144,6 +144,10 @@ class JobService {
 								model: models.Degree,
 								attributes: ['title', 'lft']
 							}
+						},
+						{
+							model: models.City,
+							attributes: ['id', 'name']
 						}
 					]
 				}
@@ -216,7 +220,6 @@ class JobService {
 			city: params.city,
 			working_type: params.working_type,
 			role: params.role,
-			profession: params.profession,
 			skills: params.skills,
 			salary: params.salary,
 			degree: params.degree,

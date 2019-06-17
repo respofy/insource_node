@@ -8,7 +8,6 @@ class JobRequirement extends Model {
 				city: { type: Sequelize.BOOLEAN, allowNull: false },
 				working_type: { type: Sequelize.BOOLEAN, allowNull: false },
 				role: { type: Sequelize.BOOLEAN, allowNull: false },
-				profession: { type: Sequelize.BOOLEAN, allowNull: false, defaultValue: true },
 				skills: { type: Sequelize.BOOLEAN, allowNull: false },
 				salary: { type: Sequelize.BOOLEAN, allowNull: false },
 				degree: { type: Sequelize.BOOLEAN, allowNull: false },

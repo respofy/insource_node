@@ -1,6 +1,9 @@
 import models from 'database/modelBootstrap'
 import ka from 'lang/ka'
 import AuthService from '../services/AuthService'
+import moment from 'moment'
+import sequelize from 'sequelize'
+const operator = sequelize.Op
 
 /**
  * User Services
@@ -134,7 +137,8 @@ class UserService {
 		// read user working experiences
 		return await user.getUserWorkingExperiences({
 			attributes: ['id', 'started_at', 'finished_at', 'company_name'],
-			include: [models.Role, models.Company, models.Profession, 'workingExpSkills']
+			include: [models.Role, models.Company, models.Profession, 'workingExpSkills'],
+			order: [['started_at', 'DESC']]
 		})
 	}
 
@@ -437,15 +441,56 @@ class UserService {
 		// get active company id
 		return await models.Company.findByPk(user.active_company_id)
 	}
+
 	/**
 	 * Get active company
 	 */
-	static async jobs(user_id) {
+	static async jobs(user_id, filter) {
+		// criteria
+		let criteria = {
+			user_id,
+			approved_by_user: false
+		}
+
+		// swich case
+		switch (filter) {
+		case 'all':
+			break
+		case 'new':
+			criteria = {
+				...criteria,
+				created_at: {
+					[operator.gte]: moment().subtract(5, 'days')
+				}
+			}
+			break
+		case 'best':
+			criteria = {
+				...criteria,
+				percentage: {
+					[operator.gte]: 80
+				}
+			}
+			break
+		case 'finishing':
+			criteria = {
+				...criteria,
+				created_at: {
+					[operator.lte]: moment().subtract(25, 'days')
+				}
+			}
+			break
+		case 'favourite':
+			criteria = {
+				...criteria
+			}
+			// TODO: criteria for favourite
+			break
+		}
+
 		// return jobs for user
 		return await models.JobUser.findAll({
-			where: {
-				user_id
-			},
+			where: criteria,
 			include: [
 				{
 					model: models.Job,
@@ -454,10 +499,20 @@ class UserService {
 						{
 							model: models.Company,
 							attributes: ['id', 'name', 'logo'],
-							include: {
-								model: models.Industry,
-								attributes: ['id', 'title']
-							}
+							include: [
+								{
+									model: models.Industry,
+									attributes: ['id', 'title']
+								},
+								{
+									model: models.User,
+									as: 'FavouredByUsers',
+									where: {
+										id: user_id
+									},
+									required: false
+								}
+							]
 						},
 						{ model: models.WorkingType, attributes: ['id', 'title'] },
 						{ model: models.City, attributes: ['id', 'name'] },
@@ -471,6 +526,72 @@ class UserService {
 					]
 				}
 			]
+		})
+	}
+
+	/**
+	 *
+	 */
+	static async jobsDetail(job_id, user_id) {
+		/**
+		 *
+		 */
+		return await models.JobUser.findOne({
+			where: {
+				job_id,
+				user_id
+			},
+			include: {
+				model: models.Job,
+				attributes: ['id', 'started_at', 'finished_at', 'title', 'salary_from', 'salary_to', 'experience_from', 'experience_to', 'description'],
+				include: [
+					{
+						model: models.Company,
+						attributes: ['id', 'name', 'logo'],
+						include: [
+							{
+								model: models.Industry,
+								attributes: ['id', 'title']
+							},
+							{
+								model: models.User,
+								as: 'FavouredByUsers',
+								where: {
+									id: user_id
+								},
+								required: false
+							}
+						]
+					},
+					{ model: models.WorkingType, attributes: ['id', 'title'] },
+					{ model: models.City, attributes: ['id', 'name'] },
+					{ model: models.Role, attributes: ['id', 'title'] },
+					{ association: 'jobSkill', through: { attributes: [] } },
+					{ association: 'jobQualification', through: { attributes: [] } },
+					{ model: models.Profession, attributes: ['id', 'title'] },
+					{ model: models.Degree, attributes: ['id', 'title'] },
+					{ model: models.Language, attributes: ['id', 'title'] },
+					{ model: models.LanguageKnowledge, attributes: ['id', 'title', 'weight'] }
+				]
+			}
+		})
+	}
+
+	/**
+	 *
+	 */
+	static async jobsApprove(job_id, user_id) {
+		// job user
+		let JobUser = await models.JobUser.findOne({
+			where: {
+				job_id,
+				user_id
+			}
+		})
+
+		// return update
+		return await JobUser.update({
+			approved_by_user: true
 		})
 	}
 }
