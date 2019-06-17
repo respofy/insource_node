@@ -20,7 +20,7 @@ class MeetingController {
 				}
 			})
 			if (jobCount.count == 0) {
-				return res.json(response.error(ka.user_not_in_job_list))
+				return res.json(response.error(ka.messages.user_not_in_job_list))
 			}
 
 			// check if user is inside the job
@@ -31,7 +31,7 @@ class MeetingController {
 				}
 			})
 			if (jobUserCount.count == 0) {
-				return res.json(response.error(ka.user_not_in_job_list))
+				return res.json(response.error(ka.messages.user_not_in_job_list))
 			}
 
 			// create meeting from service

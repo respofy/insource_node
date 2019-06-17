@@ -113,7 +113,9 @@ export default {
 	middleware: {
 		not_authorize: 'მომხმარებელი არ არის ავტორიზებული სისტემაში'
 	},
-
+	messages: {
+		user_not_in_job_list: 'მომხმარებელი არ არის ვაკანსიის სიაში'
+	},
 	tokenGenerated: 'თოქენი დაგენერირდა წარმატებით',
 	tokenNotGenerated: 'თოქენი არ დაგენერირდა',
 	validEmailError: 'მეილი არ არის ვალიდური',

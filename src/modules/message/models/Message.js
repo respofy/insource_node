@@ -9,7 +9,8 @@ class Message extends Model {
 				receiver_id: { type: Sequelize.INTEGER, allowNull: false },
 				company_id: { type: Sequelize.INTEGER, allowNull: false },
 				job_id: { type: Sequelize.INTEGER, allowNull: false },
-				content: { type: Sequelize.STRING, allowNull: false }
+				content: { type: Sequelize.STRING, allowNull: false },
+				is_read: { type: Sequelize.BOOLEAN, allowNull: false }
 			},
 			{
 				sequelize,
@@ -25,9 +26,7 @@ class Message extends Model {
 		// User Relation as Sender & Receiver
 		this.belongsTo(models.User, { as: 'sender' })
 		this.belongsTo(models.User, { as: 'receiver' })
-		// Company Relation
 		this.belongsTo(models.Company)
-		// Job Relation
 		this.belongsTo(models.Job)
 	}
 }
