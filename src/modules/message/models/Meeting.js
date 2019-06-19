@@ -6,6 +6,7 @@ class Meeting extends Model {
 			{
 				user_id: { type: Sequelize.INTEGER, allowNull: false },
 				job_id: { type: Sequelize.INTEGER, allowNull: false },
+				company_id: { type: Sequelize.INTEGER, allowNull: false },
 				date: { type: Sequelize.DATE, allowNull: false },
 				address: { type: Sequelize.STRING, allowNull: false }
 			},
@@ -23,6 +24,7 @@ class Meeting extends Model {
 		// User & Job relation
 		this.belongsTo(models.User)
 		this.belongsTo(models.Job)
+		this.belongsTo(models.Company)
 	}
 }
 

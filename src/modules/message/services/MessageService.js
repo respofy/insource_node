@@ -1,6 +1,7 @@
 import models from 'database/modelBootstrap'
 import moment from 'moment'
 import sequelize from 'sequelize'
+const operator = sequelize.Op
 
 /**
  * Service class for Messages
@@ -21,13 +22,46 @@ class MessageService {
 			}
 		)
 	}
+	/**
+	 * list of the jobs for companies
+	 */
+	static async userJobList(user_id) {
+		// job list responce
+		return await models.JobUser.findAll({
+			attributes: ['id', 'job_id', 'user_id', 'percentage', 'approved_by_user'],
+			where: {
+				user_id
+			},
+			include: {
+				attributes: ['id', 'title'],
+				model: models.Job,
+				where: {
+					active: true,
+					started_at: {
+						[operator.lte]: moment()
+					},
+					finished_at: {
+						[operator.gte]: moment()
+					}
+				},
+				include: {
+					model: models.Message,
+					attributes: ['id', 'content'],
+					where: {
+						is_read: false
+					},
+					required: false
+				}
+			}
+		})
+	}
 
 	/**
 	 * list of the users by jobs
 	 */
 	static async companyJobUsers(job_id) {
 		// fetch all jobs
-		return await models.JobUser.findOne({
+		return await models.JobUser.findAll({
 			where: {
 				job_id
 			},
@@ -46,40 +80,81 @@ class MessageService {
 				}
 			]
 		})
-
-		// return await models.sequelize.query(
-		// 	`SELECT job_users.user_id, job_users.percentage, job_users.approved_by_user,
-		//     (SELECT COUNT(*) FROM messages WHERE job_users.job_id = ${job_id} AND messages.is_read = 0 AND messages.sender_id = job_users.user_id) as total_unread_messages,
-		//     users.id, users.name, users.surname
-		//     FROM job_users
-		//     RIGHT JOIN users ON users.id = job_users.user_id
-		//     WHERE job_users.job_id = ${job_id} AND job_users.approved_by_user = 1`,
-		// 	{
-		// 		type: sequelize.QueryTypes.SELECT
-		// 	}
-		// )
 	}
 
 	/**
-	 * list of messages
+	 * list of messages for companies
 	 */
-	static async list(company_id, job_id, user_id) {
+	static async companyMessageHistory(company_id, job_id, user_id) {
 		// list of the messages
 		return await models.Message.findAll({
+			attributes: ['id', 'sender_id', 'receiver_id', 'company_id', 'job_id', 'content', 'is_read'],
 			where: {
-				sender_id: company_id,
-				job_id: job_id,
-				receiver_id: user_id
-			}
+				company_id,
+				job_id,
+				[operator.or]: [{ sender_id: user_id }, { receiver_id: user_id }]
+			},
+			include: [
+				{
+					model: models.Company,
+					attributes: ['id', 'name', 'logo'],
+					required: false
+				},
+				{
+					model: models.User,
+					attributes: ['id', 'name', 'surname', 'avatar'],
+					as: 'receiver',
+					required: false
+				},
+				{
+					model: models.User,
+					attributes: ['id', 'name', 'surname', 'avatar'],
+					as: 'sender',
+					required: false
+				}
+			]
 		})
 	}
 
 	/**
-	 * company job detail page
+	 * list of messages for user
 	 */
+	static async userMessageHistory(job_id, user_id) {
+		// list of the messages
+		return await models.Message.findAll({
+			attributes: ['id', 'sender_id', 'receiver_id', 'company_id', 'job_id', 'content', 'is_read'],
+			where: {
+				job_id,
+				[operator.or]: [{ sender_id: user_id }, { receiver_id: user_id }]
+			},
+			include: [
+				{
+					model: models.Company,
+					attributes: ['id', 'name', 'logo'],
+					required: false
+				},
+				{
+					model: models.User,
+					attributes: ['id', 'name', 'surname', 'avatar'],
+					as: 'receiver',
+					required: false
+				},
+				{
+					model: models.User,
+					attributes: ['id', 'name', 'surname', 'avatar'],
+					as: 'sender',
+					required: false
+				}
+			]
+		})
+	}
 
 	/**
 	 * list of the jobs for user
+	 */
+
+	/**
+	 * company job detail page
 	 */
 
 	/**

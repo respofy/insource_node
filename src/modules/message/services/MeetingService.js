@@ -11,6 +11,7 @@ class MeetingService {
 		return await models.Meeting.create({
 			user_id: data.user_id,
 			job_id: data.job_id,
+			company_id: data.params.company_id,
 			date: data.date,
 			address: data.address
 		})
@@ -37,6 +38,39 @@ class MeetingService {
 					}
 				}
 			]
+		})
+	}
+
+	/**
+	 * Read meetings by criteria
+	 */
+	static async getCompanyMeetingsList(company_id) {
+		return await models.Meeting.findAll({
+			where: {
+				company_id
+			}
+		})
+	}
+	/**
+	 * Read meetings by criteria
+	 */
+	static async getCompanyMeetings(company_id) {
+		return await models.Job.findAll({
+			where: {
+				company_id
+			},
+			attributes: ['id', 'title'],
+			include: {
+				model: models.Meeting,
+				attributes: ['id', 'date', 'address'],
+				include: [
+					{
+						model: models.User,
+						attributes: ['id', 'name', 'surname', 'avatar']
+					}
+				],
+				required: true
+			}
 		})
 	}
 }

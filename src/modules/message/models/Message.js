@@ -5,8 +5,8 @@ class Message extends Model {
 		return super.init(
 			{
 				id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },
-				sender_id: { type: Sequelize.INTEGER, allowNull: false },
-				receiver_id: { type: Sequelize.INTEGER, allowNull: false },
+				sender_id: { type: Sequelize.INTEGER, allowNull: true },
+				receiver_id: { type: Sequelize.INTEGER, allowNull: true },
 				company_id: { type: Sequelize.INTEGER, allowNull: false },
 				job_id: { type: Sequelize.INTEGER, allowNull: false },
 				content: { type: Sequelize.STRING, allowNull: false },

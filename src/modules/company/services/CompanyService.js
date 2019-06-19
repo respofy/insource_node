@@ -166,6 +166,67 @@ class CompanyService {
 		// returns result
 		return await user.getOwnedCompanies()
 	}
+
+	/**
+	 * Get list of companies that user owns
+	 */
+	static async leftStats(company_id) {
+		// job user
+		let interested = await models.User.findAndCountAll({
+			include: {
+				model: models.JobUser,
+				where: {
+					approved_by_user: true
+				},
+				include: {
+					model: models.Job,
+					where: {
+						company_id
+					}
+				}
+			}
+		})
+
+		// job user
+		let interview = await models.Meeting.findAndCountAll({
+			where: {
+				company_id
+			}
+		})
+
+		return { interested, interview }
+		//     {
+		// 	include: {
+		// 		model: models.Job,
+		// 		where: {
+		// 			company_id,
+		// 			active: 1
+		// 			// started_at: {
+		// 			// 	[operator.lte]: moment()
+		// 			// },
+		// 			// finished_at: {
+		// 			// 	[operator.gte]: moment()
+		// 			// }
+		// 		}
+		// 	}
+		// }
+
+		// job user
+		// let finishing = await models.JobUser.findAndCountAll({
+		// 	where: {
+		// 		user_id
+		// 	},
+		// 	include: {
+		// 		model: models.Job,
+		// 		where: {
+		// 			active: 1,
+		// 			finished_at: {
+		// 				[operator.gte]: moment().subtract(5, 'days')
+		// 			}
+		// 		}
+		// 	}
+		// })
+	}
 }
 
 export default CompanyService

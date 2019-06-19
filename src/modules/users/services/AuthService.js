@@ -101,7 +101,18 @@ class AuthService {
 	static async authUser(id) {
 		return await models.User.findOne({
 			where: { id },
-			attributes: ['id', 'phone', 'name', 'surname', 'avatar', 'incognito', 'sleep', 'last_login', 'about_me']
+			attributes: ['id', 'phone', 'name', 'surname', 'avatar', 'incognito', 'sleep', 'last_login', 'about_me'],
+			include: {
+				model: models.UserProfession,
+				where: {
+					active: true
+				},
+				include: {
+					model: models.Profession,
+					required: false
+				},
+				required: false
+			}
 		})
 	}
 }

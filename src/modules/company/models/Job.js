@@ -41,6 +41,7 @@ class Job extends Sequelize.Model {
 		// meeting
 		this.hasMany(models.Meeting)
 		this.hasMany(models.JobUser)
+		this.hasMany(models.Message)
 		// Attributes Relation
 		this.belongsTo(models.Company)
 		this.belongsTo(models.WorkingType)

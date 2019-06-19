@@ -35,4 +35,7 @@ routes.post('/job/detail/users', Auth, Owner, JobController.detailUsers)
 routes.post('/job/archived/read', Auth, Owner, JobController.readArchived)
 routes.post('/job/archive/:id', Auth, JobController.archive)
 
+// company left stats
+routes.post('/left/stats', Auth, Owner, CompanyController.leftStats)
+
 export default routes

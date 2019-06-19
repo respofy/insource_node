@@ -128,6 +128,20 @@ class CompanyController {
 			res.json(response.error(ka.request_error))
 		}
 	}
+
+	/**
+	 * Get left stats of company
+	 */
+	static async leftStats(req, res) {
+		try {
+			// fetch companies from service
+			let companies = await CompanyService.leftStats(req.body.params.company_id)
+			// response
+			res.json(response.success(ka.request_success, companies))
+		} catch (error) {
+			res.json(response.error(ka.request_error))
+		}
+	}
 }
 
 export default CompanyController

@@ -79,6 +79,8 @@ class User extends Sequelize.Model {
 		this.hasMany(models.UserCertificate)
 		// Working Type pivot relation
 		this.hasMany(models.UserWorkingType)
+		this.hasMany(models.Job)
+		this.hasMany(models.JobUser)
 		// Message Relations
 		this.hasMany(models.Message, { as: 'sender', foreignKey: 'sender_id' })
 		this.hasMany(models.Message, { as: 'receiver', foreignKey: 'receiver_id' })

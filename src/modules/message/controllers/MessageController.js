@@ -20,6 +20,19 @@ class MessageController {
 			res.json(response.error(ka.request_error, {}, error.message))
 		}
 	}
+	/**
+	 * list of the jobs for companies
+	 */
+	static async userJobList(req, res) {
+		try {
+			// save message from service
+			let userJobList = await MessageService.userJobList(req.user.id)
+			// response
+			res.json(response.success(ka.request_success, userJobList))
+		} catch (error) {
+			res.json(response.error(ka.request_error, {}, error.message))
+		}
+	}
 
 	/**
 	 * list of the users by jobs
@@ -40,7 +53,7 @@ class MessageController {
 			// save message from service
 			let companyJobUsers = await MessageService.companyJobUsers(req.body.job_id)
 			// response
-			res.json(response.success(ka.request_success, companyJobUsers))
+			res.json(response.success(ka.request_success, companyJobUsers.length ? companyJobUsers : []))
 		} catch (error) {
 			res.json(response.error(ka.request_error, {}, error.message))
 		}
@@ -49,17 +62,42 @@ class MessageController {
 	/**
 	 * Get messages message list
 	 */
-	static async list(req, res) {
+	static async companyMessageHistory(req, res) {
 		try {
 			// save message from service
-			let messages = await MessageService.list(req.body.params.company_id, req.body.job_id, req.body.user_id)
+			let messages = await MessageService.companyMessageHistory(req.body.params.company_id, req.body.job_id, req.body.user_id)
 			// response
 			res.json(response.success(ka.request_success, messages))
 		} catch (error) {
 			res.json(response.error(ka.request_error, {}, error.message))
 		}
 	}
-	// static async getMessageByCandidate(req, res) {}
+
+	/**
+	 * Get messages message list
+	 */
+	static async userMessageHistory(req, res) {
+		try {
+			// check if user in in this list
+			// check if company can create event
+			let jobCount = await models.JobUser.findAndCountAll({
+				where: {
+					user_id: req.user.id,
+					job_id: req.body.job_id
+				}
+			})
+			if (jobCount.count == 0) {
+				return res.json(response.error(ka.messages.user_not_in_job_list))
+			}
+
+			// save message from service
+			let messages = await MessageService.userMessageHistory(req.body.job_id, req.user.id)
+			// response
+			res.json(response.success(ka.request_success, messages))
+		} catch (error) {
+			res.json(response.error(ka.request_error, {}, error.message))
+		}
+	}
 
 	/**
 	 * Send message
