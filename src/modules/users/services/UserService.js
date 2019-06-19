@@ -34,7 +34,27 @@ class UserService {
 		return await models.User.findOne({
 			where: { id: user_id },
 			attributes: ['name', 'surname', 'gender', 'avatar', 'birthday', 'about_me', 'incognito'],
-			include: [{ model: models.Status, attributes: ['id', 'title'] }, { model: models.City, attributes: ['id', 'name'] }]
+			include: [
+				{
+					model: models.Status,
+					attributes: ['id', 'title']
+				},
+				{
+					model: models.City,
+					attributes: ['id', 'name']
+				},
+				{
+					model: models.UserProfession,
+					where: {
+						active: true
+					},
+					include: {
+						model: models.Profession,
+						required: false
+					},
+					required: false
+				}
+			]
 		})
 	}
 
@@ -593,6 +613,48 @@ class UserService {
 		return await JobUser.update({
 			approved_by_user: true
 		})
+	}
+
+	/**
+	 *
+	 */
+	static async leftStats(user_id) {
+		// job user
+		let total = await models.JobUser.findAndCountAll({
+			where: {
+				user_id
+			},
+			include: {
+				model: models.Job,
+				where: {
+					active: 1,
+					started_at: {
+						[operator.lte]: moment()
+					},
+					finished_at: {
+						[operator.gte]: moment()
+					}
+				}
+			}
+		})
+
+		// job user
+		let finishing = await models.JobUser.findAndCountAll({
+			where: {
+				user_id
+			},
+			include: {
+				model: models.Job,
+				where: {
+					active: 1,
+					finished_at: {
+						[operator.gte]: moment().subtract(5, 'days')
+					}
+				}
+			}
+		})
+
+		return { total, finishing }
 	}
 }
 

@@ -14,7 +14,7 @@ class Meeting extends Model {
 				singular: 'meeting',
 				plural: 'meetings',
 				tableName: 'meetings',
-				modelName: 'meeting',
+				modelName: 'meeting'
 			}
 		)
 	}

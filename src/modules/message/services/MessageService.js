@@ -61,6 +61,20 @@ class MessageService {
 	}
 
 	/**
+	 * list of messages
+	 */
+	static async list(company_id, job_id, user_id) {
+		// list of the messages
+		return await models.Message.findAll({
+			where: {
+				sender_id: company_id,
+				job_id: job_id,
+				receiver_id: user_id
+			}
+		})
+	}
+
+	/**
 	 * company job detail page
 	 */
 

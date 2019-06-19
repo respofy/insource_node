@@ -30,7 +30,11 @@ class MeetingService {
 				},
 				{
 					model: models.Job,
-					attributes: ['id', 'title']
+					attributes: ['id', 'title'],
+					include: {
+						model: models.Company,
+						attributes: ['id', 'logo', 'name']
+					}
 				}
 			]
 		})

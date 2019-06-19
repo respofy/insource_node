@@ -170,18 +170,33 @@ class AuthController {
 	 * Return authorized user object
 	 */
 	static async getAuthUser(req, res) {
-		// get instance
-		let user = await models.User.findOne({
-			where: {
-				id: req.user.id
-			}
-		})
+		try {
+			// get instance
+			let user = await models.User.findOne({
+				where: {
+					id: req.user.id
+				},
+				include: {
+					model: models.UserProfession,
+					where: {
+						active: true
+					},
+					include: {
+						model: models.Profession,
+						required: false
+					},
+					required: false
+				}
+			})
 
-		let companies = await user.getOwnedCompanies({
-			raw: true
-		})
-		// return response
-		return res.json(response.success(ka.request_success, { user, companies }))
+			let companies = await user.getOwnedCompanies({
+				raw: true
+			})
+			// return response
+			return res.json(response.success(ka.request_success, { user, companies }))
+		} catch (error) {
+			return res.json(response.error(error.message))
+		}
 	}
 }
 

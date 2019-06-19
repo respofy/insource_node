@@ -7,12 +7,14 @@ import Owner from 'middleware/OwnerMiddleware'
 const routes = express.Router()
 
 // message routes
+routes.post('/company/job/list', Auth, Owner, MessageController.companyJobList)
+routes.post('/company/job/users', Auth, Owner, MessageController.companyJobUsers)
+routes.post('/list', Auth, Owner, MessageController.list)
 routes.post('/save', Auth, MessageController.saveMessage)
 
 // meeting routes
-routes.post('/company/job/list', Auth, Owner, MessageController.companyJobList)
-routes.post('/company/job/users', Auth, Owner, MessageController.companyJobUsers)
 routes.post('/meeting/create', Auth, Owner, MeetingController.create)
-routes.get('/meeting/user/read', Auth, Owner, MeetingController.readUserMeetings)
+// user meetings
+routes.post('/meeting/user/read', Auth, MeetingController.readUserMeetings)
 
 export default routes

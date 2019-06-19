@@ -84,5 +84,6 @@ routes.get('/cv/interests/all', Auth, InterestController.getInterests)
 routes.post('/jobs', Auth, UserController.jobs)
 routes.post('/jobs/detail', Auth, UserController.jobsDetail)
 routes.post('/jobs/approve', Auth, UserController.approveJob)
+routes.post('/left/stats', Auth, UserController.leftStats)
 
 export default routes

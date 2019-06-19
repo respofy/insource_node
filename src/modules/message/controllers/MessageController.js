@@ -47,8 +47,18 @@ class MessageController {
 	}
 
 	/**
-	 * Get messages by candidate id
+	 * Get messages message list
 	 */
+	static async list(req, res) {
+		try {
+			// save message from service
+			let messages = await MessageService.list(req.body.params.company_id, req.body.job_id, req.body.user_id)
+			// response
+			res.json(response.success(ka.request_success, messages))
+		} catch (error) {
+			res.json(response.error(ka.request_error, {}, error.message))
+		}
+	}
 	// static async getMessageByCandidate(req, res) {}
 
 	/**
