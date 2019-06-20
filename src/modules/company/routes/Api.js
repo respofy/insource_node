@@ -17,7 +17,7 @@ const upload = multer({ storage: storage(`${process.env.PUBLIC_PATH}/${process.e
 // company
 // TODO: need review company routes and functionality
 routes.post('/registration', Auth, upload.single('logo'), JoiMiddleware(CompanySchemas.CompanyFillDataSchema), CompanyController.registration)
-routes.post('/:company_id/invite/users', Auth, Owner, JoiMiddleware(CompanySchemas.InviteSchema), CompanyController.inviteUsers)
+routes.post('/invite/users', Auth, Owner, JoiMiddleware(CompanySchemas.InviteSchema), CompanyController.inviteUsers)
 
 routes.post('/join/check', CompanyController.checkInviteHash)
 routes.post('/join/init', Invite, JoiMiddleware(CompanySchemas.JoinInitSchema), CompanyController.initCompanyJoin)
@@ -28,7 +28,7 @@ routes.get('/owned/list', Auth, CompanyController.getUserOwnedCompanies)
 routes.post('/search/companies/by/name', Auth, JoiMiddleware(CompanySchemas.SearchCompanySchema), CompanyController.searchCompaniesByName)
 
 // match algorithm and jobs
-routes.post('/job/create', Auth, MatchController.matchAndCreate)
+routes.post('/job/create', Auth, JoiMiddleware(CompanySchemas.JobCreateSchema), MatchController.matchAndCreate)
 routes.post('/job/list', Auth, Owner, JobController.list)
 routes.post('/job/detail', Auth, Owner, JobController.detail)
 routes.post('/job/detail/users', Auth, Owner, JobController.detailUsers)

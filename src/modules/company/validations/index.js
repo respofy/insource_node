@@ -7,6 +7,7 @@ import JobRequirementSchema from './JobRequirementSchema'
 import CreateAndInviteSchema from './CreateAndInviteSchema'
 import JoinInitSchema from './JoinInitSchema'
 import JoinVerifySchema from './JoinVerifySchema'
+import JobCreateSchema from './JobCreateSchema'
 
 export default {
 	CompanyFillDataSchema,
@@ -17,5 +18,6 @@ export default {
 	JobRequirementSchema,
 	CreateAndInviteSchema,
 	JoinInitSchema,
-	JoinVerifySchema
+	JoinVerifySchema,
+	JobCreateSchema
 }

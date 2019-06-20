@@ -86,4 +86,7 @@ routes.post('/jobs/detail', Auth, UserController.jobsDetail)
 routes.post('/jobs/approve', Auth, UserController.approveJob)
 routes.post('/left/stats', Auth, UserController.leftStats)
 
+// user full info
+routes.post('/full/info', Auth, UserController.userFullInfo)
+
 export default routes

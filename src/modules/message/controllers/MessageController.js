@@ -80,15 +80,15 @@ class MessageController {
 		try {
 			// check if user in in this list
 			// check if company can create event
-			let jobCount = await models.JobUser.findAndCountAll({
-				where: {
-					user_id: req.user.id,
-					job_id: req.body.job_id
-				}
-			})
-			if (jobCount.count == 0) {
-				return res.json(response.error(ka.messages.user_not_in_job_list))
-			}
+			// let jobCount = await models.JobUser.findAndCountAll({
+			// 	where: {
+			// 		user_id: req.user.id,
+			// 		job_id: req.body.job_id
+			// 	}
+			// })
+			// if (jobCount.count == 0) {
+			// 	return res.json(response.error(ka.messages.user_not_in_job_list))
+			// }
 
 			// save message from service
 			let messages = await MessageService.userMessageHistory(req.body.job_id, req.user.id)

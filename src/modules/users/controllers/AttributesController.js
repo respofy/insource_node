@@ -59,7 +59,7 @@ class AttributesController {
 	 * faculties
 	 */
 	static async faculties(req, res) {
-		res.json(response.success(ka.request_success, await AttributesService.professions()))
+		res.json(response.success(ka.request_success, await AttributesService.faculties()))
 	}
 
 	/**

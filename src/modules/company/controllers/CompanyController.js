@@ -30,7 +30,7 @@ class CompanyController {
 	static async inviteUsers(req, res) {
 		try {
 			// invite users
-			let inviteResult = await CompanyService.inviteUsers(req.params.company_id, req.body)
+			let inviteResult = await CompanyService.inviteUsers(req.body.params.company_id, req.body.emails)
 			// response
 			res.json(response.success(ka.request_success, inviteResult))
 		} catch (error) {

@@ -44,14 +44,19 @@ class MessageService {
 						[operator.gte]: moment()
 					}
 				},
-				include: {
-					model: models.Message,
-					attributes: ['id', 'content'],
-					where: {
-						is_read: false
+				include: [
+					{
+						model: models.Message,
+						attributes: ['id', 'content'],
+						where: {
+							is_read: false
+						},
+						required: false
 					},
-					required: false
-				}
+					{
+						model: models.Company
+					}
+				]
 			}
 		})
 	}
@@ -63,7 +68,8 @@ class MessageService {
 		// fetch all jobs
 		return await models.JobUser.findAll({
 			where: {
-				job_id
+				job_id,
+				approved_by_user: true
 			},
 			include: [
 				{

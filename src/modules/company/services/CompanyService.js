@@ -3,9 +3,10 @@ import ka from 'lang/ka'
 import moment from 'moment'
 import jwt from 'jsonwebtoken'
 import sequelize from 'sequelize'
-import nodemailer from 'nodemailer'
+// import nodemailer from 'nodemailer'
 import generator from '../../../helper/Generator'
 import AuthService from 'modules/users/services/AuthService'
+import mailgun from 'mailgun-js'
 
 const operator = sequelize.Op
 
@@ -49,34 +50,50 @@ class CompanyService {
 	 * Invite user in company by active company id
 	 */
 	static async inviteUsers(company_id, user_emails) {
-		// Generate test SMTP service account from ethereal.email
-		let testAccount = await nodemailer.createTestAccount()
-		// create reusable transporter object using the default SMTP transport
-		let transporter = nodemailer.createTransport({
-			host: 'smtp.ethereal.email',
-			port: 587,
-			secure: false, // true for 465, false for other ports
-			auth: {
-				user: testAccount.user, // generated ethereal user
-				pass: testAccount.pass // generated ethereal password
-			}
-		})
 		// find company
 		let company = await models.Company.findByPk(company_id)
 		// generate random hash
 		let hash = generator.getRandomString(40)
 		// save hash to db
 		await models.InviteHash.create({ hash, company_id })
-		// send mail with defined transport object
-		let info = await transporter.sendMail({
-			from: '"Fred Foo 👻" <foo@example.com>', // sender address
-			to: user_emails, // list of receivers
-			subject: `Invitation from ${company.name}`, // Subject line
-			text: `Dear  user you have been invited in ${company.name}`, // plain text body
-			html: `<a href="http://localhost:3000/company/join/${hash}/">Join company by hash: ${hash}</a>` // html body
+
+		// send email
+		const mg = mailgun({ apiKey: 'key-f25a884c247378aa8dd34083fe6e4b28', domain: 'sandbox454409b9d64449f7b661a00c48d6a721.mailgun.org' })
+		const data = {
+			from: '<me@samples.mailgun.org>',
+			to: user_emails,
+			subject: 'Hello',
+			text: `Dear  user you have been invited in ${company.name} <a href="http://localhost:3000/company/join/${hash}/">Join company by hash: ${hash}</a>`
+		}
+		mg.messages().send(data, function(error, body) {
+			console.log(body)
 		})
 
-		return nodemailer.getTestMessageUrl(info)
+		return true
+
+		// // Generate test SMTP service account from ethereal.email
+		// let testAccount = await nodemailer.createTestAccount()
+		// // create reusable transporter object using the default SMTP transport
+		// let transporter = nodemailer.createTransport({
+		// 	host: 'smtp.ethereal.email',
+		// 	port: 587,
+		// 	secure: false, // true for 465, false for other ports
+		// 	auth: {
+		// 		user: testAccount.user, // generated ethereal user
+		// 		pass: testAccount.pass // generated ethereal password
+		// 	}
+		// })
+
+		// send mail with defined transport object
+		// let info = await transporter.sendMail({
+		// 	from: '"Fred Foo 👻" <foo@example.com>', // sender address
+		// 	to: user_emails, // list of receivers
+		// 	subject: `Invitation from ${company.name}`, // Subject line
+		// 	text: `Dear  user you have been invited in ${company.name}`, // plain text body
+		// 	html: `<a href="http://localhost:3000/company/join/${hash}/">Join company by hash: ${hash}</a>` // html body
+		// })
+
+		// return nodemailer.getTestMessageUrl(info)
 	}
 
 	static async checkInviteHash(hash) {

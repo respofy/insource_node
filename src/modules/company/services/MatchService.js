@@ -65,7 +65,8 @@ class MatchService {
 							working_type_id: request.job.working_type_id,
 							active: true // active means what is active users wish list
 						  }
-						: {}
+						: {},
+					required: false
 				},
 				{
 					/**
@@ -77,7 +78,8 @@ class MatchService {
 							role_id: request.job.role_id,
 							active: true // active means what is active users wish list
 						  }
-						: {}
+						: {},
+					required: false
 				},
 				{
 					/**
@@ -91,7 +93,8 @@ class MatchService {
 							},
 							active: true // active means what is active users wish list
 						  }
-						: {}
+						: {},
+					required: false
 				},
 				{
 					/**
@@ -105,7 +108,8 @@ class MatchService {
 							},
 							active: true
 						  }
-						: {}
+						: {},
+					required: false
 				},
 				{
 					/**
@@ -123,7 +127,7 @@ class MatchService {
 							  }
 							: {}
 					},
-					required: true
+					required: false
 				},
 				{
 					/**
@@ -136,7 +140,8 @@ class MatchService {
 								[operator.in]: request.job.qualifications
 							}
 						  }
-						: {}
+						: {},
+					required: false
 				}
 				// TODO: working experience
 			]
@@ -162,7 +167,7 @@ class MatchService {
 				]
 			})
 
-			if (role) {
+			if (role.count) {
 				percentage = percentage + 20 // weight of role
 			}
 

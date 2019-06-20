@@ -3,6 +3,7 @@ import ka from 'lang/ka'
 import AuthService from '../services/AuthService'
 import moment from 'moment'
 import sequelize from 'sequelize'
+import InterestService from '../services/InterestService'
 const operator = sequelize.Op
 
 /**
@@ -655,6 +656,22 @@ class UserService {
 		})
 
 		return { total, finishing }
+	}
+
+	/**
+	 *
+	 */
+	static async userFullInfo(user_id) {
+		// return the data
+		return {
+			profileInfo: await this.getProfileInfo(user_id),
+			workingExperiences: await this.listWorkingExperiences(user_id),
+			languages: await this.readLanguages(user_id),
+			educations: await this.readEducation(user_id),
+			qualifications: await this.readQualifications(user_id),
+			certificates: await this.readCertificate(user_id),
+			interests: await InterestService.getInterests(user_id)
+		}
 	}
 }
 

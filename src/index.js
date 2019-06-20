@@ -17,10 +17,12 @@ app.use(bodyParser.urlencoded({ extended: true }))
 import users from './modules/users/routes/Api'
 import company from './modules/company/routes/Api'
 import message from './modules/message/routes/Api'
+import report from './modules/report/routes/Api'
 
 app.use('/users', users)
 app.use('/company', company)
 app.use('/message', message)
+app.use('/report', report)
 
 app.use(express.static('public'))
 
@@ -89,8 +91,6 @@ io.on('connection', function(socket) {
 				receiver_id = value.id
 			}
 		})
-
-		console.log(receiver_id)
 
 		io.to(receiver_id).emit('chat message', data)
 	})
