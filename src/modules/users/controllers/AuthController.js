@@ -192,6 +192,7 @@ class AuthController {
 			let companies = await user.getOwnedCompanies({
 				raw: true
 			})
+
 			// return response
 			return res.json(response.success(ka.request_success, { user, companies }))
 		} catch (error) {

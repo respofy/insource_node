@@ -4,7 +4,8 @@ export default class Language extends Model {
 	static init(sequelize) {
 		return super.init(
 			{
-				title: { type: Sequelize.STRING, allowNull: false }
+				title: { type: Sequelize.STRING, allowNull: false },
+				country_code: { type: Sequelize.STRING, allowNull: false }
 			},
 			{
 				sequelize,

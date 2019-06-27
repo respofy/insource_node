@@ -19,6 +19,7 @@ routes.post('/save', Auth, MessageController.saveMessage)
 routes.post('/meeting/create', Auth, Owner, MeetingController.create)
 // user meetings
 routes.post('/meeting/user/read', Auth, MeetingController.readUserMeetings)
+routes.post('/meeting/user/update', Auth, MeetingController.userMeetingsUpdate)
 routes.post('/meeting/company/read', Owner, Auth, MeetingController.readCompanyMeetings)
 routes.post('/meeting/company/read/list', Owner, Auth, MeetingController.readCompanyMeetingsList)
 

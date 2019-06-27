@@ -19,7 +19,6 @@ export default class Industry extends Model {
 
 	static associate(models) {
 		this.hasMany(models.UserIndustry)
-
 		this.hasMany(models.Company, {
 			foreignKey: 'industry_id',
 			unique: 'false'

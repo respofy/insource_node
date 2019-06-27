@@ -7,6 +7,7 @@ class Meeting extends Model {
 				user_id: { type: Sequelize.INTEGER, allowNull: false },
 				job_id: { type: Sequelize.INTEGER, allowNull: false },
 				company_id: { type: Sequelize.INTEGER, allowNull: false },
+				status: { type: Sequelize.INTEGER, allowNull: false },
 				date: { type: Sequelize.DATE, allowNull: false },
 				address: { type: Sequelize.STRING, allowNull: false }
 			},
